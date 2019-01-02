@@ -52,6 +52,7 @@
     <Compile Include="ControlWindow.Designer.cs">
       <DependentUpon>ControlWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Display.cs" />
     <Compile Include="HackerWindow.cs">
       <SubType>Form</SubType>
     </Compile>

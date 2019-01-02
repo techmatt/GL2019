@@ -28,6 +28,8 @@ namespace Cloudbreaker
 
             hackerWindow.Show();
             sectorWindow.Show();
+
+            
         }
 
         private void closeAll()
