@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonLaunchRun = new System.Windows.Forms.Button();
+            this.frameTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // buttonLaunchRun
@@ -40,6 +42,12 @@
             this.buttonLaunchRun.Text = "Launch Run";
             this.buttonLaunchRun.UseVisualStyleBackColor = true;
             this.buttonLaunchRun.Click += new System.EventHandler(this.buttonLaunchRun_Click);
+            // 
+            // frameTimer
+            // 
+            this.frameTimer.Enabled = true;
+            this.frameTimer.Interval = 33;
+            this.frameTimer.Tick += new System.EventHandler(this.frameTimer_Tick);
             // 
             // ControlWindow
             // 
@@ -56,6 +64,7 @@
         #endregion
 
         private System.Windows.Forms.Button buttonLaunchRun;
+        private System.Windows.Forms.Timer frameTimer;
     }
 }
 

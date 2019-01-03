@@ -46,8 +46,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pictureBoxMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "HackerWindow";
             this.Text = "HackerWindow";
+            this.Load += new System.EventHandler(this.HackerWindow_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HackerWindow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
 
