@@ -15,6 +15,7 @@ namespace Cloudbreaker
         Random rnd = new Random();
 
         HackerWindow hackerWindow;
+        JoystickManager joystickManager = new JoystickManager();
         //SectorWindow sectorWindow;
 
         Display hackerDisplay;
@@ -71,9 +72,22 @@ namespace Cloudbreaker
                 game.console.Render(hackerDisplay);
 
                 hackerDisplay.update();
-
-                
             }
+
+            joystickManager.poll();
+        }
+
+        private void buttonLevelEditor_Click(object sender, EventArgs e)
+        {
+            LevelFile level = new LevelFile();
+            level.serializeToFile("test.json");
+            LevelFile levelCopy = LevelFile.deserializeFromFile("test.json");
+            levelCopy.serializeToFile("test2.json");
+        }
+
+        private void ControlWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

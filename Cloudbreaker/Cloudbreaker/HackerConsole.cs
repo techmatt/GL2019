@@ -10,12 +10,18 @@ using System.Windows.Forms;
 
 namespace Cloudbreaker
 {
+
+    public class File
+    {
+        public string filename;
+        public bool decrypted;
+    }
     public class Host
     {
         public string name;
         public string accessLevel;
         public string room;
-        public List<string> files;
+        public List<File> files;
     }
 
     public class HackerConsole : IPanel
@@ -97,7 +103,7 @@ namespace Cloudbreaker
             result.Add("*** valid commands:");
             result.Add("  hosts: shows list of known hostnames and access levels");
             result.Add("  connect <hostname>: connects to given host");
-            result.Add("  status: status of current host");
+            result.Add("  status: status of current host and unlocked local commands");
             result.Add("  scan: search current host for potentially relevant files");
             result.Add("  decrypt <filename>: begins processing given file");
             result.Add("  probe: script for interfacing with logic probe");

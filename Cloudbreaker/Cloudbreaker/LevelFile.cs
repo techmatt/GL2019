@@ -54,5 +54,12 @@ namespace Cloudbreaker
             string output = JsonConvert.SerializeObject(this, Formatting.Indented);
             System.IO.File.WriteAllText(filename, output);
         }
+
+        static public LevelFile deserializeFromFile(string filename)
+        {
+            string text = System.IO.File.ReadAllText(filename);
+            LevelFile result = JsonConvert.DeserializeObject<LevelFile>(text);
+            return result;
+        }
     }
 }
