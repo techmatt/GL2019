@@ -8,6 +8,9 @@ using SharpDX.DirectInput;
 
 namespace Cloudbreaker
 {
+    // code reference: 
+    // https://github.com/sharpdx/SharpDX-Samples/blob/master/Desktop/DirectInput/JoystickApp/Program.cs
+    
     class JoystickManager
     {
         Joystick joystick;
@@ -58,7 +61,9 @@ namespace Cloudbreaker
             joystick.Poll();
             var datas = joystick.GetBufferedData();
             foreach (var state in datas)
+            {
                 Console.WriteLine(state);
+            }
         }
     }
 }
