@@ -13,18 +13,22 @@ namespace Cloudbreaker.Game
 
     public class Threat
     {
-        public Threat(ThreatButtonCascadeInfo _buttonCascade)
+        public Threat(ThreatMusicInfo _music)
         {
-            type = ThreatType.ButtonCascade;
-            buttonCascade = _buttonCascade;
+            type = ThreatType.Music;
+            music = _music;
+        }
+        public double totalTime()
+        {
+            return endTime - startTime;
         }
         public ThreatType type;
 
-        public double startTime, totalTime;
+        public double startTime, endTime;
         public double progressBarTotal, progressBarCurrent = 0.0;
         public List<ProgressBarEvent> events;
 
-        public ThreatButtonCascadeInfo buttonCascade;
+        public ThreatMusicInfo music;
     }
 
     public class ThreatBar

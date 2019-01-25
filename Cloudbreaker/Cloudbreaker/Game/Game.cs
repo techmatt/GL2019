@@ -24,7 +24,9 @@ namespace Cloudbreaker.Game
             double startTime = Util.uniform(0.25, 0.75) * Constants.ThreatBarTotalTime;
             while(startTime < Constants.ThreatBarTotalTime)
             {
-                
+                Threat newThreat = makeRandomThreat(bar.player);
+                bar.threats.Add(newThreat);
+                startTime += newThreat.totalTime;
             }
             //double startTime = Util.uniform(level.info.minSlackTime, level.info.maxSlackTime);
         }
@@ -32,12 +34,13 @@ namespace Cloudbreaker.Game
         Threat makeRandomThreat(PlayerName player)
         {
             ThreatType type = level.sampleRandomThreatType(player);
-            if (type == ThreatType.ButtonCascade)
+            Threat newThreat = null;
+            if (type == ThreatType.Music)
             {
-                var info = new ThreatButtonCascadeInfo(level);
-                Threat newThreat = new Threat(info);
+                var info = new ThreatMusicInfo(level, player);
+                newThreat = new Threat(info);
             }
-            return null;
+            return newThreat;
         }
 
         public LevelInfo level;

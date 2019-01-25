@@ -14,7 +14,7 @@ namespace Cloudbreaker
     }
     public enum ThreatType
     {
-        ButtonCascade,  // DDR-style buttons
+        Music,  // DDR-style buttons
         ButtonLinear,   // press buttons in order
         PasswordHunt,   // enter a set of themed passwords
         LogicProbe,     // 

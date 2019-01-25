@@ -23,11 +23,7 @@ namespace Cloudbreaker.Game
     {
         public LevelInfo()
         {
-            minThreatTime = 5.0;
-            maxThreatTime = 10.0;
-            minSlackTime = 1.0;
-            maxSlackTime = 5.0;
-            threatInfo.Add(new LevelThreatInfo(ThreatType.ButtonCascade, 1.0));
+            threatInfo.Add(new LevelThreatInfo(ThreatType.Music, 1.0));
         }
 
         public ThreatType sampleRandomThreatType(PlayerName player)
@@ -41,11 +37,15 @@ namespace Cloudbreaker.Game
             return threatInfo[threatIndex].type;
         }
 
-        public double minThreatTime, maxThreatTime;
-        public double minSlackTime, maxSlackTime;
+        public double minThreatTime = 5.0, maxThreatTime = 10.0;
+        public double minSlackTime = 1.0, maxSlackTime = 5.0;
 
-        public int minColumnCount = 2;
-        public int maxColumnCount = 5;
+        //
+        // Song constants
+        //
+        public int minColumnCount = 3, maxColumnCount = 5;
+        public double minNoteDuration = 1.0, maxNoteDuration = 2.0;
+        public int minNoteAddAttempts = 1, maxNoteAddAttempts = 10;
 
         public List<LevelThreatInfo> threatInfo = new List<LevelThreatInfo>();
     }

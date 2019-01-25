@@ -55,25 +55,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
+    <Compile Include="Game\Constants.cs" />
     <Compile Include="ControlWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ControlWindow.Designer.cs">
       <DependentUpon>ControlWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Display.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="HackerConsole.cs" />
+    <Compile Include="Engine\Display.cs" />
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\HackerConsole.cs" />
+    <Compile Include="Game\ThreatMusic.cs" />
+    <Compile Include="Game\ThreatManager.cs" />
+    <Compile Include="Game\Trigger.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="HackerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HackerWindow.Designer.cs">
       <DependentUpon>HackerWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="IPanel.cs" />
+    <Compile Include="Engine\IPanel.cs" />
     <Compile Include="Engine\JoystickManager.cs" />
-    <Compile Include="LevelFile.cs" />
+    <Compile Include="Game\LevelFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SectorWindow.cs">
