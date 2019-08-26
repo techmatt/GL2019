@@ -37,15 +37,15 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(47, 76);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 35);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1031, 826);
+            this.pictureBox1.Size = new System.Drawing.Size(1280, 720);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1114, 76);
+            this.button1.Location = new System.Drawing.Point(538, 785);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(213, 63);
             this.button1.TabIndex = 1;
