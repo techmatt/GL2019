@@ -20,8 +20,7 @@ namespace WebRunner
             InitializeComponent();
         }
 
-        GameScreen screen = null;
-        VisionManager vision = new VisionManager();
+        GameManager manager = null;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -30,14 +29,11 @@ namespace WebRunner
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(screen == null)
+            if(manager == null)
             {
-                 screen = new GameScreen(pictureBox1, 1280, 720);
+                manager = new GameManager(pictureBox1);
             }
-            List<MarkerInfo> markers;
-            Bitmap webcamBitmap = vision.processWebcamImage(out markers);
-            //image.Save("test.png");
-            screen.update(webcamBitmap);
+            manager.stepAndRender();
         }
     }
 }

@@ -34,7 +34,24 @@ namespace WebRunner
         {
             return new Vec2(a.x * (float)f, a.y * (float)f);
         }
+        public float length()
+        {
+            return (float)Math.Sqrt(x * x + y * y);
+        }
+        public float lengthSq()
+        {
+            return x * x + y * y;
+        }
+        public Vec2 getNormalized()
+        {
+            float l = length();
+            if (l < 1e-6)
+                return Vec2.Origin;
+            return new Vec2(x / l, y / l);
+        }
         public float x;
         public float y;
+
+        static Vec2 Origin = new Vec2();
     }
 }

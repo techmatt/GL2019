@@ -10,30 +10,43 @@ namespace WebRunner
 {
     class GameScreen
     {
-        public GameScreen(PictureBox _targetBox, int _width, int _height)
+        public GameScreen(PictureBox _targetBox, int _renderWidth, int _renderHeight, GameData _data)
         {
             targetBox = _targetBox;
-            width = _width;
-            height = _height;
+            renderWidth = _renderWidth;
+            renderHeight = _renderHeight;
+            data = _data;
 
-            bmp = new Bitmap(width, height);
+            bmp = new Bitmap(renderWidth, renderHeight);
             g = Graphics.FromImage(bmp);
 
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
         }
         
-        public int width, height;
+        public int renderWidth, renderHeight;
 
         PictureBox targetBox;
         Bitmap bmp;
+        GameData data;
         public Graphics g;
         
-        public void update(Bitmap webcamImage)
+        public void drawCircle(Vec2 center, int radius, Brush brush)
         {
-            //gPBox.DrawImage(bmp, new Point(0, 0));
+            g.FillEllipse(brush, (int)center.x, (int)center.y, radius, radius);
+        }
+
+        public void render(Bitmap webcamImage, GameState state)
+        {
             g.Clear(Color.Black);
-            g.DrawImage(webcamImage, new Rectangle(0, 0, width, height));
+            g.DrawImage(webcamImage, new Rectangle(0, 0, renderWidth, renderHeight));
+
+            foreach(MarkerInfo m in state.markers)
+            {
+
+                //g.DrawEllipse(m.center
+            }
             targetBox.Image = bmp;
+
             /*Bitmap bmpLocal = new Bitmap(targetBox.Image);
             using (Graphics gLocal = Graphics.FromImage(bmpLocal))
             {

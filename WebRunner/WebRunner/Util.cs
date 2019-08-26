@@ -13,11 +13,13 @@ namespace WebRunner
 
     class MarkerInfo
     {
-        public MarkerInfo(int _id, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
+        public MarkerInfo(ToolData _toolData, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
         {
+            toolData = _toolData;
             center = (corner0 + corner1 + corner2 + corner3) * 0.25;
+            orientation = (corner1 - corner0).getNormalized();
         }
-        public int id;
+        public ToolData toolData;
         public Vec2 center;
         public Vec2 orientation;
     }
