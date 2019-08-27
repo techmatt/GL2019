@@ -19,6 +19,7 @@ namespace WebRunner
         GameData data = new GameData();
         GameState state;
         GameScreen screen;
+        ImageDatabase imageDatabase = new ImageDatabase();
         public VisionManager vision = new VisionManager();
 
         public void reset()

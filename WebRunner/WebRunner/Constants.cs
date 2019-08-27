@@ -25,8 +25,10 @@ namespace WebRunner
         static public int viewportWidth = 1280;
         static public int viewportHeight = 720;
 
+        static public int cameraIndex = 0;
+
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
-        static public String imageDir = dataDir + "images/";
+        static public String imageOriginalDir = dataDir + "imagesOriginal/";
     }
 
     enum ToolType
@@ -77,7 +79,7 @@ namespace WebRunner
             registerTool(ToolType.EMP, "emp", Color.FromArgb(200, 50, 200));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 200));
 
-            bmpShield = new Bitmap(Constants.imageDir + "shield.png");
+            bmpShield = new Bitmap(Constants.imageOriginalDir + "shield.png");
         }
         public ToolType getToolType(int id)
         {

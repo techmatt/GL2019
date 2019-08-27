@@ -14,7 +14,7 @@ namespace WebRunner
 {
     class VisionManager
     {
-        VideoCapture capture = new VideoCapture(1); //create a camera capture
+        VideoCapture capture = new VideoCapture(Constants.cameraIndex); //create a camera capture
         Dictionary arucoDictionary = new Dictionary(Dictionary.PredefinedDictionaryName.Dict4X4_50);
         DetectorParameters detectorParameters = DetectorParameters.GetDefault();
 
