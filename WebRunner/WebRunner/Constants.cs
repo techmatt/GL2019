@@ -14,8 +14,13 @@ namespace WebRunner
         public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
         public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
 
-        static public int renderWidth = 1280;
-        static public int renderHeight = 720;
+        static public int renderWidthWindowed = 1280;
+        static public int renderHeightWindowed = 720;
+
+        static public int renderWidthFull = 1280;
+        static public int renderHeightFull = 720;
+
+        static public bool useFullscreen = true;
 
         static public int viewportWidth = 1280;
         static public int viewportHeight = 720;

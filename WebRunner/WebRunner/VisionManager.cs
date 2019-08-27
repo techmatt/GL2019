@@ -14,18 +14,29 @@ namespace WebRunner
 {
     class VisionManager
     {
-        VideoCapture capture = new VideoCapture(0); //create a camera capture
+        VideoCapture capture = new VideoCapture(1); //create a camera capture
         Dictionary arucoDictionary = new Dictionary(Dictionary.PredefinedDictionaryName.Dict4X4_50);
         DetectorParameters detectorParameters = DetectorParameters.GetDefault();
 
-        public void saveImages()
+        public VisionManager()
+        {
+            capture.FlipHorizontal = true;
+            //detectorParameters.AdaptiveThreshConstant = 3;
+            //detectorParameters.AprilTagMinWhiteBlackDiff
+        }
+
+        public void saveMarkerImages()
         {
             Directory.CreateDirectory("markerImages");
             for (int id = 0; id < 50; id++)
             {
                 Mat imgOut = new Mat();
                 ArucoInvoke.DrawMarker(arucoDictionary, id, 512, imgOut);
-                Bitmap image = imgOut.Bitmap;
+
+                Mat imgOutFlip = new Mat();
+                CvInvoke.Flip(imgOut, imgOutFlip, Emgu.CV.CvEnum.FlipType.Horizontal);
+
+                Bitmap image = imgOutFlip.Bitmap;
                 image.Save("markerImages/" + id.ToString() + ".png");
             }
         }

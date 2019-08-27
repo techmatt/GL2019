@@ -24,16 +24,31 @@ namespace WebRunner
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            manager.vision.saveMarkerImages();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if(manager == null)
             {
-                manager = new GameManager(pictureBox1);
+                manager = new GameManager(pictureBoxMain);
             }
-            manager.stepAndRender();
+            manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
+        }
+
+        private void buttonFullScreen_Click(object sender, EventArgs e)
+        {
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Top = 0;
+            this.Left = 0;
+            this.Width = Constants.renderWidthFull;
+            this.Height = Constants.renderHeightFull;
+            pictureBoxMain.Top = 0;
+            pictureBoxMain.Left = 0;
+            pictureBoxMain.Width = Constants.renderWidthFull;
+            pictureBoxMain.Height = Constants.renderHeightFull;
+            button1.Visible = false;
+            buttonFullScreen.Visible = false;
         }
     }
 }

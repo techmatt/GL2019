@@ -12,14 +12,14 @@ namespace WebRunner
     {
         public GameManager(PictureBox _targetBox)
         {
-            screen = new GameScreen(_targetBox, Constants.renderWidth, Constants.renderHeight, data);
+            screen = new GameScreen(_targetBox, data);
             reset();
         }
 
         GameData data = new GameData();
         GameState state;
         GameScreen screen;
-        VisionManager vision = new VisionManager();
+        public VisionManager vision = new VisionManager();
 
         public void reset()
         {
@@ -31,12 +31,12 @@ namespace WebRunner
             
         }
 
-        public void stepAndRender()
+        public void stepAndRender(int renderWidth, int renderHeight)
         {
             Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, data);
             //image.Save("test.png");
             step();
-            screen.render(webcamBitmap, state);
+            screen.render(webcamBitmap, state, renderWidth, renderHeight);
         }
     }
 }
