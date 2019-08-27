@@ -42,6 +42,10 @@ namespace WebRunner
         {
             return x * x + y * y;
         }
+        public float angle()
+        {
+            return (float)(Math.Atan2(y, x) * 180.0 / Math.PI);
+        }
         public Vec2 getNormalized()
         {
             float l = length();

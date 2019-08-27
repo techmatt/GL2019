@@ -34,6 +34,9 @@ namespace WebRunner
         {
             var result = new List<MarkerInfo>();
 
+            float xScale = (float)Constants.viewportWidth / (float)frame.Width;
+            float yScale = (float)Constants.viewportHeight / (float)frame.Height;
+
             //frame.CopyTo(frameCopy);
             using (VectorOfInt ids = new VectorOfInt())
             using (VectorOfVectorOfPointF corners = new VectorOfVectorOfPointF())
@@ -44,12 +47,14 @@ namespace WebRunner
                 {
                     int id = ids[markerIdx];
                     ToolType type = data.getToolType(id);
+                    if (type == ToolType.InvalidID)
+                        continue;
                     ToolData toolData = data.getToolData(type);
-                    var cornerList = corners[id];
-                    var corner0 = new Vec2(cornerList[0].X, cornerList[0].Y);
-                    var corner1 = new Vec2(cornerList[1].X, cornerList[1].Y);
-                    var corner2 = new Vec2(cornerList[2].X, cornerList[2].Y);
-                    var corner3 = new Vec2(cornerList[3].X, cornerList[3].Y);
+                    var cornerList = corners[markerIdx];
+                    var corner0 = new Vec2(cornerList[0].X * xScale, cornerList[0].Y * yScale);
+                    var corner1 = new Vec2(cornerList[1].X * xScale, cornerList[1].Y * yScale);
+                    var corner2 = new Vec2(cornerList[2].X * xScale, cornerList[2].Y * yScale);
+                    var corner3 = new Vec2(cornerList[3].X * xScale, cornerList[3].Y * yScale);
                     
                     result.Add(new MarkerInfo(toolData, corner0, corner1, corner2, corner3));
                 }
