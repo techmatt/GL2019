@@ -14,7 +14,7 @@ namespace WebRunner
         {
             targetBox = _targetBox;
             data = _data;
-            bmpViewport = new Bitmap(Constants.viewportWidth, Constants.viewportHeight);
+            bmpViewport = new Bitmap((int)Constants.viewportSize.x, (int)Constants.viewportSize.y);
             gViewport = Graphics.FromImage(bmpViewport);
             gViewport.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
         }
@@ -41,11 +41,11 @@ namespace WebRunner
 
         public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp)
         {
-            float hw = bmp.Width / 2.0f;
-            float hh = bmp.Height / 2.0f;
-            gViewport.TranslateTransform(center.x, center.y);
-            gViewport.RotateTransform(orientation.angle());
-            gViewport.TranslateTransform(-hw, -hh);
+            double hw = bmp.Width * 0.5;
+            double hh = bmp.Height * 0.5;
+            gViewport.TranslateTransform((float)center.x, (float)center.y);
+            gViewport.RotateTransform((float)orientation.angle());
+            gViewport.TranslateTransform((float)-hw, (float)-hh);
             //gScreen.TranslateTransform(hw, hh);
 
             gViewport.DrawImage(bmp, 0, 0);
@@ -55,9 +55,9 @@ namespace WebRunner
         public void render(Bitmap webcamImage, GameState state, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
-            gViewport.DrawImage(webcamImage, new Rectangle(0, 0, Constants.viewportWidth, Constants.viewportHeight));
+            gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
 
-            foreach(MarkerInfo m in state.markers)
+            foreach(Marker m in state.markers)
             {
                 drawRotatedImage(m.center, m.orientation, data.bmpShield);
                 drawCircle(m.center, 15, m.toolData.brush);

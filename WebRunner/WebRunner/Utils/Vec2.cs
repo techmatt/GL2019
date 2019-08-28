@@ -13,7 +13,7 @@ namespace WebRunner
             x = 0.0f;
             y = 0.0f;
         }
-        public Vec2(float _x, float _y)
+        public Vec2(double _x, double _y)
         {
             x = _x;
             y = _y;
@@ -32,30 +32,42 @@ namespace WebRunner
         }
         public static Vec2 operator * (Vec2 a, double f)
         {
-            return new Vec2(a.x * (float)f, a.y * (float)f);
+            return new Vec2(a.x * f, a.y * f);
         }
-        public float length()
+        public double length()
         {
-            return (float)Math.Sqrt(x * x + y * y);
+            return Math.Sqrt(x * x + y * y);
         }
-        public float lengthSq()
+        public double lengthSq()
         {
             return x * x + y * y;
         }
-        public float angle()
+        public double angle()
         {
-            return (float)(Math.Atan2(y, x) * 180.0 / Math.PI);
+            return (Math.Atan2(y, x) * 180.0 / Math.PI);
         }
         public Vec2 getNormalized()
         {
-            float l = length();
+            double l = length();
             if (l < 1e-6)
                 return Vec2.Origin;
             return new Vec2(x / l, y / l);
         }
-        public float x;
-        public float y;
+        public Vec2 abs()
+        {
+            return new Vec2(Math.Abs(x), Math.Abs(y));
+        }
+        static public Vec2 min(Vec2 v0, Vec2 v1)
+        {
+            return new Vec2(Math.Min(v0.x, v1.x), Math.Min(v0.y, v1.y));
+        }
+        static public Vec2 max(Vec2 v0, Vec2 v1)
+        {
+            return new Vec2(Math.Max(v0.x, v1.x), Math.Max(v0.y, v1.y));
+        }
+        public double x;
+        public double y;
 
-        static Vec2 Origin = new Vec2();
+        static public Vec2 Origin = new Vec2();
     }
 }

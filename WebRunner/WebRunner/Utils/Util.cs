@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace WebRunner
 {
-    class Util
+    static class Util
     {
-        
+        static Random random = new Random();
+        public static double uniform(double min, double max)
+        {
+            return random.NextDouble() * (max - min) + min;
+        }
     }
 
-    class MarkerInfo
+    class Marker
     {
-        public MarkerInfo(ToolData _toolData, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
+        public Marker(ToolData _toolData, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
         {
             toolData = _toolData;
             center = (corner0 + corner1 + corner2 + corner3) * 0.25;

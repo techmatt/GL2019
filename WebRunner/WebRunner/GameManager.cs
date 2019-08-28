@@ -24,7 +24,7 @@ namespace WebRunner
 
         public void reset()
         {
-            state = new GameState();
+            state = new GameState(Constants.missionDir + "testMission.txt");
         }
 
         void step()

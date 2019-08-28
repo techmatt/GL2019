@@ -14,7 +14,7 @@ namespace WebRunner
 {
     class VisionManager
     {
-        VideoCapture capture = new VideoCapture(Constants.cameraIndex); //create a camera capture
+        VideoCapture capture = new VideoCapture(Constants.webcamCaptureIndex); //create a camera capture
         Dictionary arucoDictionary = new Dictionary(Dictionary.PredefinedDictionaryName.Dict4X4_50);
         DetectorParameters detectorParameters = DetectorParameters.GetDefault();
 
@@ -41,12 +41,12 @@ namespace WebRunner
             }
         }
 
-        private List<MarkerInfo> runDetection(Mat frame, GameData data)
+        private List<Marker> runDetection(Mat frame, GameData data)
         {
-            var result = new List<MarkerInfo>();
+            var result = new List<Marker>();
 
-            float xScale = (float)Constants.viewportWidth / (float)frame.Width;
-            float yScale = (float)Constants.viewportHeight / (float)frame.Height;
+            float xScale = (float)Constants.viewportSize.x / frame.Width;
+            float yScale = (float)Constants.viewportSize.y / frame.Height;
 
             //frame.CopyTo(frameCopy);
             using (VectorOfInt ids = new VectorOfInt())
@@ -67,13 +67,13 @@ namespace WebRunner
                     var corner2 = new Vec2(cornerList[2].X * xScale, cornerList[2].Y * yScale);
                     var corner3 = new Vec2(cornerList[3].X * xScale, cornerList[3].Y * yScale);
                     
-                    result.Add(new MarkerInfo(toolData, corner0, corner1, corner2, corner3));
+                    result.Add(new Marker(toolData, corner0, corner1, corner2, corner3));
                 }
             }
             return result;
         }
 
-        public Bitmap processWebcamImage(out List<MarkerInfo> markers, GameData data)
+        public Bitmap processWebcamImage(out List<Marker> markers, GameData data)
         {
             Mat frame = capture.QueryFrame();
             markers = runDetection(frame, data);
