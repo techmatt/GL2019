@@ -26,6 +26,8 @@ namespace WebRunner
 
         static public int webcamCaptureIndex = 0;
 
+        static public int backgroundAlpha = 200;
+
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         static public String imageOriginalDir = dataDir + "imagesOriginal/";
         static public String missionDir = dataDir + "missions/";

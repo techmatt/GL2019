@@ -9,6 +9,12 @@ namespace WebRunner
 {
     class GameState
     {
+        public List<Marker> markers;
+        public List<GameLevel> levels;
+
+        public List<GameLevel> activeLevels;
+        public Rect2 viewport;
+
         public GameState(string missionFilename)
         {
             string[] levelList = File.ReadAllLines(missionFilename);
@@ -24,12 +30,6 @@ namespace WebRunner
             updateViewport(0);
         }
 
-        public List<Marker> markers;
-        public List<GameLevel> levels;
-
-        List<GameLevel> activeLevels;
-        Rect2 viewport;
-
         public List<GameLevel> computeActiveLevels()
         {
             var result = new List<GameLevel>();
@@ -43,10 +43,10 @@ namespace WebRunner
             return result;
         }
 
-        public void updateViewport(int newXStart)
+        public void updateViewport(double newXStart)
         {
-            viewport.pMin.x += newXStart;
-            viewport.pMax.x += newXStart;
+            viewport.pMin.x = newXStart;
+            viewport.pMax.x = newXStart;
             activeLevels = computeActiveLevels();
         }
     }

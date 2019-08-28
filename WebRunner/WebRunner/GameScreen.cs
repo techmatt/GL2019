@@ -17,6 +17,8 @@ namespace WebRunner
             bmpViewport = new Bitmap((int)Constants.viewportSize.x, (int)Constants.viewportSize.y);
             gViewport = Graphics.FromImage(bmpViewport);
             gViewport.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            gViewport.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            gViewport.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
         }
 
         void resizeScreen(int renderWidth, int renderHeight)
@@ -39,6 +41,11 @@ namespace WebRunner
             gViewport.FillEllipse(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
         }
 
+        public void drawImage(ImageEntry image, Vec2 center)
+        {
+            gViewport.DrawImage(image.bmp, (int)(center.x - image.bmp.Width / 2), (int)(center.y - image.bmp.Height / 2));
+        }
+
         public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp)
         {
             double hw = bmp.Width * 0.5;
@@ -46,23 +53,27 @@ namespace WebRunner
             gViewport.TranslateTransform((float)center.x, (float)center.y);
             gViewport.RotateTransform((float)orientation.angle());
             gViewport.TranslateTransform((float)-hw, (float)-hh);
-            //gScreen.TranslateTransform(hw, hh);
-
+            
             gViewport.DrawImage(bmp, 0, 0);
             gViewport.ResetTransform();
         }
 
-        public void render(Bitmap webcamImage, GameState state, int renderWidth, int renderHeight)
+        public void render(Bitmap webcamImage, GameData data, GameState state, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
+
             gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
+            foreach (GameLevel level in state.activeLevels)
+            {
+                ImageEntry backgroundImg = data.images.getBackground(level.backgroundName, false);
+                gViewport.DrawImage(backgroundImg.bmp, (int)level.worldRect.pMin.x, (int)level.worldRect.pMin.y);
+                level.render(this, data, state);
+            }
 
             foreach(Marker m in state.markers)
             {
                 drawRotatedImage(m.center, m.orientation, data.bmpShield);
                 drawCircle(m.center, 15, m.toolData.brush);
-                //m.toolData.color
-                //g.DrawEllipse(m.center
             }
 
             resizeScreen(renderWidth, renderHeight);

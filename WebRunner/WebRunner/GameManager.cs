@@ -19,7 +19,6 @@ namespace WebRunner
         GameData data = new GameData();
         GameState state;
         GameScreen screen;
-        ImageDatabase imageDatabase = new ImageDatabase();
         public VisionManager vision = new VisionManager();
 
         public void reset()
@@ -29,7 +28,7 @@ namespace WebRunner
 
         void step()
         {
-            
+            state.updateViewport(state.viewport.pMin.x + 1.0);
         }
 
         public void stepAndRender(int renderWidth, int renderHeight)
@@ -37,7 +36,7 @@ namespace WebRunner
             Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, data);
             //image.Save("test.png");
             step();
-            screen.render(webcamBitmap, state, renderWidth, renderHeight);
+            screen.render(webcamBitmap, data, state, renderWidth, renderHeight);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WebRunner
 {
     class ImageEntry
     {
-        public ImageEntry(string _filename, int width, int height)
+        public ImageEntry(string _filename, Vec2 size, int defaultAlpha)
         {
             filename = _filename;
             Bitmap bmpOriginal = new Bitmap(Bitmap.FromFile(Constants.imageOriginalDir + filename + ".png"));
@@ -25,11 +25,11 @@ namespace WebRunner
                     }
                     else
                     {
-                        bmpOriginal.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                        bmpOriginal.SetPixel(x, y, Color.FromArgb(defaultAlpha, c.R, c.G, c.B));
                     }
                 }
             }
-            bmp = new Bitmap(bmpOriginal, new Size(width, height));
+            bmp = new Bitmap(bmpOriginal, new Size((int)size.x, (int)size.y));
         }
         public string filename;
         public Bitmap bmp;
@@ -37,6 +37,18 @@ namespace WebRunner
 
     class ImageDatabase
     {
-        ImageEntry camera = new ImageEntry("camera", 75, 75);
+        public ImageEntry getBackground(string backgroundName, bool solid)
+        {
+            string suffix = solid ? "s"  : "t";
+            string name = backgroundName + suffix;
+            if (!backgrounds.ContainsKey(name))
+            {
+                int alpha = solid ? 255 : Constants.backgroundAlpha;
+                backgrounds.Add(name, new ImageEntry(backgroundName, Constants.viewportSize, alpha));
+            }
+            return backgrounds[name];
+        }
+        public Dictionary<string, ImageEntry> backgrounds = new Dictionary<string, ImageEntry>();
+        public ImageEntry camera = new ImageEntry("camera", new Vec2(75, 75), 255);
     }
 }

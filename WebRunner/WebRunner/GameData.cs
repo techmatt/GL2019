@@ -56,6 +56,7 @@ namespace WebRunner
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 200));
 
             bmpShield = new Bitmap(Constants.imageOriginalDir + "shield.png");
+            images = new ImageDatabase();
         }
         public ToolType getToolType(int id)
         {
@@ -72,5 +73,6 @@ namespace WebRunner
         Dictionary<ToolType, ToolData> toolTypeToDataDict = new Dictionary<ToolType, ToolData>();
 
         public Bitmap bmpShield;
+        public ImageDatabase images;
     }
 }

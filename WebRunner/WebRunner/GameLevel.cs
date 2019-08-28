@@ -12,7 +12,7 @@ namespace WebRunner
         {
             worldPos = _worldPos;
         }
-        Vec2 worldPos;
+        public Vec2 worldPos;
     }
 
     class GameLevel
@@ -28,10 +28,21 @@ namespace WebRunner
                     Camera randomCamera = new Camera(worldRect.randomPoint());
                     cameras.Add(randomCamera);
                 }
+                backgroundName = "brushedMetal";
                 return;
             }
         }
         public Rect2 worldRect;
         public List<Camera> cameras;
+        public string backgroundName;
+
+        internal void render(GameScreen gameScreen, GameData data, GameState state)
+        {
+            Vec2 viewportOrigin = state.viewport.pMin;
+            foreach (Camera camera in cameras)
+            {
+                gameScreen.drawImage(data.images.camera, camera.worldPos - viewportOrigin);
+            }
+        }
     }
 }
