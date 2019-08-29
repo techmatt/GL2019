@@ -62,7 +62,7 @@
             // 
             // buttonFullScreen
             // 
-            this.buttonFullScreen.Location = new System.Drawing.Point(52, 162);
+            this.buttonFullScreen.Location = new System.Drawing.Point(1311, 35);
             this.buttonFullScreen.Name = "buttonFullScreen";
             this.buttonFullScreen.Size = new System.Drawing.Size(180, 64);
             this.buttonFullScreen.TabIndex = 2;

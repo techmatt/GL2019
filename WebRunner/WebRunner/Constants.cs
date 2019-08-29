@@ -28,6 +28,8 @@ namespace WebRunner
 
         static public int backgroundAlpha = 200;
 
+        static public int gridSize = 40;
+
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         static public String imageOriginalDir = dataDir + "imagesOriginal/";
         static public String missionDir = dataDir + "missions/";

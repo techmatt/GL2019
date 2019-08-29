@@ -66,13 +66,14 @@ namespace WebRunner
             foreach (GameLevel level in state.activeLevels)
             {
                 ImageEntry backgroundImg = data.images.getBackground(level.backgroundName, false);
-                gViewport.DrawImage(backgroundImg.bmp, (int)level.worldRect.pMin.x, (int)level.worldRect.pMin.y);
+                Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;
+                gViewport.DrawImage(backgroundImg.bmp, (int)bkgStart.x, (int)bkgStart.y);
                 level.render(this, data, state);
             }
 
             foreach(Marker m in state.markers)
             {
-                drawRotatedImage(m.center, m.orientation, data.bmpShield);
+                drawRotatedImage(m.center, m.orientation, data.images.shield.bmp);
                 drawCircle(m.center, 15, m.toolData.brush);
             }
 

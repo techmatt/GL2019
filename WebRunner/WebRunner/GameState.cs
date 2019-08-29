@@ -43,10 +43,10 @@ namespace WebRunner
             return result;
         }
 
-        public void updateViewport(double newXStart)
+        public void updateViewport(double deltaX)
         {
-            viewport.pMin.x = newXStart;
-            viewport.pMax.x = newXStart;
+            viewport.pMin.x += deltaX;
+            viewport.pMax.x += deltaX;
             activeLevels = computeActiveLevels();
         }
     }

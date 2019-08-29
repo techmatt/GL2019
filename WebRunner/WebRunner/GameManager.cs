@@ -28,7 +28,7 @@ namespace WebRunner
 
         void step()
         {
-            state.updateViewport(state.viewport.pMin.x + 1.0);
+            state.updateViewport(20.0);
         }
 
         public void stepAndRender(int renderWidth, int renderHeight)

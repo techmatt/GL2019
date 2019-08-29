@@ -50,5 +50,6 @@ namespace WebRunner
         }
         public Dictionary<string, ImageEntry> backgrounds = new Dictionary<string, ImageEntry>();
         public ImageEntry camera = new ImageEntry("camera", new Vec2(75, 75), 255);
+        public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
     }
 }
