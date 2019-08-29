@@ -23,13 +23,18 @@ namespace WebRunner
 
         public void reset(string missionName)
         {
-            state = new GameState(Constants.missionDir + missionName + ".txt");
+            state = new GameState(Constants.missionDir + missionName + ".txt", data);
         }
 
         void step()
         {
             if(editor == null)
                 state.updateViewport(20.0);
+
+            foreach(GameLevel level in state.activeLevels)
+            {
+                level.updateStructures(data, state);
+            }
         }
 
         public void stepAndRender(int renderWidth, int renderHeight)

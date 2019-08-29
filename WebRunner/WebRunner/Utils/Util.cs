@@ -16,6 +16,29 @@ namespace WebRunner
         }
     }
 
+    static class IntersectUtil
+    {
+        public static double? rayIntersectSegment(Vec2 rOrigin, Vec2 rDirection, Vec2 s0, Vec2 s1)
+        {
+            Vec2 v1 = rOrigin - s0;
+            Vec2 v2 = s1 - s0;
+            Vec2 v3 = new Vec2(-rDirection.y, rDirection.x);
+
+            double dot = Vec2.dot(v2, v3);
+            if (Math.Abs(dot) < 1e-5)
+                return null;
+
+            double cross = v2.x * v1.y - v2.y * v1.x;
+            double t1 = cross / dot;
+            double t2 = Vec2.dot(v1, v3) / dot;
+
+            if (t1 >= 0.0 && (t2 >= 0.0 && t2 <= 1.0))
+                return t1;
+
+            return null;
+        }
+    }
+
     static class DistUtil
     {
         public static double pointToCircleDist(Vec2 p, Vec2 center, double radius)
@@ -24,7 +47,7 @@ namespace WebRunner
             return Math.Max(dist - radius, 0.0);
         }
 
-        public static double pointToLineSegmentDistSq(Vec2 p, Vec2 vA, Vec2 vB)
+        public static double pointToSegmentDistSq(Vec2 p, Vec2 vA, Vec2 vB)
         {
             double l2 = Vec2.distSq(vA, vB);
             if (l2 == 0.0) return Vec2.distSq(p, vA);
@@ -45,10 +68,10 @@ namespace WebRunner
             Vec2 v2 = rect.pMax;
             Vec2 v3 = new Vec2(rect.pMax.x, rect.pMin.y);
 
-            double result = pointToLineSegmentDistSq(p, v0, v1);
-            result = Math.Min(result, pointToLineSegmentDistSq(p, v1, v2));
-            result = Math.Min(result, pointToLineSegmentDistSq(p, v2, v3));
-            result = Math.Min(result, pointToLineSegmentDistSq(p, v3, v0));
+            double result = pointToSegmentDistSq(p, v0, v1);
+            result = Math.Min(result, pointToSegmentDistSq(p, v1, v2));
+            result = Math.Min(result, pointToSegmentDistSq(p, v2, v3));
+            result = Math.Min(result, pointToSegmentDistSq(p, v3, v0));
             return result;
         }
     }

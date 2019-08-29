@@ -89,7 +89,7 @@ namespace WebRunner
             registerTool(ToolType.EMP, "emp", Color.FromArgb(200, 50, 200));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 200));
 
-            registerStructure(StructureType.Camera, "camera", 35.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, new Vec2(1, 1));
@@ -115,7 +115,11 @@ namespace WebRunner
         Dictionary<ToolType, ToolData> toolTypeToDataDict = new Dictionary<ToolType, ToolData>();
         Dictionary<StructureType, StructureData> structureTypeToDataDict = new Dictionary<StructureType, StructureData>();
 
-        //public Bitmap bmpShield;
+        public Brush cameraBrushInterior = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
+        public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
+        public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
+        public Pen cameraRay = new Pen(Color.FromArgb(255, 240, 240, 140), 6.0f);
+
         public ImageDatabase images;
     }
 }

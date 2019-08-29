@@ -41,6 +41,7 @@ namespace WebRunner
             }
         }
 
+        //Mat frameCopy = new Mat();
         private List<Marker> runDetection(Mat frame, GameData data)
         {
             var result = new List<Marker>();
@@ -73,11 +74,19 @@ namespace WebRunner
             return result;
         }
 
+        Mat debugFrame = null;
         public Bitmap processWebcamImage(out List<Marker> markers, GameData data)
         {
-            Mat frame = capture.QueryFrame();
-            markers = runDetection(frame, data);
-            return frame.Bitmap;
+            if(debugFrame == null)
+            {
+                debugFrame = capture.QueryFrame();
+            }
+            markers = runDetection(debugFrame, data);
+            return debugFrame.Bitmap;
+
+            //Mat frame = capture.QueryFrame();
+            //markers = runDetection(frame, data);
+            //return frame.Bitmap;
         }
     }
 }

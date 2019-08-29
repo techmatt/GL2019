@@ -61,6 +61,7 @@ namespace WebRunner
                 return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.worldPos, data.radius - 0.5));
             throw new Exception("invalid shape");
         }
+
         public Tuple<int, double> closestStructure(List<Structure> structures, Vec2 pos)
         {
             double result = double.MaxValue;
@@ -84,7 +85,7 @@ namespace WebRunner
             if (!hoverPosValid) return;
             if (activeTool == EditorTool.Structure)
             {
-                Structure newStructure = new Structure(activeStructureType, hoverPos);
+                Structure newStructure = new Structure(activeStructureType, data, hoverPos);
                 level.structures.Add(newStructure);
             }
         }

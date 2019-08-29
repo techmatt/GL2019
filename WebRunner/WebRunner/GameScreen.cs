@@ -36,9 +36,22 @@ namespace WebRunner
         GameData data;
         public Graphics gScreen, gViewport;
         
-        public void drawCircle(Vec2 center, int radius, Brush brush)
+        public void drawCircle(Vec2 center, int radius, Brush fillBrush, Pen edgePen)
         {
-            gViewport.FillEllipse(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
+            if(fillBrush != null)
+                gViewport.FillEllipse(fillBrush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
+            if(edgePen != null)
+                gViewport.DrawEllipse(edgePen, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
+        }
+
+        public void drawLine(Vec2 p0, Vec2 p1, Pen pen)
+        {
+            gViewport.DrawLine(pen, (int)p0.x, (int)p0.y, (int)p1.x, (int)p1.y);
+        }
+
+        public void drawArc(Vec2 center, int radius, Pen pen, double startAngle, double endAngle)
+        {
+            gViewport.DrawArc(pen, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2, (float)startAngle, (float)endAngle);
         }
 
         public void drawRectangle(Vec2 center, int radius, Color color)
@@ -80,7 +93,7 @@ namespace WebRunner
             foreach(Marker m in state.markers)
             {
                 drawRotatedImage(m.center, m.orientation, data.images.shield.bmp);
-                drawCircle(m.center, 15, m.toolData.brush);
+                drawCircle(m.center, 15, m.toolData.brush, null);
             }
 
             if(editor != null)
@@ -96,13 +109,6 @@ namespace WebRunner
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;
-
-            /*Bitmap bmpLocal = new Bitmap(targetBox.Image);
-            using (Graphics gLocal = Graphics.FromImage(bmpLocal))
-            {
-                gLocal.DrawImage(bmp, new Point(0, 0));
-            }
-            targetBox.Image = bmpLocal;*/
         }
     }
 }

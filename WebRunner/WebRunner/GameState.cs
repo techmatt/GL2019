@@ -15,14 +15,14 @@ namespace WebRunner
         public List<GameLevel> activeLevels;
         public Rect2 viewport;
 
-        public GameState(string missionFilename)
+        public GameState(string missionFilename, GameData data)
         {
             string[] levelList = File.ReadAllLines(missionFilename);
             levels = new List<GameLevel>();
             double xStart = 0;
             foreach (string levelName in levelList)
             {
-                GameLevel curLevel = new GameLevel(levelName, xStart);
+                GameLevel curLevel = new GameLevel(levelName, data, xStart);
                 xStart += curLevel.worldRect.size().x;
                 levels.Add(curLevel);
             }
