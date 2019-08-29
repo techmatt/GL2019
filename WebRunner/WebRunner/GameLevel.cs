@@ -56,5 +56,10 @@ namespace WebRunner
                 gameScreen.drawImage(data.images.structures[structure.type], structure.worldPos - viewportOrigin);
             }
         }
+
+        public void removeStructure(int structureIndex)
+        {
+            structures.RemoveAt(structureIndex);
+        }
     }
 }

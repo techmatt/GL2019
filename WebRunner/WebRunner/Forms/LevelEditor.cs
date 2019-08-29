@@ -72,6 +72,8 @@ namespace WebRunner
             editor.mouseMove(new Vec2(e.X, e.Y));
             if (e.Button == MouseButtons.Left)
                 editor.leftMouseDown(new Vec2(e.X, e.Y));
+            if (e.Button == MouseButtons.Right)
+                editor.rightMouseDown(new Vec2(e.X, e.Y));
             //label1.Text = editor.closestStructureDist(editor.level.structures, editor.hoverPos).ToString();
         }
 
@@ -80,7 +82,9 @@ namespace WebRunner
             if (editor == null) return;
             if (e.Button == MouseButtons.Left)
                 editor.leftMouseDown(new Vec2(e.X, e.Y));
-            
+            if (e.Button == MouseButtons.Right)
+                editor.rightMouseDown(new Vec2(e.X, e.Y));
+
         }
     }
 }
