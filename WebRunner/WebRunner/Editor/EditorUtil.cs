@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace WebRunner
 {
-    class EditorUtil
+    static class EditorUtil
     {
+        
     }
 
     enum EditorTool
     {
         None,
-        Camera,
-        Shielding,
-        Firewall,
-        Wall
+        Structure
     }
 }

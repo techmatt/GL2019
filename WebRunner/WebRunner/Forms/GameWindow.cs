@@ -32,6 +32,7 @@ namespace WebRunner
             if(manager == null)
             {
                 manager = new GameManager(pictureBoxMain);
+                manager.reset("testMission");
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
         }
@@ -49,6 +50,11 @@ namespace WebRunner
             pictureBoxMain.Height = Constants.renderHeightFull;
             button1.Visible = false;
             buttonFullScreen.Visible = false;
+        }
+
+        private void pictureBoxMain_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

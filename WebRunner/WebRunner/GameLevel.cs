@@ -6,42 +6,54 @@ using System.Threading.Tasks;
 
 namespace WebRunner
 {
-    class Camera
+    class Structure
     {
-        public Camera(Vec2 _worldPos)
+        public Structure(StructureType _type, Vec2 _worldPos)
         {
+            type = _type;
             worldPos = _worldPos;
         }
+        public StructureType type;
         public Vec2 worldPos;
     }
 
     class GameLevel
     {
+        public Rect2 worldRect;
+        public List<Structure> structures;
+        public string backgroundName;
+
         public GameLevel(string filename, double xStart)
         {
-            cameras = new List<Camera>();
+            structures = new List<Structure>();
+            worldRect = Rect2.fromOriginSize(new Vec2(xStart, 0), Constants.viewportSize);
+            backgroundName = "brushedMetal";
+            if (filename == "editor")
+            {
+                Structure randomCamera = new Structure(StructureType.Camera, worldRect.randomPoint());
+                structures.Add(randomCamera);
+                return;
+            }
             if (filename == "debug")
             {
-                worldRect = Rect2.fromOriginSize(new Vec2(xStart, 0), Constants.viewportSize);
                 for (int i = 0; i < 3; i++)
                 {
-                    Camera randomCamera = new Camera(worldRect.randomPoint());
-                    cameras.Add(randomCamera);
+                    Structure randomCamera = new Structure(StructureType.Camera, worldRect.randomPoint());
+                    structures.Add(randomCamera);
+
+                    Structure randomWall = new Structure(StructureType.Wall, worldRect.randomPoint());
+                    structures.Add(randomWall);
                 }
-                backgroundName = "brushedMetal";
                 return;
             }
         }
-        public Rect2 worldRect;
-        public List<Camera> cameras;
-        public string backgroundName;
 
-        internal void render(GameScreen gameScreen, GameData data, GameState state)
+        public void render(GameScreen gameScreen, GameData data, GameState state)
         {
             Vec2 viewportOrigin = state.viewport.pMin;
-            foreach (Camera camera in cameras)
+            foreach (Structure structure in structures)
             {
-                gameScreen.drawImage(data.images.camera, camera.worldPos - viewportOrigin);
+                gameScreen.drawImage(data.images.structures[structure.type], structure.worldPos - viewportOrigin);
             }
         }
     }

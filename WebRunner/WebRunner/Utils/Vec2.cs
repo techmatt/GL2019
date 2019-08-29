@@ -18,6 +18,7 @@ namespace WebRunner
             x = _x;
             y = _y;
         }
+
         public static Vec2 operator - (Vec2 a)
         {
             return new Vec2(-a.x, -a.y);
@@ -33,6 +34,18 @@ namespace WebRunner
         public static Vec2 operator * (Vec2 a, double f)
         {
             return new Vec2(a.x * f, a.y * f);
+        }
+        public static Vec2 operator * (double f, Vec2 a)
+        {
+            return new Vec2(a.x * f, a.y * f);
+        }
+        public static Vec2 operator / (Vec2 a, double f)
+        {
+            return new Vec2(a.x / f, a.y / f);
+        }
+        public static double dot(Vec2 v0, Vec2 v1)
+        {
+            return v0.x * v1.x + v0.y * v1.y;
         }
         public double length()
         {
@@ -57,6 +70,10 @@ namespace WebRunner
         {
             return new Vec2(Math.Abs(x), Math.Abs(y));
         }
+        public Vec2 floor()
+        {
+            return new Vec2(Math.Floor(x), Math.Floor(y));
+        }
         static public Vec2 min(Vec2 v0, Vec2 v1)
         {
             return new Vec2(Math.Min(v0.x, v1.x), Math.Min(v0.y, v1.y));
@@ -64,6 +81,18 @@ namespace WebRunner
         static public Vec2 max(Vec2 v0, Vec2 v1)
         {
             return new Vec2(Math.Max(v0.x, v1.x), Math.Max(v0.y, v1.y));
+        }
+        static public double dist(Vec2 v0, Vec2 v1)
+        {
+            double dX = v1.x - v0.x;
+            double dY = v1.y - v0.y;
+            return Math.Sqrt(dX * dX + dY * dY);
+        }
+        static public double distSq(Vec2 v0, Vec2 v1)
+        {
+            double dX = v1.x - v0.x;
+            double dY = v1.y - v0.y;
+            return dX * dX + dY * dY;
         }
         public double x;
         public double y;

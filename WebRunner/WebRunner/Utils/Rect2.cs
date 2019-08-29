@@ -26,6 +26,11 @@ namespace WebRunner
             return new Rect2(origin, origin + size);
         }
 
+        public static Rect2 fromCenterRadius(Vec2 center, Vec2 radius)
+        {
+            return new Rect2(center - radius, center + radius);
+        }
+
         public Vec2 center()
         {
             return (pMin + pMax) * 0.5;
@@ -37,6 +42,11 @@ namespace WebRunner
         public Vec2 randomPoint()
         {
             return new Vec2(Util.uniform(pMin.x, pMax.x), Util.uniform(pMin.y, pMax.y));
+        }
+        public bool containsPt(Vec2 pt)
+        {
+            return (pt.x >= pMin.x && pt.x <= pMax.x) &&
+                   (pt.y >= pMin.y && pt.y <= pMax.y);
         }
 
         public Vec2 pMin;

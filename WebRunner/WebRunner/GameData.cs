@@ -7,6 +7,19 @@ using System.Drawing;
 
 namespace WebRunner
 {
+    enum ShapeType
+    {
+        Square,
+        Circle
+    }
+    enum StructureType
+    {
+        Camera,
+        Shielding,
+        Firewall,
+        Wall
+    }
+
     enum ToolType
     {
         Shield,
@@ -25,7 +38,7 @@ namespace WebRunner
             type = _type;
             name = _name;
             color = _color;
-            brush = new System.Drawing.SolidBrush(color);
+            brush = new SolidBrush(color);
         }
         public ToolType type;
         public string name;
@@ -33,11 +46,32 @@ namespace WebRunner
         public Brush brush;
     }
 
+    class StructureData
+    {
+        public StructureData(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
+        {
+            type = _type;
+            name = _name;
+            radius = _radius;
+            shape = _shape;
+            gridSize = _gridSize;
+        }
+        public StructureType type;
+        public string name;
+        public double radius;
+        public ShapeType shape;
+        public Vec2 gridSize;
+    }
+
     class GameData
     {
         void registerTool(ToolType _type, string _name, Color _color)
         {
             toolTypeToDataDict[_type] = new ToolData(_type, _name, _color);
+        }
+        void registerStructure(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
+        {
+            structureTypeToDataDict[_type] = new StructureData(_type, _name, _radius, _shape, _gridSize);
         }
         public GameData()
         {
@@ -55,7 +89,11 @@ namespace WebRunner
             registerTool(ToolType.EMP, "emp", Color.FromArgb(200, 50, 200));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 200));
 
-            //bmpShield = new Bitmap(Constants.imageOriginalDir + "shield.png");
+            registerStructure(StructureType.Camera, "camera", 35.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
+            registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
+            registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, new Vec2(1, 1));
+
             images = new ImageDatabase();
         }
         public ToolType getToolType(int id)
@@ -69,8 +107,13 @@ namespace WebRunner
         {
             return toolTypeToDataDict[type];
         }
+        public StructureData getStructureData(StructureType type)
+        {
+            return structureTypeToDataDict[type];
+        }
         Dictionary<int, ToolType> IDToToolDict = new Dictionary<int, ToolType>();
         Dictionary<ToolType, ToolData> toolTypeToDataDict = new Dictionary<ToolType, ToolData>();
+        Dictionary<StructureType, StructureData> structureTypeToDataDict = new Dictionary<StructureType, StructureData>();
 
         //public Bitmap bmpShield;
         public ImageDatabase images;

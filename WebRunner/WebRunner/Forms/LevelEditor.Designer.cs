@@ -28,22 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.components = new System.ComponentModel.Container();
+            this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.radioButtonCamera = new System.Windows.Forms.RadioButton();
             this.radioButtonShielding = new System.Windows.Forms.RadioButton();
             this.radioButtonFirewall = new System.Windows.Forms.RadioButton();
             this.radioButtonWall = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.timerRendering = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxMain
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1280, 720);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBoxMain.Location = new System.Drawing.Point(13, 18);
+            this.pictureBoxMain.Name = "pictureBoxMain";
+            this.pictureBoxMain.Size = new System.Drawing.Size(1280, 720);
+            this.pictureBoxMain.TabIndex = 0;
+            this.pictureBoxMain.TabStop = false;
+            this.pictureBoxMain.Click += new System.EventHandler(this.pictureBoxMain_Click);
+            this.pictureBoxMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseDown);
+            this.pictureBoxMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseMove);
             // 
             // radioButtonCamera
             // 
@@ -97,20 +102,36 @@
             this.radioButtonWall.UseVisualStyleBackColor = true;
             this.radioButtonWall.CheckedChanged += new System.EventHandler(this.radioButtonWall_CheckedChanged);
             // 
+            // timerRendering
+            // 
+            this.timerRendering.Enabled = true;
+            this.timerRendering.Interval = 1;
+            this.timerRendering.Tick += new System.EventHandler(this.timerRendering_Tick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(33, 918);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1446, 1079);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.radioButtonWall);
             this.Controls.Add(this.radioButtonFirewall);
             this.Controls.Add(this.radioButtonShielding);
             this.Controls.Add(this.radioButtonCamera);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxMain);
             this.Name = "LevelEditor";
             this.Text = "LevelEditor";
             this.Load += new System.EventHandler(this.LevelEditor_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,10 +139,12 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxMain;
         private System.Windows.Forms.RadioButton radioButtonCamera;
         private System.Windows.Forms.RadioButton radioButtonShielding;
         private System.Windows.Forms.RadioButton radioButtonFirewall;
         private System.Windows.Forms.RadioButton radioButtonWall;
+        private System.Windows.Forms.Timer timerRendering;
+        private System.Windows.Forms.Label label1;
     }
 }

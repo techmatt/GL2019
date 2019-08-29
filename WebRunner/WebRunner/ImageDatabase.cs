@@ -37,6 +37,14 @@ namespace WebRunner
 
     class ImageDatabase
     {
+        public ImageDatabase()
+        {
+            structures[StructureType.Camera] = new ImageEntry("camera", new Vec2(75, 75), 255);
+            structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
+            structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
+            structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
+        }
+
         public ImageEntry getBackground(string backgroundName, bool solid)
         {
             string suffix = solid ? "s"  : "t";
@@ -49,7 +57,7 @@ namespace WebRunner
             return backgrounds[name];
         }
         public Dictionary<string, ImageEntry> backgrounds = new Dictionary<string, ImageEntry>();
-        public ImageEntry camera = new ImageEntry("camera", new Vec2(75, 75), 255);
+        public Dictionary<StructureType, ImageEntry> structures = new Dictionary<StructureType, ImageEntry>();
         public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
     }
 }

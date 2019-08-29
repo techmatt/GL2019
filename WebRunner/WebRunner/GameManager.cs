@@ -13,22 +13,23 @@ namespace WebRunner
         public GameManager(PictureBox _targetBox)
         {
             screen = new GameScreen(_targetBox, data);
-            reset();
         }
 
-        GameData data = new GameData();
-        GameState state;
+        public GameData data = new GameData();
+        public GameState state;
         GameScreen screen;
+        public EditorManager editor = null;
         public VisionManager vision = new VisionManager();
 
-        public void reset()
+        public void reset(string missionName)
         {
-            state = new GameState(Constants.missionDir + "testMission.txt");
+            state = new GameState(Constants.missionDir + missionName + ".txt");
         }
 
         void step()
         {
-            state.updateViewport(20.0);
+            if(editor == null)
+                state.updateViewport(20.0);
         }
 
         public void stepAndRender(int renderWidth, int renderHeight)
@@ -36,7 +37,7 @@ namespace WebRunner
             Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, data);
             //image.Save("test.png");
             step();
-            screen.render(webcamBitmap, data, state, renderWidth, renderHeight);
+            screen.render(webcamBitmap, data, state, editor, renderWidth, renderHeight);
         }
     }
 }

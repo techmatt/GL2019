@@ -41,6 +41,12 @@ namespace WebRunner
             gViewport.FillEllipse(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
         }
 
+        public void drawRectangle(Vec2 center, int radius, Color color)
+        {
+            Brush brush = new SolidBrush(color);
+            gViewport.FillRectangle(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
+        }
+
         public void drawImage(ImageEntry image, Vec2 center)
         {
             gViewport.DrawImage(image.bmp, (int)(center.x - image.bmp.Width / 2), (int)(center.y - image.bmp.Height / 2));
@@ -58,7 +64,7 @@ namespace WebRunner
             gViewport.ResetTransform();
         }
 
-        public void render(Bitmap webcamImage, GameData data, GameState state, int renderWidth, int renderHeight)
+        public void render(Bitmap webcamImage, GameData data, GameState state, EditorManager editor, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
 
@@ -75,6 +81,16 @@ namespace WebRunner
             {
                 drawRotatedImage(m.center, m.orientation, data.images.shield.bmp);
                 drawCircle(m.center, 15, m.toolData.brush);
+            }
+
+            if(editor != null)
+            {
+                drawImage(data.images.structures[editor.activeStructureType], editor.hoverPos);
+                StructureData hoverData = data.getStructureData(editor.activeStructureType);
+                Color hoverColor = Color.FromArgb(128, 160, 240, 160);
+                if(!editor.hoverPosValid)
+                    hoverColor = Color.FromArgb(128, 240, 160, 160);
+                drawRectangle(editor.hoverPos, (int)hoverData.radius, hoverColor);
             }
 
             resizeScreen(renderWidth, renderHeight);
