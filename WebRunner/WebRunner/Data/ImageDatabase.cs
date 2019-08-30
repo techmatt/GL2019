@@ -67,6 +67,9 @@ namespace WebRunner
             structures[StructureType.Door] = new ImageEntry("door", new Vec2(64, 64), 255);
             structures[StructureType.SpawnPoint] = new ImageEntry("spawnpoint", new Vec2(60, 60), 255);
             structures[StructureType.Objective] = new ImageEntry("objective", 2, new Vec2(60, 60), 255);
+
+            tools[ToolType.Run] = new ImageEntry("run", new Vec2(60, 60), 255);
+            tools[ToolType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
         }
 
         public ImageEntry getBackground(string backgroundName, bool solid)
@@ -82,6 +85,7 @@ namespace WebRunner
         }
         public Dictionary<string, ImageEntry> backgrounds = new Dictionary<string, ImageEntry>();
         public Dictionary<StructureType, ImageEntry> structures = new Dictionary<StructureType, ImageEntry>();
-        public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
+        public Dictionary<ToolType, ImageEntry> tools = new Dictionary<ToolType, ImageEntry>();
+        //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
     }
 }

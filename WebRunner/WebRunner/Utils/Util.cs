@@ -103,13 +103,13 @@ namespace WebRunner
 
     class Marker
     {
-        public Marker(ToolData _toolData, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
+        public Marker(ToolEntry _entry, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
         {
-            toolData = _toolData;
+            entry = _entry;
             center = (corner0 + corner1 + corner2 + corner3) * 0.25;
             orientation = (corner1 - corner0).getNormalized();
         }
-        public ToolData toolData;
+        public ToolEntry entry;
         public Vec2 center;
         public Vec2 orientation;
     }

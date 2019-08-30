@@ -25,41 +25,41 @@ namespace WebRunner
 
     enum ToolType
     {
-        Shield,
-        Broom,
-        Probe,
-        Bomb,
-        EMP,
+        Run,
         Distraction,
         InvalidID
     }
 
-    class ToolData
+    class ToolEntry
     {
-        public ToolData(ToolType _type, string _name, Color _color)
+        public ToolEntry(ToolType _type, string _name, Color _debugColor, ImageEntry _image)
         {
             type = _type;
+            image = _image;
             name = _name;
-            color = _color;
-            brush = new SolidBrush(color);
+            debugColor = _debugColor;
+            //brush = new SolidBrush(color);
         }
         public ToolType type;
+        public ImageEntry image;
         public string name;
-        public Color color;
-        public Brush brush;
+        public Color debugColor;
+        //public Brush brush;
     }
 
     class StructureEntry
     {
-        public StructureEntry(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
+        public StructureEntry(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize, ImageEntry _image)
         {
             type = _type;
+            image = _image;
             name = _name;
             radius = _radius;
             shape = _shape;
             gridSize = _gridSize;
         }
         public StructureType type;
+        public ImageEntry image;
         public string name;
         public double radius;
         public ShapeType shape;
@@ -70,28 +70,26 @@ namespace WebRunner
     {
         void registerTool(ToolType _type, string _name, Color _color)
         {
-            toolTypeToDataDict[_type] = new ToolData(_type, _name, _color);
+            toolTypeToDataDict[_type] = new ToolEntry(_type, _name, _color, images.tools[_type]);
         }
         void registerStructure(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
         {
-            structureTypeToDataDict[_type] = new StructureEntry(_type, _name, _radius, _shape, _gridSize);
+            structureTypeToDataDict[_type] = new StructureEntry(_type, _name, _radius, _shape, _gridSize, images.structures[_type]);
         }
         public GameDatabase()
         {
-            IDToToolDict[0] = ToolType.Shield;
-            IDToToolDict[1] = ToolType.Broom;
-            IDToToolDict[2] = ToolType.Probe;
-            IDToToolDict[3] = ToolType.Bomb;
-            IDToToolDict[4] = ToolType.EMP;
+            images = new ImageDatabase();
+
+            IDToToolDict[0] = ToolType.Run;
+            IDToToolDict[1] = ToolType.Run;
+            IDToToolDict[2] = ToolType.Run;
+            IDToToolDict[3] = ToolType.Run;
+            IDToToolDict[4] = ToolType.Run;
             IDToToolDict[5] = ToolType.Distraction;
 
-            registerTool(ToolType.Shield, "shield", Color.FromArgb(200, 50, 50));
-            registerTool(ToolType.Broom, "broom", Color.FromArgb(50, 200, 50));
-            registerTool(ToolType.Probe, "probe", Color.FromArgb(50, 50, 200));
-            registerTool(ToolType.Bomb, "bomb", Color.FromArgb(200, 200, 50));
-            registerTool(ToolType.EMP, "emp", Color.FromArgb(200, 50, 200));
-            registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 200));
-
+            registerTool(ToolType.Run, "run", Color.FromArgb(200, 50, 50));
+            registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
+            
             registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
@@ -99,8 +97,6 @@ namespace WebRunner
             registerStructure(StructureType.SpawnPoint, "spawnpoint", 36.0, ShapeType.Circle, new Vec2(2, 2));
             registerStructure(StructureType.Door, "door", 36.0, ShapeType.Square, new Vec2(2, 2));
             registerStructure(StructureType.Objective, "objective", 32.0, ShapeType.Square, new Vec2(2, 2));
-
-            images = new ImageDatabase();
         }
         public ToolType getToolType(int id)
         {
@@ -109,7 +105,7 @@ namespace WebRunner
             else
                 return ToolType.InvalidID;
         }
-        public ToolData getToolData(ToolType type)
+        public ToolEntry getToolData(ToolType type)
         {
             return toolTypeToDataDict[type];
         }
@@ -118,7 +114,7 @@ namespace WebRunner
             return structureTypeToDataDict[type];
         }
         Dictionary<int, ToolType> IDToToolDict = new Dictionary<int, ToolType>();
-        Dictionary<ToolType, ToolData> toolTypeToDataDict = new Dictionary<ToolType, ToolData>();
+        Dictionary<ToolType, ToolEntry> toolTypeToDataDict = new Dictionary<ToolType, ToolEntry>();
         Dictionary<StructureType, StructureEntry> structureTypeToDataDict = new Dictionary<StructureType, StructureEntry>();
 
         public Brush cameraBrushInterior = new SolidBrush(Color.FromArgb(255, 255, 255, 255));

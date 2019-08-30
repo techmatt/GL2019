@@ -62,7 +62,7 @@ namespace WebRunner
                     ToolType type = database.getToolType(id);
                     if (type == ToolType.InvalidID)
                         continue;
-                    ToolData toolData = database.getToolData(type);
+                    ToolEntry toolData = database.getToolData(type);
                     var cornerList = corners[markerIdx];
                     var corner0 = new Vec2(cornerList[0].X * xScale, cornerList[0].Y * yScale);
                     var corner1 = new Vec2(cornerList[1].X * xScale, cornerList[1].Y * yScale);
