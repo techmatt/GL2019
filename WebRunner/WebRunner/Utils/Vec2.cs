@@ -10,8 +10,8 @@ namespace WebRunner
     {
         public Vec2()
         {
-            x = 0.0f;
-            y = 0.0f;
+            x = 0.0;
+            y = 0.0;
         }
         public Vec2(double _x, double _y)
         {
@@ -63,7 +63,7 @@ namespace WebRunner
         {
             double l = length();
             if (l < 1e-6)
-                return Vec2.Origin;
+                return new Vec2();
             return new Vec2(x / l, y / l);
         }
         public Vec2 abs()
@@ -96,7 +96,5 @@ namespace WebRunner
         }
         public double x;
         public double y;
-
-        static public Vec2 Origin = new Vec2();
     }
 }

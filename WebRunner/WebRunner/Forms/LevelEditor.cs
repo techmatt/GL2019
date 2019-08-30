@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WebRunner
 {
@@ -49,14 +50,36 @@ namespace WebRunner
                 editor.setToolStructure(StructureType.Shielding);
         }
 
+        private void radioButtonSpawnPoint_CheckedChanged(object sender, EventArgs e)
+        {
+            if (editor != null)
+                editor.setToolStructure(StructureType.SpawnPoint);
+        }
+
+        private void radioButtonDoor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (editor != null)
+                editor.setToolStructure(StructureType.Door);
+        }
+
+        private void radioButtonObjective_CheckedChanged(object sender, EventArgs e)
+        {
+            if (editor != null)
+                editor.setToolStructure(StructureType.Objective);
+        }
+
+        private void radioButtonSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            editor.activeTool = EditorTool.Select;
+        }
+
         private void timerRendering_Tick(object sender, EventArgs e)
         {
             if (manager == null)
             {
-                manager = new GameManager(pictureBoxMain);
-                manager.reset("editor");
-                editor = new EditorManager(manager);
-                manager.editor = editor;
+                editor = new EditorManager();
+                manager = new GameManager(pictureBoxMain, editor);
+                manager.startMission("defaultMission", "emptyLevel");
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
         }
@@ -71,9 +94,16 @@ namespace WebRunner
             if (editor == null) return;
             editor.mouseMove(new Vec2(e.X, e.Y));
             if (e.Button == MouseButtons.Left)
+            {
                 editor.leftMouseDown(new Vec2(e.X, e.Y));
+                selectionUpdate();
+            }
             if (e.Button == MouseButtons.Right)
+            {
+                radioButtonSelect.Checked = true;
                 editor.rightMouseDown(new Vec2(e.X, e.Y));
+                selectionUpdate();
+            }
             //label1.Text = editor.closestStructureDist(editor.level.structures, editor.hoverPos).ToString();
         }
 
@@ -81,10 +111,86 @@ namespace WebRunner
         {
             if (editor == null) return;
             if (e.Button == MouseButtons.Left)
+            {
                 editor.leftMouseDown(new Vec2(e.X, e.Y));
+                selectionUpdate();
+            }
             if (e.Button == MouseButtons.Right)
+            {
+                radioButtonSelect.Checked = true;
                 editor.rightMouseDown(new Vec2(e.X, e.Y));
+                selectionUpdate();
+            }
 
         }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            string dir = Constants.missionBaseDir + textBoxMissionName.Text + '/';
+            Directory.CreateDirectory(dir);
+            string filename = dir + textBoxLevelName.Text + ".txt";
+            editor.level.saveToFile(filename);
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Constants.dataDir + "missions";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = false;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filename = openFileDialog.FileName;
+                    string[] parts = filename.Split('\\');
+                    textBoxMissionName.Text = parts[parts.Length - 2];
+                    textBoxLevelName.Text   = parts[parts.Length - 1].Replace(".txt", "");
+                    if(File.Exists(filename))
+                    {
+                        manager.startMission(textBoxMissionName.Text, textBoxLevelName.Text);
+                        radioButtonSelect.Checked = true;
+                    }
+                }
+            }
+        }
+
+        private void selectionUpdate()
+        {
+            Structure selection = editor.getSelectedStructure();
+            if (selection == null) return;
+            labelAngleA.Text = selection.sweepAngleStart.ToString();
+            labelAngleB.Text = selection.sweepAngleSpan.ToString();
+            labelSpeed.Text = selection.sweepAngleSpeed.ToString();
+        }
+
+        private void scrollUpdate()
+        {
+            Structure selection = editor.getSelectedStructure();
+            if (selection == null) return;
+            selection.sweepAngleStart = Convert.ToDouble(labelAngleA.Text);
+            selection.sweepAngleSpan = Convert.ToDouble(labelAngleB.Text);
+            selection.sweepAngleSpeed = Convert.ToDouble(labelSpeed.Text);
+        }
+
+        private void scrollAngleA_Scroll(object sender, ScrollEventArgs e)
+        {
+            labelAngleA.Text = Math.Min(scrollAngleA.Value, 350.0).ToString();
+            scrollUpdate();
+        }
+
+        private void scrollAngleB_Scroll(object sender, ScrollEventArgs e)
+        {
+            labelAngleB.Text = scrollAngleB.Value.ToString();
+            scrollUpdate();
+        }
+
+        private void scrollSpeed_Scroll(object sender, ScrollEventArgs e)
+        {
+            labelSpeed.Text = (scrollSpeed.Value / 100.0 * 4.0 + 0.1).ToString();
+            scrollUpdate();
+        }
+
     }
 }

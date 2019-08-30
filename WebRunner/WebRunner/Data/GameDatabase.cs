@@ -17,7 +17,10 @@ namespace WebRunner
         Camera,
         Shielding,
         Firewall,
-        Wall
+        Wall,
+        SpawnPoint,
+        Door,
+        Objective,
     }
 
     enum ToolType
@@ -46,9 +49,9 @@ namespace WebRunner
         public Brush brush;
     }
 
-    class StructureData
+    class StructureEntry
     {
-        public StructureData(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
+        public StructureEntry(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
         {
             type = _type;
             name = _name;
@@ -63,7 +66,7 @@ namespace WebRunner
         public Vec2 gridSize;
     }
 
-    class GameData
+    class GameDatabase
     {
         void registerTool(ToolType _type, string _name, Color _color)
         {
@@ -71,9 +74,9 @@ namespace WebRunner
         }
         void registerStructure(StructureType _type, string _name, double _radius, ShapeType _shape, Vec2 _gridSize)
         {
-            structureTypeToDataDict[_type] = new StructureData(_type, _name, _radius, _shape, _gridSize);
+            structureTypeToDataDict[_type] = new StructureEntry(_type, _name, _radius, _shape, _gridSize);
         }
-        public GameData()
+        public GameDatabase()
         {
             IDToToolDict[0] = ToolType.Shield;
             IDToToolDict[1] = ToolType.Broom;
@@ -93,6 +96,9 @@ namespace WebRunner
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, new Vec2(1, 1));
+            registerStructure(StructureType.SpawnPoint, "spawnpoint", 36.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.Door, "door", 36.0, ShapeType.Square, new Vec2(2, 2));
+            registerStructure(StructureType.Objective, "objective", 32.0, ShapeType.Square, new Vec2(2, 2));
 
             images = new ImageDatabase();
         }
@@ -107,13 +113,13 @@ namespace WebRunner
         {
             return toolTypeToDataDict[type];
         }
-        public StructureData getStructureData(StructureType type)
+        public StructureEntry getStructureEntry(StructureType type)
         {
             return structureTypeToDataDict[type];
         }
         Dictionary<int, ToolType> IDToToolDict = new Dictionary<int, ToolType>();
         Dictionary<ToolType, ToolData> toolTypeToDataDict = new Dictionary<ToolType, ToolData>();
-        Dictionary<StructureType, StructureData> structureTypeToDataDict = new Dictionary<StructureType, StructureData>();
+        Dictionary<StructureType, StructureEntry> structureTypeToDataDict = new Dictionary<StructureType, StructureEntry>();
 
         public Brush cameraBrushInterior = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
         public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);

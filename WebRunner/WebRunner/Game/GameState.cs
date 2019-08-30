@@ -15,18 +15,28 @@ namespace WebRunner
         public List<GameLevel> activeLevels;
         public Rect2 viewport;
 
-        public GameState(string missionFilename, GameData data)
+        public GameState(string missionName, string levelNameOverride, GameDatabase database)
         {
-            string[] levelList = File.ReadAllLines(missionFilename);
+            string missionDir = Constants.missionBaseDir + missionName + '/';
+            var levelList = new List<string>(Directory.EnumerateFiles(missionDir, "*.txt"));
+            if (levelNameOverride != null)
+            {
+                levelList = new List<string>();
+                levelList.Add(levelNameOverride);
+            }
+
             levels = new List<GameLevel>();
-            double xStart = 0;
+            double xStart = 0.0;
             foreach (string levelName in levelList)
             {
-                GameLevel curLevel = new GameLevel(levelName, data, xStart);
+                string levelFilename = missionDir + levelName + ".txt";
+                if (levelNameOverride == "emptyLevel")
+                    levelFilename = "emptyLevel";
+                GameLevel curLevel = new GameLevel(levelFilename, database, xStart);
                 xStart += curLevel.worldRect.size().x;
                 levels.Add(curLevel);
             }
-            viewport = Rect2.fromOriginSize(Vec2.Origin, Constants.viewportSize);
+            viewport = Rect2.fromOriginSize(new Vec2(), Constants.viewportSize);
             updateViewport(0);
         }
 

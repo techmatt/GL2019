@@ -12,27 +12,48 @@ namespace WebRunner
         public ImageEntry(string _filename, Vec2 size, int defaultAlpha)
         {
             filename = _filename;
-            Bitmap bmpOriginal = new Bitmap(Bitmap.FromFile(Constants.imageOriginalDir + filename + ".png"));
-            Color transparentColor = Color.FromArgb(0, 0, 0, 0);
-            for (int y = 0; y < bmpOriginal.Height; y++)
+            bmp.Add(loadBitmap(filename, size, defaultAlpha));
+        }
+        public ImageEntry(string _filename, int count, Vec2 size, int defaultAlpha)
+        {
+            filename = _filename;
+            for (int i = 0; i < count; i++)
             {
-                for(int x = 0; x < bmpOriginal.Width; x++)
+                bmp.Add(loadBitmap(filename + "_" + i.ToString(), size, defaultAlpha));
+            }
+        }
+        public Bitmap getBmp(int ImgInstanceHash)
+        {
+            return bmp[ImgInstanceHash % bmp.Count()];
+        }
+        Bitmap loadBitmap(string filename, Vec2 size, int defaultAlpha)
+        {
+            Bitmap bmpOriginal = new Bitmap(Bitmap.FromFile(Constants.imageOriginalDir + filename + ".png"));
+            //Console.WriteLine(filename + " " + ((int)(bmpOriginal.GetPixel(0, 0).A)).ToString());
+            bool hasAlpha = (bmpOriginal.GetPixel(0, 0).A != 255);
+            if (!hasAlpha)
+            {
+                Color transparentColor = Color.FromArgb(0, 0, 0, 0);
+                for (int y = 0; y < bmpOriginal.Height; y++)
                 {
-                    Color c = bmpOriginal.GetPixel(x, y);
-                    if (c.R == 255 && c.G == 0 && c.B == 255)
+                    for (int x = 0; x < bmpOriginal.Width; x++)
                     {
-                        bmpOriginal.SetPixel(x, y, transparentColor);
-                    }
-                    else
-                    {
-                        bmpOriginal.SetPixel(x, y, Color.FromArgb(defaultAlpha, c.R, c.G, c.B));
+                        Color c = bmpOriginal.GetPixel(x, y);
+                        if (c.R == 255 && c.G == 0 && c.B == 255)
+                        {
+                            bmpOriginal.SetPixel(x, y, transparentColor);
+                        }
+                        else
+                        {
+                            bmpOriginal.SetPixel(x, y, Color.FromArgb(defaultAlpha, c.R, c.G, c.B));
+                        }
                     }
                 }
             }
-            bmp = new Bitmap(bmpOriginal, new Size((int)size.x, (int)size.y));
+            return new Bitmap(bmpOriginal, new Size((int)size.x, (int)size.y));
         }
         public string filename;
-        public Bitmap bmp;
+        public List<Bitmap> bmp = new List<Bitmap>();
     }
 
     class ImageDatabase
@@ -43,6 +64,9 @@ namespace WebRunner
             structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
             structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
             structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
+            structures[StructureType.Door] = new ImageEntry("door", new Vec2(64, 64), 255);
+            structures[StructureType.SpawnPoint] = new ImageEntry("spawnpoint", new Vec2(60, 60), 255);
+            structures[StructureType.Objective] = new ImageEntry("objective", 2, new Vec2(60, 60), 255);
         }
 
         public ImageEntry getBackground(string backgroundName, bool solid)

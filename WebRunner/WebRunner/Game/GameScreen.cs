@@ -10,10 +10,10 @@ namespace WebRunner
 {
     class GameScreen
     {
-        public GameScreen(PictureBox _targetBox, GameData _data)
+        public GameScreen(PictureBox _targetBox, GameDatabase _database)
         {
             targetBox = _targetBox;
-            data = _data;
+            database = _database;
             bmpViewport = new Bitmap((int)Constants.viewportSize.x, (int)Constants.viewportSize.y);
             gViewport = Graphics.FromImage(bmpViewport);
             gViewport.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -33,7 +33,7 @@ namespace WebRunner
         PictureBox targetBox;
         Bitmap bmpScreen;
         Bitmap bmpViewport;
-        GameData data;
+        GameDatabase database;
         public Graphics gScreen, gViewport;
         
         public void drawCircle(Vec2 center, int radius, Brush fillBrush, Pen edgePen)
@@ -60,9 +60,10 @@ namespace WebRunner
             gViewport.FillRectangle(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
         }
 
-        public void drawImage(ImageEntry image, Vec2 center)
+        public void drawImage(ImageEntry image, int imgInstanceHash, Vec2 center)
         {
-            gViewport.DrawImage(image.bmp, (int)(center.x - image.bmp.Width / 2), (int)(center.y - image.bmp.Height / 2));
+            Bitmap bmp = image.getBmp(imgInstanceHash);
+            gViewport.DrawImage(bmp, (int)(center.x - bmp.Width / 2), (int)(center.y - bmp.Height / 2));
         }
 
         public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp)
@@ -77,33 +78,42 @@ namespace WebRunner
             gViewport.ResetTransform();
         }
 
-        public void render(Bitmap webcamImage, GameData data, GameState state, EditorManager editor, int renderWidth, int renderHeight)
+        public void render(Bitmap webcamImage, GameState state, EditorManager editor, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
 
             gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
             foreach (GameLevel level in state.activeLevels)
             {
-                ImageEntry backgroundImg = data.images.getBackground(level.backgroundName, false);
+                ImageEntry backgroundImg = database.images.getBackground(level.backgroundName, false);
                 Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;
-                gViewport.DrawImage(backgroundImg.bmp, (int)bkgStart.x, (int)bkgStart.y);
-                level.render(this, data, state);
+                gViewport.DrawImage(backgroundImg.getBmp(0), (int)bkgStart.x, (int)bkgStart.y);
+                level.render(this, database, state);
             }
 
             foreach(Marker m in state.markers)
             {
-                drawRotatedImage(m.center, m.orientation, data.images.shield.bmp);
+                drawRotatedImage(m.center, m.orientation, database.images.shield.getBmp(0));
                 drawCircle(m.center, 15, m.toolData.brush, null);
             }
 
             if(editor != null)
             {
-                drawImage(data.images.structures[editor.activeStructureType], editor.hoverPos);
-                StructureData hoverData = data.getStructureData(editor.activeStructureType);
-                Color hoverColor = Color.FromArgb(128, 160, 240, 160);
-                if(!editor.hoverPosValid)
-                    hoverColor = Color.FromArgb(128, 240, 160, 160);
-                drawRectangle(editor.hoverPos, (int)hoverData.radius, hoverColor);
+                if (editor.activeTool == EditorTool.Structure)
+                {
+                    drawImage(database.images.structures[editor.activeStructureType], 0, editor.hoverPos);
+                    StructureEntry entry = database.getStructureEntry(editor.activeStructureType);
+                    Color hoverColor = Color.FromArgb(128, 160, 240, 160);
+                    if (!editor.hoverPosValidForPlacement)
+                        hoverColor = Color.FromArgb(128, 240, 160, 160);
+                    drawRectangle(editor.hoverPos, (int)entry.radius, hoverColor);
+                }
+                if(editor.activeTool == EditorTool.Select && editor.selectedStructureIndex != -1)
+                {
+                    Structure seletedStructure = editor.level.structures[editor.selectedStructureIndex];
+                    Color selectedColor = Color.FromArgb(128, 150, 150, 250);
+                    drawRectangle(seletedStructure.center, (int)seletedStructure.entry.radius, selectedColor);
+                }
             }
 
             resizeScreen(renderWidth, renderHeight);

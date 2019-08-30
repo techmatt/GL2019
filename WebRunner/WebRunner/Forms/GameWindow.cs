@@ -31,8 +31,8 @@ namespace WebRunner
         {
             if(manager == null)
             {
-                manager = new GameManager(pictureBoxMain);
-                manager.reset("testMission");
+                manager = new GameManager(pictureBoxMain, null);
+                manager.startMission("testMission", null);
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
         }

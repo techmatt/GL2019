@@ -10,9 +10,34 @@ namespace WebRunner
     static class Util
     {
         static Random random = new Random();
+        public static int randInt(int min, int maxExclusive)
+        {
+            return random.Next(min, maxExclusive);
+        }
         public static double uniform(double min, double max)
         {
             return random.NextDouble() * (max - min) + min;
+        }
+        public static string dictToString(Dictionary<string, string> dict)
+        {
+            string result = "";
+            foreach(var e in dict)
+            {
+                string v = e.Key + "=" + e.Value + " ";
+                result += v;
+            }
+            return result;
+        }
+        public static Dictionary<string, string> stringToDict(string s)
+        {
+            var result = new Dictionary<string, string>();
+            foreach(string entry in s.Split(' '))
+            {
+                if (entry.Length == 0) continue;
+                string[] parts = entry.Split('=');
+                result[parts[0]] = parts[1];
+            }
+            return result;
         }
     }
 

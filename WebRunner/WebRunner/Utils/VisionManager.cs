@@ -43,7 +43,7 @@ namespace WebRunner
         }
 
         //Mat frameCopy = new Mat();
-        private List<Marker> runDetection(Mat frame, GameData data)
+        private List<Marker> runDetection(Mat frame, GameDatabase database)
         {
             var result = new List<Marker>();
 
@@ -59,10 +59,10 @@ namespace WebRunner
                 for(int markerIdx = 0; markerIdx < ids.Size; markerIdx++)
                 {
                     int id = ids[markerIdx];
-                    ToolType type = data.getToolType(id);
+                    ToolType type = database.getToolType(id);
                     if (type == ToolType.InvalidID)
                         continue;
-                    ToolData toolData = data.getToolData(type);
+                    ToolData toolData = database.getToolData(type);
                     var cornerList = corners[markerIdx];
                     var corner0 = new Vec2(cornerList[0].X * xScale, cornerList[0].Y * yScale);
                     var corner1 = new Vec2(cornerList[1].X * xScale, cornerList[1].Y * yScale);
@@ -76,19 +76,10 @@ namespace WebRunner
         }
 
         Mat latestWebcamImage = null;
-        public Bitmap processWebcamImage(out List<Marker> markers, GameData data)
+        public Bitmap processWebcamImage(out List<Marker> markers, GameDatabase data)
         {
-            /*if(debugFrame == null)
-            {
-                debugFrame = capture.QueryFrame();
-            }
-            markers = runDetection(debugFrame, data);
-            return debugFrame.Bitmap;*/
-
             latestWebcamImage = capture.QueryFrame();
-            
-            //markers = runDetection(frame, data);
-            markers = new List<Marker>();
+            markers = runDetection(latestWebcamImage, data);
             return latestWebcamImage.Bitmap;
         }
     }

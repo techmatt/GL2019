@@ -3,69 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace WebRunner
 {
-    class Structure
-    {
-        public Structure(StructureType _type, GameData _data, Vec2 _worldPos)
-        {
-            type = _type;
-            data = _data.getStructureData(_type);
-            worldPos = _worldPos;
-        }
-
-        public Vec2 curSweepDirection()
-        {
-            double theta = curSweepAngle * Math.PI / 180.0;
-            return new Vec2(Math.Cos(theta), Math.Sin(theta));
-        }
-
-        //
-        // intrinsic parameters
-        //
-        public StructureType type;
-        public StructureData data;
-        public Vec2 worldPos;
-        public double sweepAngleStart = 60.0, sweepAngleEnd = 300.0, sweepAngleSpeed = 5.0;
-
-        //
-        // transient parameters
-        //
-        public double curSweepAngle = 120.0;
-        public int curSweepAngleSign = 1;
-        public double curCameraViewDist = 0.0;
-    }
-
+    
     class GameLevel
     {
         public Rect2 worldRect;
         public List<Structure> structures;
         public string backgroundName;
 
-        public GameLevel(string filename, GameData data, double xStart)
+        public GameLevel(string filename, GameDatabase database, double xStart)
         {
             structures = new List<Structure>();
             worldRect = Rect2.fromOriginSize(new Vec2(xStart, 0), Constants.viewportSize);
             backgroundName = "brushedMetal";
-            if (filename == "editor")
+            if (filename == "emptyLevel")
             {
-                Structure randomCamera = new Structure(StructureType.Camera, data, worldRect.randomPoint());
-                structures.Add(randomCamera);
                 return;
             }
             if (filename == "debug")
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Structure randomCamera = new Structure(StructureType.Camera, data, worldRect.randomPoint());
+                    Structure randomCamera = new Structure(StructureType.Camera, database, worldRect.randomPoint());
                     structures.Add(randomCamera);
 
-                    Structure randomWall = new Structure(StructureType.Wall, data, worldRect.randomPoint());
+                    Structure randomWall = new Structure(StructureType.Wall, database, worldRect.randomPoint());
                     structures.Add(randomWall);
                 }
                 return;
             }
+            var lines = File.ReadAllLines(filename);
+            backgroundName = lines[0];
+            int structureCount = Convert.ToInt32(lines[1]);
+            for(int i = 0; i < structureCount; i++)
+            {
+                var dict = Util.stringToDict(lines[2 + i]);
+                structures.Add(new Structure(dict, database));
+            }
+        }
+
+        public void saveToFile(string filenameOut)
+        {
+            var linesOut = new List<string>();
+            linesOut.Add(backgroundName);
+            linesOut.Add(structures.Count().ToString());
+            for(int i = 0; i < structures.Count(); i++)
+            {
+                var dict = structures[i].toDict();
+                var dictString = Util.dictToString(dict);
+                linesOut.Add(dictString);
+            }
+            File.WriteAllLines(filenameOut, linesOut);
         }
 
         public Tuple<double, Structure> findFirstIntersection(Vec2 rOrigin, Vec2 rDirection, bool isCamera)
@@ -76,7 +67,7 @@ namespace WebRunner
                 bool blocking = false;
                 if (structure.type == StructureType.Wall) blocking = true;
                 if (!blocking) continue;
-                Rect2 rect = Rect2.fromCenterRadius(structure.worldPos, new Vec2(structure.data.radius, structure.data.radius));
+                Rect2 rect = Rect2.fromCenterRadius(structure.center, new Vec2(structure.entry.radius, structure.entry.radius));
 
                 Vec2[] verts = new Vec2[4];
                 verts[0] = rect.pMin;
@@ -99,17 +90,16 @@ namespace WebRunner
             return result;
         }
 
-        public void updateStructures(GameData data, GameState state)
+        public void updateStructures(GameDatabase database, GameState state)
         {
             foreach (Structure structure in structures)
             {
-                //StructureData structureData = data.getStructureData(structure.type);
                 if (structure.type == StructureType.Camera)
                 {
                     structure.curSweepAngle += structure.sweepAngleSpeed * structure.curSweepAngleSign;
-                    if (structure.curSweepAngle >= structure.sweepAngleEnd)
+                    if (structure.curSweepAngle >= structure.sweepAngleEnd())
                     {
-                        structure.curSweepAngle = structure.sweepAngleEnd - 0.001;
+                        structure.curSweepAngle = structure.sweepAngleEnd() - 0.001;
                         structure.curSweepAngleSign = -1;
                     }
                     if (structure.curSweepAngle <= structure.sweepAngleStart)
@@ -118,26 +108,24 @@ namespace WebRunner
                         structure.curSweepAngleSign = 1;
                     }
 
-                    var intersection = findFirstIntersection(structure.worldPos, structure.curSweepDirection(), true);
+                    var intersection = findFirstIntersection(structure.center, structure.curSweepDirection(), true);
                     structure.curCameraViewDist = intersection.Item1;
                 }
             }
         }
 
-        public void render(GameScreen gameScreen, GameData data, GameState state)
+        public void render(GameScreen gameScreen, GameDatabase database, GameState state)
         {
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in structures)
             {
                 if(structure.type == StructureType.Camera)
                 {
-                    gameScreen.drawCircle(structure.worldPos, (int)structure.data.radius, data.cameraBrushInterior, data.cameraPenThin);
-                    gameScreen.drawArc(structure.worldPos, (int)structure.data.radius, data.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleEnd - structure.sweepAngleStart);
-                    gameScreen.drawLine(structure.worldPos, structure.worldPos + structure.curSweepDirection() * structure.curCameraViewDist, data.cameraRay);
-                    //curCameraViewDist
-                    //structure.worldPos, structure.curSweepDirection()
+                    gameScreen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                    gameScreen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+                    gameScreen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
                 }
-                gameScreen.drawImage(data.images.structures[structure.type], structure.worldPos - viewportOrigin);
+                gameScreen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
             }
         }
 

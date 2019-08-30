@@ -8,20 +8,19 @@ namespace WebRunner
 {
     class EditorManager
     {
-        public EditorManager(GameManager _manager)
+        public EditorManager()
         {
-            manager = _manager;
-            data = manager.data;
-            level = manager.state.levels[0];
+            
         }
 
         public GameManager manager;
-        public GameData data;
+        public GameDatabase database;
         public GameLevel level;
-        public EditorTool activeTool;
+        public EditorTool activeTool = EditorTool.Select;
         public StructureType activeStructureType;
-        public Vec2 hoverPos = Vec2.Origin;
-        public bool hoverPosValid = false;
+        public Vec2 hoverPos = new Vec2();
+        public bool hoverPosValidForPlacement = false;
+        public int selectedStructureIndex = -1;
         
         public Vec2 lockToGrid(Vec2 coord, bool lockToMiddleOfCell)
         {
@@ -33,16 +32,20 @@ namespace WebRunner
 
         public void mouseMove(Vec2 coord)
         {
+            if (activeTool == EditorTool.Select)
+            {
+                hoverPos = coord;
+            }
             if (activeTool == EditorTool.Structure)
             {
-                Vec2 size = manager.data.getStructureData(activeStructureType).gridSize;
+                Vec2 size = manager.database.getStructureEntry(activeStructureType).gridSize;
                 bool lockToMiddleOfCell = false;
                 if ((int)size.x == 2) lockToMiddleOfCell = true;
                 hoverPos = lockToGrid(coord, lockToMiddleOfCell);
 
                 var nearestStructure = closestStructure(level.structures, hoverPos);
-                StructureData hoverStructureData = data.getStructureData(activeStructureType);
-                hoverPosValid = (nearestStructure.Item2 > hoverStructureData.radius);
+                StructureEntry hoverStructureData = database.getStructureEntry(activeStructureType);
+                hoverPosValidForPlacement = (nearestStructure.Item2 > hoverStructureData.radius);
             }
         }
 
@@ -50,15 +53,16 @@ namespace WebRunner
         {
             activeTool = EditorTool.Structure;
             activeStructureType = structure;
+            selectedStructureIndex = -1;
         }
 
         public double distToStructure(Structure structure, Vec2 pos)
         {
-            var data = manager.data.getStructureData(structure.type);
-            if (data.shape == ShapeType.Circle)
-                return DistUtil.pointToCircleDist(pos, structure.worldPos, data.radius);
-            if (data.shape == ShapeType.Square)
-                return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.worldPos, data.radius - 0.5));
+            var entry = manager.database.getStructureEntry(structure.type);
+            if (entry.shape == ShapeType.Circle)
+                return DistUtil.pointToCircleDist(pos, structure.center, entry.radius);
+            if (entry.shape == ShapeType.Square)
+                return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.center, entry.radius - 0.5));
             throw new Exception("invalid shape");
         }
 
@@ -82,10 +86,18 @@ namespace WebRunner
         public void leftMouseDown(Vec2 coord)
         {
             mouseMove(coord);
-            if (!hoverPosValid) return;
+            if (activeTool == EditorTool.Select)
+            {
+                var nearestStructure = closestStructure(level.structures, hoverPos);
+                if (nearestStructure.Item2 <= 1e-5)
+                {
+                    selectedStructureIndex = nearestStructure.Item1;
+                }
+            }
             if (activeTool == EditorTool.Structure)
             {
-                Structure newStructure = new Structure(activeStructureType, data, hoverPos);
+                if (!hoverPosValidForPlacement) return;
+                Structure newStructure = new Structure(activeStructureType, database, hoverPos);
                 level.structures.Add(newStructure);
             }
         }
@@ -93,14 +105,22 @@ namespace WebRunner
         public void rightMouseDown(Vec2 coord)
         {
             mouseMove(coord);
-            if (activeTool == EditorTool.Structure)
+            if (activeTool == EditorTool.Select)
             {
                 var nearestStructure = closestStructure(level.structures, hoverPos);
                 if (nearestStructure.Item2 <= 1e-5)
                 {
                     level.removeStructure(nearestStructure.Item1);
+                    selectedStructureIndex = -1;
                 }
             }
+        }
+
+        public Structure getSelectedStructure()
+        {
+            if (selectedStructureIndex == -1 || selectedStructureIndex >= level.structures.Count())
+                return null;
+            return level.structures[selectedStructureIndex];
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WebRunner
 
     enum EditorTool
     {
-        None,
+        Select,
         Structure
     }
 }

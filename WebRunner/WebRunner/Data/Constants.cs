@@ -32,6 +32,6 @@ namespace WebRunner
 
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         static public String imageOriginalDir = dataDir + "imagesOriginal/";
-        static public String missionDir = dataDir + "missions/";
+        static public String missionBaseDir = dataDir + "missions/";
     }
 }
