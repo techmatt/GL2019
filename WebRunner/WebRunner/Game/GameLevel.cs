@@ -12,7 +12,29 @@ namespace WebRunner
     {
         public Rect2 worldRect;
         public List<Structure> structures;
+
         public string backgroundName;
+        public double guardSpawnRate = 1000.0;
+        public double ICESpawnRate = 1000.0;
+        public double maxCompletionTime = 1000.0;
+
+        public Dictionary<string, string> makeGlobalsDict()
+        {
+            var result = new Dictionary<string, string>();
+            result["backgroundName"] = backgroundName;
+            result["guardSpawnRate"] = guardSpawnRate.ToString();
+            result["ICESpawnRate"] = ICESpawnRate.ToString();
+            result["maxCompletionTime"] = maxCompletionTime.ToString();
+            return result;
+        }
+
+        void loadGlobalsFromDict(Dictionary<string, string> dict)
+        {
+            backgroundName = dict["backgroundName"];
+            guardSpawnRate = Convert.ToDouble(dict["guardSpawnRate"]);
+            ICESpawnRate = Convert.ToDouble(dict["ICESpawnRate"]);
+            maxCompletionTime = Convert.ToDouble(dict["maxCompletionTime"]);
+        }
 
         public GameLevel(string filename, GameDatabase database, double xStart)
         {
@@ -36,7 +58,9 @@ namespace WebRunner
                 return;
             }
             var lines = File.ReadAllLines(filename);
-            backgroundName = lines[0];
+            //backgroundName = lines[0];
+            var globalsDict = Util.stringToDict(lines[0]);
+            loadGlobalsFromDict(globalsDict);
             int structureCount = Convert.ToInt32(lines[1]);
             for(int i = 0; i < structureCount; i++)
             {
@@ -48,7 +72,9 @@ namespace WebRunner
         public void saveToFile(string filenameOut)
         {
             var linesOut = new List<string>();
-            linesOut.Add(backgroundName);
+            //linesOut.Add(backgroundName);
+            var globalsDict = makeGlobalsDict();
+            linesOut.Add(Util.dictToString(globalsDict));
             linesOut.Add(structures.Count().ToString());
             for(int i = 0; i < structures.Count(); i++)
             {

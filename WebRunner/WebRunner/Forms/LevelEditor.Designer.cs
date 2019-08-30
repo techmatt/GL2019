@@ -57,6 +57,19 @@
             this.radioButtonSpawnPoint = new System.Windows.Forms.RadioButton();
             this.radioButtonDoor = new System.Windows.Forms.RadioButton();
             this.radioButtonObjective = new System.Windows.Forms.RadioButton();
+            this.scrollICESpawnRate = new System.Windows.Forms.HScrollBar();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.scrollGuardSpawnRate = new System.Windows.Forms.HScrollBar();
+            this.scrollMaxTime = new System.Windows.Forms.HScrollBar();
+            this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
+            this.hScrollBar5 = new System.Windows.Forms.HScrollBar();
+            this.labelIceSpawnRate = new System.Windows.Forms.Label();
+            this.labelGuardSpawnRate = new System.Windows.Forms.Label();
+            this.labelMaxTime = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -353,18 +366,141 @@
             this.radioButtonObjective.UseVisualStyleBackColor = true;
             this.radioButtonObjective.CheckedChanged += new System.EventHandler(this.radioButtonObjective_CheckedChanged);
             // 
+            // scrollICESpawnRate
+            // 
+            this.scrollICESpawnRate.Location = new System.Drawing.Point(954, 936);
+            this.scrollICESpawnRate.Name = "scrollICESpawnRate";
+            this.scrollICESpawnRate.Size = new System.Drawing.Size(256, 22);
+            this.scrollICESpawnRate.TabIndex = 14;
+            this.scrollICESpawnRate.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollICESpawnRate_Scroll);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(829, 936);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(122, 20);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "ICE spawn rate:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(811, 901);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(140, 20);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Guard spawn rate:";
+            // 
+            // scrollGuardSpawnRate
+            // 
+            this.scrollGuardSpawnRate.Location = new System.Drawing.Point(954, 901);
+            this.scrollGuardSpawnRate.Name = "scrollGuardSpawnRate";
+            this.scrollGuardSpawnRate.Size = new System.Drawing.Size(256, 22);
+            this.scrollGuardSpawnRate.TabIndex = 14;
+            this.scrollGuardSpawnRate.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollGuardSpawnRate_Scroll);
+            // 
+            // scrollMaxTime
+            // 
+            this.scrollMaxTime.Location = new System.Drawing.Point(954, 869);
+            this.scrollMaxTime.Name = "scrollMaxTime";
+            this.scrollMaxTime.Size = new System.Drawing.Size(256, 22);
+            this.scrollMaxTime.TabIndex = 14;
+            this.scrollMaxTime.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollMaxTime_Scroll);
+            // 
+            // hScrollBar4
+            // 
+            this.hScrollBar4.Location = new System.Drawing.Point(954, 968);
+            this.hScrollBar4.Name = "hScrollBar4";
+            this.hScrollBar4.Size = new System.Drawing.Size(256, 22);
+            this.hScrollBar4.TabIndex = 14;
+            // 
+            // hScrollBar5
+            // 
+            this.hScrollBar5.Location = new System.Drawing.Point(954, 1002);
+            this.hScrollBar5.Name = "hScrollBar5";
+            this.hScrollBar5.Size = new System.Drawing.Size(256, 22);
+            this.hScrollBar5.TabIndex = 14;
+            // 
+            // labelIceSpawnRate
+            // 
+            this.labelIceSpawnRate.AutoSize = true;
+            this.labelIceSpawnRate.Location = new System.Drawing.Point(1213, 938);
+            this.labelIceSpawnRate.Name = "labelIceSpawnRate";
+            this.labelIceSpawnRate.Size = new System.Drawing.Size(31, 20);
+            this.labelIceSpawnRate.TabIndex = 13;
+            this.labelIceSpawnRate.Text = "0.0";
+            // 
+            // labelGuardSpawnRate
+            // 
+            this.labelGuardSpawnRate.AutoSize = true;
+            this.labelGuardSpawnRate.Location = new System.Drawing.Point(1213, 903);
+            this.labelGuardSpawnRate.Name = "labelGuardSpawnRate";
+            this.labelGuardSpawnRate.Size = new System.Drawing.Size(31, 20);
+            this.labelGuardSpawnRate.TabIndex = 13;
+            this.labelGuardSpawnRate.Text = "0.0";
+            // 
+            // labelMaxTime
+            // 
+            this.labelMaxTime.AutoSize = true;
+            this.labelMaxTime.Location = new System.Drawing.Point(1213, 871);
+            this.labelMaxTime.Name = "labelMaxTime";
+            this.labelMaxTime.Size = new System.Drawing.Size(31, 20);
+            this.labelMaxTime.TabIndex = 13;
+            this.labelMaxTime.Text = "0.0";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(1213, 970);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(31, 20);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "0.0";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(1213, 1002);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(31, 20);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "0.0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(875, 871);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(76, 20);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Max time:";
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 1116);
+            this.Controls.Add(this.hScrollBar5);
+            this.Controls.Add(this.hScrollBar4);
+            this.Controls.Add(this.scrollMaxTime);
+            this.Controls.Add(this.scrollGuardSpawnRate);
+            this.Controls.Add(this.scrollICESpawnRate);
             this.Controls.Add(this.labelSpeed);
             this.Controls.Add(this.labelAngleB);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.labelMaxTime);
+            this.Controls.Add(this.labelGuardSpawnRate);
+            this.Controls.Add(this.labelIceSpawnRate);
             this.Controls.Add(this.labelAngleA);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.scrollSpeed);
             this.Controls.Add(this.scrollAngleB);
@@ -426,5 +562,18 @@
         private System.Windows.Forms.RadioButton radioButtonSpawnPoint;
         private System.Windows.Forms.RadioButton radioButtonDoor;
         private System.Windows.Forms.RadioButton radioButtonObjective;
+        private System.Windows.Forms.HScrollBar scrollICESpawnRate;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.HScrollBar scrollGuardSpawnRate;
+        private System.Windows.Forms.HScrollBar scrollMaxTime;
+        private System.Windows.Forms.HScrollBar hScrollBar4;
+        private System.Windows.Forms.HScrollBar hScrollBar5;
+        private System.Windows.Forms.Label labelIceSpawnRate;
+        private System.Windows.Forms.Label labelGuardSpawnRate;
+        private System.Windows.Forms.Label labelMaxTime;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label10;
     }
 }

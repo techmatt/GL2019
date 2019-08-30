@@ -80,6 +80,7 @@ namespace WebRunner
                 editor = new EditorManager();
                 manager = new GameManager(pictureBoxMain, editor);
                 manager.startMission("defaultMission", "emptyLevel");
+                levelUpdate();
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
         }
@@ -121,7 +122,6 @@ namespace WebRunner
                 editor.rightMouseDown(new Vec2(e.X, e.Y));
                 selectionUpdate();
             }
-
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -150,10 +150,18 @@ namespace WebRunner
                     if(File.Exists(filename))
                     {
                         manager.startMission(textBoxMissionName.Text, textBoxLevelName.Text);
+                        levelUpdate();
                         radioButtonSelect.Checked = true;
                     }
                 }
             }
+        }
+
+        private void levelUpdate()
+        {
+            labelGuardSpawnRate.Text = editor.level.guardSpawnRate.ToString();
+            labelIceSpawnRate.Text = editor.level.ICESpawnRate.ToString();
+            labelMaxTime.Text = editor.level.maxCompletionTime.ToString();
         }
 
         private void selectionUpdate()
@@ -167,6 +175,10 @@ namespace WebRunner
 
         private void scrollUpdate()
         {
+            editor.level.guardSpawnRate = Convert.ToDouble(labelGuardSpawnRate.Text);
+            editor.level.ICESpawnRate = Convert.ToDouble(labelIceSpawnRate.Text);
+            editor.level.maxCompletionTime = Convert.ToDouble(labelMaxTime.Text);
+
             Structure selection = editor.getSelectedStructure();
             if (selection == null) return;
             selection.sweepAngleStart = Convert.ToDouble(labelAngleA.Text);
@@ -192,5 +204,22 @@ namespace WebRunner
             scrollUpdate();
         }
 
+        private void scrollICESpawnRate_Scroll(object sender, ScrollEventArgs e)
+        {
+            labelIceSpawnRate.Text = (scrollICESpawnRate.Value / 100.0 * 20.0 + 2.0).ToString();
+            scrollUpdate();
+        }
+
+        private void scrollMaxTime_Scroll(object sender, ScrollEventArgs e)
+        {
+            labelMaxTime.Text = (scrollMaxTime.Value / 100.0 * 120.0 + 20.0).ToString();
+            scrollUpdate();
+        }
+
+        private void scrollGuardSpawnRate_Scroll(object sender, ScrollEventArgs e)
+        {
+            labelGuardSpawnRate.Text = (scrollGuardSpawnRate.Value / 100.0 * 20.0 + 2.0).ToString();
+            scrollUpdate();
+        }
     }
 }
