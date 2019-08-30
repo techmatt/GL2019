@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace WebRunner
 {
@@ -74,19 +75,21 @@ namespace WebRunner
             return result;
         }
 
-        Mat debugFrame = null;
+        Mat latestWebcamImage = null;
         public Bitmap processWebcamImage(out List<Marker> markers, GameData data)
         {
-            if(debugFrame == null)
+            /*if(debugFrame == null)
             {
                 debugFrame = capture.QueryFrame();
             }
             markers = runDetection(debugFrame, data);
-            return debugFrame.Bitmap;
+            return debugFrame.Bitmap;*/
 
-            //Mat frame = capture.QueryFrame();
+            latestWebcamImage = capture.QueryFrame();
+            
             //markers = runDetection(frame, data);
-            //return frame.Bitmap;
+            markers = new List<Marker>();
+            return latestWebcamImage.Bitmap;
         }
     }
 }
