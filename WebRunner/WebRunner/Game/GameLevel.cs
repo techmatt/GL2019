@@ -85,7 +85,7 @@ namespace WebRunner
             File.WriteAllLines(filenameOut, linesOut);
         }
 
-        public Tuple<double, Structure> findFirstIntersection(Vec2 rOrigin, Vec2 rDirection, bool isCamera)
+        public Tuple<double, Structure> findFirstStructureIntersection(Vec2 rOrigin, Vec2 rDirection, bool isCamera)
         {
             Tuple<double, Structure> result = new Tuple<double, Structure>(Constants.viewportSize.x * 2.0, null);
             foreach (Structure structure in structures)
@@ -134,8 +134,23 @@ namespace WebRunner
                         structure.curSweepAngleSign = 1;
                     }
 
-                    var intersection = findFirstIntersection(structure.center, structure.curSweepDirection(), true);
+                    var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
                     structure.curCameraViewDist = intersection.Item1;
+
+                    Structure hitStructure = intersection.Item2;
+                    if (hitStructure != null)
+                    {
+                        //if(hitStructure.)
+                    }
+                }
+
+                if(structure.type == StructureType.SpawnPoint)
+                {
+                    if(state.activeRunnerA == null)
+                    {
+                        state.activeRunnerA = new Runner(structure.center);
+                        //state.activeRunnerImageHash = Util.randInt(0, 100000);
+                    }
                 }
             }
         }

@@ -30,6 +30,10 @@ namespace WebRunner
 
         static public int gridSize = 40;
 
+        static public double runMaxDistA = 150.0;
+        static public double runMaxDistB = 400.0;
+        static public double runSpeed = 7.0;
+
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         static public String imageOriginalDir = dataDir + "imagesOriginal/";
         static public String missionBaseDir = dataDir + "missions/";

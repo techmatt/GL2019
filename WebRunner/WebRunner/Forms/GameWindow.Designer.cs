@@ -1,6 +1,6 @@
 ﻿namespace WebRunner
 {
-    partial class Form2
+    partial class GameWindow
     {
         /// <summary>
         /// Required designer variable.

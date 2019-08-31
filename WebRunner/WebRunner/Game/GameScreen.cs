@@ -91,7 +91,16 @@ namespace WebRunner
                 level.render(this, database, state);
             }
 
-            foreach(Marker m in state.markers)
+            if(state.activeRunnerA != null)
+            {
+                drawImage(database.images.runners, 0, state.activeRunnerA.center);
+            }
+            if (state.activeRunnerB != null)
+            {
+                drawImage(database.images.runners, 0, state.activeRunnerB.center);
+            }
+
+            foreach (Marker m in state.markers)
             {
                 //drawRotatedImage(m.center, m.orientation, database.images.shield.getBmp(0));
                 //drawCircle(m.center, 15, m.toolData.brush, null);

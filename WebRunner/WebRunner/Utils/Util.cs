@@ -39,6 +39,11 @@ namespace WebRunner
             }
             return result;
         }
+
+        public static double linearMap(double x, double minValIn, double maxValIn, double minValOut, double maxValOut)
+        {
+            return ((x - minValIn) * (maxValOut - minValOut) / (maxValIn - minValIn) + minValOut);
+        }
     }
 
     static class IntersectUtil

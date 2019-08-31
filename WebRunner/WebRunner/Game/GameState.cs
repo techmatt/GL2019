@@ -7,6 +7,15 @@ using System.IO;
 
 namespace WebRunner
 {
+    class Runner
+    {
+        public Runner(Vec2 _center)
+        {
+            center = _center;
+        }
+        public Vec2 center;
+    }
+
     class GameState
     {
         public List<Marker> markers;
@@ -14,6 +23,10 @@ namespace WebRunner
 
         public List<GameLevel> activeLevels;
         public Rect2 viewport;
+
+        public Runner activeRunnerA = null;
+        public Runner activeRunnerB = null;
+        //public int activeRunnerImageHash = 0;
 
         public GameState(string missionName, string levelNameOverride, GameDatabase database)
         {

@@ -25,7 +25,8 @@ namespace WebRunner
 
     enum ToolType
     {
-        Run,
+        RunA,
+        RunB,
         Distraction,
         InvalidID
     }
@@ -80,14 +81,15 @@ namespace WebRunner
         {
             images = new ImageDatabase();
 
-            IDToToolDict[0] = ToolType.Run;
-            IDToToolDict[1] = ToolType.Run;
-            IDToToolDict[2] = ToolType.Run;
-            IDToToolDict[3] = ToolType.Run;
-            IDToToolDict[4] = ToolType.Run;
+            IDToToolDict[0] = ToolType.RunA;
+            IDToToolDict[1] = ToolType.RunB;
+            IDToToolDict[2] = ToolType.RunA;
+            IDToToolDict[3] = ToolType.RunB;
+            IDToToolDict[4] = ToolType.RunA;
             IDToToolDict[5] = ToolType.Distraction;
 
-            registerTool(ToolType.Run, "run", Color.FromArgb(200, 50, 50));
+            registerTool(ToolType.RunA, "runA", Color.FromArgb(200, 50, 50));
+            registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
             
             registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, new Vec2(2, 2));

@@ -14,8 +14,11 @@ namespace WebRunner
         {
             screen = new GameScreen(_targetBox, database);
             editor = _editor;
-            editor.manager = this;
-            editor.database = database;
+            if (editor != null)
+            {
+                editor.manager = this;
+                editor.database = database;
+            }
         }
 
         public GameDatabase database = new GameDatabase();
@@ -27,7 +30,23 @@ namespace WebRunner
         public void startMission(string missionName, string levelName)
         {
             state = new GameState(missionName, levelName, database);
-            editor.level = state.levels[0];
+            if(editor != null)
+                editor.level = state.levels[0];
+        }
+
+        void moveRunner(Marker m, Runner runner)
+        {
+            Vec2 delta = m.center - runner.center;
+            double dist = delta.length();
+            double speed = 0.0;
+            if (dist < Constants.runMaxDistA) speed = Constants.runSpeed;
+            else if (dist < Constants.runMaxDistB) speed = Util.linearMap(dist, Constants.runMaxDistA, Constants.runMaxDistB, Constants.runSpeed, 0.0);
+
+            if (speed > 0.0)
+            {
+                delta = delta.getNormalized();
+                runner.center += delta * speed;
+            }
         }
 
         void step()
@@ -38,6 +57,18 @@ namespace WebRunner
             foreach(GameLevel level in state.activeLevels)
             {
                 level.updateStructures(database, state);
+            }
+
+            foreach (Marker m in state.markers)
+            {
+                if (m.entry.type == ToolType.RunA && state.activeRunnerA != null)
+                {
+                    moveRunner(m, state.activeRunnerA);
+                }
+                if (m.entry.type == ToolType.RunB && state.activeRunnerB != null)
+                {
+                    moveRunner(m, state.activeRunnerB);
+                }
             }
         }
 

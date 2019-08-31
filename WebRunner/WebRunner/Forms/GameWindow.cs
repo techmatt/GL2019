@@ -13,9 +13,9 @@ using System.IO;
 
 namespace WebRunner
 {
-    public partial class Form2 : Form
+    public partial class GameWindow : Form
     {
-        public Form2()
+        public GameWindow()
         {
             InitializeComponent();
         }
@@ -32,7 +32,7 @@ namespace WebRunner
             if(manager == null)
             {
                 manager = new GameManager(pictureBoxMain, null);
-                manager.startMission("testMission", null);
+                manager.startMission("defaultMission", "emptyLevel");
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
         }
