@@ -97,7 +97,7 @@ namespace WebRunner
             }
             if (state.activeRunnerB != null)
             {
-                drawImage(database.images.runners, 0, state.activeRunnerB.center);
+                drawImage(database.images.runners, 1, state.activeRunnerB.center);
             }
 
             foreach (Marker m in state.markers)

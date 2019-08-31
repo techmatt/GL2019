@@ -151,6 +151,11 @@ namespace WebRunner
                         state.activeRunnerA = new Runner(structure.center);
                         //state.activeRunnerImageHash = Util.randInt(0, 100000);
                     }
+                    if (state.activeRunnerB == null)
+                    {
+                        state.activeRunnerB = new Runner(structure.center);
+                        //state.activeRunnerImageHash = Util.randInt(0, 100000);
+                    }
                 }
             }
         }

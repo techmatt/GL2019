@@ -24,7 +24,7 @@ namespace WebRunner
 
         static public Vec2 viewportSize = new Vec2(1280, 720);
 
-        static public int webcamCaptureIndex = 0;
+        static public int webcamCaptureIndex = 1;
 
         static public int backgroundAlpha = 200;
 
@@ -33,6 +33,8 @@ namespace WebRunner
         static public double runMaxDistA = 150.0;
         static public double runMaxDistB = 400.0;
         static public double runSpeed = 7.0;
+
+        static public double runnerRadius = 20.0;
 
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         static public String imageOriginalDir = dataDir + "imagesOriginal/";

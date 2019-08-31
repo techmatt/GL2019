@@ -45,7 +45,11 @@ namespace WebRunner
             if (speed > 0.0)
             {
                 delta = delta.getNormalized();
-                runner.center += delta * speed;
+                Vec2 newCenter = runner.center + delta * speed;
+                GameLevel mainLevel = state.activeLevels[0];
+                var closest = Util.closestStructure(mainLevel.structures, newCenter, database.runnerBlockingStructures);
+                if (closest.Item2 > Constants.runnerRadius)
+                    runner.center = newCenter;
             }
         }
 

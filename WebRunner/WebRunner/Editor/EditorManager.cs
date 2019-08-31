@@ -43,7 +43,7 @@ namespace WebRunner
                 if ((int)size.x == 2) lockToMiddleOfCell = true;
                 hoverPos = lockToGrid(coord, lockToMiddleOfCell);
 
-                var nearestStructure = closestStructure(level.structures, hoverPos);
+                var nearestStructure = Util.closestStructure(level.structures, hoverPos, null);
                 StructureEntry hoverStructureData = database.getStructureEntry(activeStructureType);
                 hoverPosValidForPlacement = (nearestStructure.Item2 > hoverStructureData.radius);
             }
@@ -56,39 +56,12 @@ namespace WebRunner
             selectedStructureIndex = -1;
         }
 
-        public double distToStructure(Structure structure, Vec2 pos)
-        {
-            var entry = manager.database.getStructureEntry(structure.type);
-            if (entry.shape == ShapeType.Circle)
-                return DistUtil.pointToCircleDist(pos, structure.center, entry.radius);
-            if (entry.shape == ShapeType.Square)
-                return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.center, entry.radius - 0.5));
-            throw new Exception("invalid shape");
-        }
-
-        public Tuple<int, double> closestStructure(List<Structure> structures, Vec2 pos)
-        {
-            double result = double.MaxValue;
-            int bestIdx = -1;
-            for(int structureIdx = 0; structureIdx < structures.Count(); structureIdx++)
-            {
-                Structure structure = structures[structureIdx];
-                double dist = distToStructure(structure, pos);
-                if (dist < result)
-                {
-                    result = dist;
-                    bestIdx = structureIdx;
-                }
-            }
-            return new Tuple<int, double>(bestIdx, result);
-        }
-
         public void leftMouseDown(Vec2 coord)
         {
             mouseMove(coord);
             if (activeTool == EditorTool.Select)
             {
-                var nearestStructure = closestStructure(level.structures, hoverPos);
+                var nearestStructure = Util.closestStructure(level.structures, hoverPos, null);
                 if (nearestStructure.Item2 <= 1e-5)
                 {
                     selectedStructureIndex = nearestStructure.Item1;
@@ -107,7 +80,7 @@ namespace WebRunner
             mouseMove(coord);
             if (activeTool == EditorTool.Select)
             {
-                var nearestStructure = closestStructure(level.structures, hoverPos);
+                var nearestStructure = Util.closestStructure(level.structures, hoverPos, null);
                 if (nearestStructure.Item2 <= 1e-5)
                 {
                     level.removeStructure(nearestStructure.Item1);

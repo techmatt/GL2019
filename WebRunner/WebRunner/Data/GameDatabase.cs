@@ -91,7 +91,7 @@ namespace WebRunner
             registerTool(ToolType.RunA, "runA", Color.FromArgb(200, 50, 50));
             registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
-            
+
             registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
@@ -123,6 +123,9 @@ namespace WebRunner
         public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
         public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
         public Pen cameraRay = new Pen(Color.FromArgb(255, 240, 240, 140), 6.0f);
+
+        public HashSet<StructureType> runnerBlockingStructures = new HashSet<StructureType>() {
+            StructureType.Wall, StructureType.Firewall, StructureType.Camera, StructureType.Shielding };
 
         public ImageDatabase images;
     }

@@ -44,6 +44,35 @@ namespace WebRunner
         {
             return ((x - minValIn) * (maxValOut - minValOut) / (maxValIn - minValIn) + minValOut);
         }
+
+        public static double distToStructure(Structure structure, Vec2 pos)
+        {
+            var entry = structure.entry;
+            if (entry.shape == ShapeType.Circle)
+                return DistUtil.pointToCircleDist(pos, structure.center, entry.radius);
+            if (entry.shape == ShapeType.Square)
+                return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.center, entry.radius - 0.5));
+            throw new Exception("invalid shape");
+        }
+
+        public static Tuple<int, double> closestStructure(List<Structure> structures, Vec2 pos, HashSet<StructureType> validStructures)
+        {
+            double result = double.MaxValue;
+            int bestIdx = -1;
+            for (int structureIdx = 0; structureIdx < structures.Count(); structureIdx++)
+            {
+                Structure structure = structures[structureIdx];
+                if (validStructures != null && !validStructures.Contains(structure.type))
+                    continue;
+                double dist = distToStructure(structure, pos);
+                if (dist < result)
+                {
+                    result = dist;
+                    bestIdx = structureIdx;
+                }
+            }
+            return new Tuple<int, double>(bestIdx, result);
+        }
     }
 
     static class IntersectUtil
