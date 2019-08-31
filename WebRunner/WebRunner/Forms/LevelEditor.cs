@@ -50,10 +50,16 @@ namespace WebRunner
                 editor.setToolStructure(StructureType.Shielding);
         }
 
-        private void radioButtonSpawnPoint_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonSpawnA_CheckedChanged(object sender, EventArgs e)
         {
             if (editor != null)
-                editor.setToolStructure(StructureType.SpawnPoint);
+                editor.setToolStructure(StructureType.SpawnPointA);
+        }
+
+        private void radioButtonSpawnB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (editor != null)
+                editor.setToolStructure(StructureType.SpawnPointB);
         }
 
         private void radioButtonDoor_CheckedChanged(object sender, EventArgs e)

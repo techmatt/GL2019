@@ -21,8 +21,12 @@ namespace WebRunner
         public List<Marker> markers;
         public List<GameLevel> levels;
 
-        public List<GameLevel> activeLevels;
+        public List<GameLevel> visibleLevels;
+        public GameLevel activeLevel;
         public Rect2 viewport;
+
+        public List<Structure> curFrameTemporaryStructures;
+        public List<Structure> nextFrameTemporaryStructures;
 
         public Runner activeRunnerA = null;
         public Runner activeRunnerB = null;
@@ -51,9 +55,10 @@ namespace WebRunner
             }
             viewport = Rect2.fromOriginSize(new Vec2(), Constants.viewportSize);
             updateViewport(0);
+            nextFrameTemporaryStructures = new List<Structure>();
         }
 
-        public List<GameLevel> computeActiveLevels()
+        public List<GameLevel> computeVisibleLevels()
         {
             var result = new List<GameLevel>();
             foreach(GameLevel level in levels)
@@ -70,7 +75,18 @@ namespace WebRunner
         {
             viewport.pMin.x += deltaX;
             viewport.pMax.x += deltaX;
-            activeLevels = computeActiveLevels();
+            visibleLevels = computeVisibleLevels();
+            activeLevel = visibleLevels[0];
+        }
+
+        public void killRunnerA()
+        {
+            activeRunnerA = null;
+        }
+
+        public void killRunnerB()
+        {
+            activeRunnerB = null;
         }
     }
 }

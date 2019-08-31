@@ -83,7 +83,7 @@ namespace WebRunner
             gViewport.Clear(Color.Black);
 
             gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
-            foreach (GameLevel level in state.activeLevels)
+            foreach (GameLevel level in state.visibleLevels)
             {
                 ImageEntry backgroundImg = database.images.getBackground(level.backgroundName, false);
                 Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;
@@ -91,13 +91,19 @@ namespace WebRunner
                 level.render(this, database, state);
             }
 
-            if(state.activeRunnerA != null)
+            /*if(state.activeRunnerA != null)
             {
                 drawImage(database.images.runners, 0, state.activeRunnerA.center);
             }
             if (state.activeRunnerB != null)
             {
                 drawImage(database.images.runners, 1, state.activeRunnerB.center);
+            }*/
+
+            Vec2 viewportOrigin = state.viewport.pMin;
+            foreach (Structure structure in state.curFrameTemporaryStructures)
+            {
+                drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
             }
 
             foreach (Marker m in state.markers)

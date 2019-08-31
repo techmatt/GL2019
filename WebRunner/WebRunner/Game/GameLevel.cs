@@ -85,39 +85,10 @@ namespace WebRunner
             File.WriteAllLines(filenameOut, linesOut);
         }
 
-        public Tuple<double, Structure> findFirstStructureIntersection(Vec2 rOrigin, Vec2 rDirection, bool isCamera)
+        public void updatePermanentStructures(GameDatabase database, GameState state)
         {
-            Tuple<double, Structure> result = new Tuple<double, Structure>(Constants.viewportSize.x * 2.0, null);
-            foreach (Structure structure in structures)
-            {
-                bool blocking = false;
-                if (structure.type == StructureType.Wall) blocking = true;
-                if (!blocking) continue;
-                Rect2 rect = Rect2.fromCenterRadius(structure.center, new Vec2(structure.entry.radius, structure.entry.radius));
+            var structureLists = new List<List<Structure>> { structures, state.curFrameTemporaryStructures };
 
-                Vec2[] verts = new Vec2[4];
-                verts[0] = rect.pMin;
-                verts[1] = new Vec2(rect.pMin.x, rect.pMax.y);
-                verts[2] = rect.pMax;
-                verts[3] = new Vec2(rect.pMax.x, rect.pMin.y);
-
-                for(int edgeIdx = 0; edgeIdx < 4; edgeIdx++)
-                {
-                    Vec2 v0 = verts[edgeIdx];
-                    Vec2 v1 = verts[(edgeIdx + 1) % 4];
-                    double? hit = IntersectUtil.rayIntersectSegment(rOrigin, rDirection, v0, v1);
-                    if(hit != null)
-                    {
-                        if (hit.Value < result.Item1)
-                            result = new Tuple<double, Structure>(hit.Value, structure);
-                    }
-                }
-            }
-            return result;
-        }
-
-        public void updateStructures(GameDatabase database, GameState state)
-        {
             foreach (Structure structure in structures)
             {
                 if (structure.type == StructureType.Camera)
@@ -134,28 +105,31 @@ namespace WebRunner
                         structure.curSweepAngleSign = 1;
                     }
 
-                    var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
+                    //var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
+                    var intersection = Util.findFirstRayStructureIntersection(structureLists, structure.center, structure.curSweepDirection(), database.cameraBlockingStructures);
                     structure.curCameraViewDist = intersection.Item1;
 
-                    Structure hitStructure = intersection.Item2;
-                    if (hitStructure != null)
+                    if(intersection.Item2 != -1)
                     {
-                        //if(hitStructure.)
+                        Structure hitStructure = structureLists[intersection.Item2][intersection.Item3];
+                        if(hitStructure.type == StructureType.RunnerA)
+                        {
+                            state.killRunnerA();
+                        }
+                        if (hitStructure.type == StructureType.RunnerB)
+                        {
+                            state.killRunnerB();
+                        }
                     }
                 }
 
-                if(structure.type == StructureType.SpawnPoint)
+                if (structure.type == StructureType.SpawnPointA && state.activeRunnerA == null)
                 {
-                    if(state.activeRunnerA == null)
-                    {
-                        state.activeRunnerA = new Runner(structure.center);
-                        //state.activeRunnerImageHash = Util.randInt(0, 100000);
-                    }
-                    if (state.activeRunnerB == null)
-                    {
-                        state.activeRunnerB = new Runner(structure.center);
-                        //state.activeRunnerImageHash = Util.randInt(0, 100000);
-                    }
+                    state.activeRunnerA = new Runner(structure.center);
+                }
+                if (structure.type == StructureType.SpawnPointB && state.activeRunnerB == null)
+                {
+                    state.activeRunnerB = new Runner(structure.center);
                 }
             }
         }

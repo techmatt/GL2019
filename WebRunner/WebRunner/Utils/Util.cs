@@ -51,7 +51,7 @@ namespace WebRunner
             if (entry.shape == ShapeType.Circle)
                 return DistUtil.pointToCircleDist(pos, structure.center, entry.radius);
             if (entry.shape == ShapeType.Square)
-                return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.center, entry.radius - 0.5));
+                return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.center, entry.radius - 0.1));
             throw new Exception("invalid shape");
         }
 
@@ -72,6 +72,42 @@ namespace WebRunner
                 }
             }
             return new Tuple<int, double>(bestIdx, result);
+        }
+
+        public static Tuple<double, int, int> findFirstRayStructureIntersection(List<List<Structure>> structureLists, Vec2 rOrigin, Vec2 rDirection, HashSet<StructureType> validStructureTypes)
+        {
+            var result = new Tuple<double, int, int>(Constants.viewportSize.x * 2.0, -1, -1);
+            for(int idxA = 0; idxA < structureLists.Count(); idxA++)
+            {
+                var structureList = structureLists[idxA];
+                for (int idxB = 0; idxB < structureList.Count(); idxB++)
+                {
+                    var structure = structureList[idxB];
+                    if (!validStructureTypes.Contains(structure.type))
+                        continue;
+
+                    Rect2 rect = Rect2.fromCenterRadius(structure.center, new Vec2(structure.entry.radius, structure.entry.radius));
+
+                    Vec2[] verts = new Vec2[4];
+                    verts[0] = rect.pMin;
+                    verts[1] = new Vec2(rect.pMin.x, rect.pMax.y);
+                    verts[2] = rect.pMax;
+                    verts[3] = new Vec2(rect.pMax.x, rect.pMin.y);
+
+                    for (int edgeIdx = 0; edgeIdx < 4; edgeIdx++)
+                    {
+                        Vec2 v0 = verts[edgeIdx];
+                        Vec2 v1 = verts[(edgeIdx + 1) % 4];
+                        double? hit = IntersectUtil.rayIntersectSegment(rOrigin, rDirection, v0, v1);
+                        if (hit != null)
+                        {
+                            if (hit.Value < result.Item1)
+                                result = new Tuple<double, int, int>(hit.Value, idxA, idxB);
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 

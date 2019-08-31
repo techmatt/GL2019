@@ -45,11 +45,30 @@ namespace WebRunner
             if (speed > 0.0)
             {
                 delta = delta.getNormalized();
-                Vec2 newCenter = runner.center + delta * speed;
-                GameLevel mainLevel = state.activeLevels[0];
-                var closest = Util.closestStructure(mainLevel.structures, newCenter, database.runnerBlockingStructures);
-                if (closest.Item2 > Constants.runnerRadius)
-                    runner.center = newCenter;
+                var acceptedSpeed = speed;
+                var closest = Util.closestStructure(state.activeLevel.structures, runner.center + delta * speed, database.runnerBlockingStructures);
+                if (closest.Item2 <= Constants.runnerRadius)
+                {
+                    var speedLowBound = 0.0;
+                    var speedHighBound = speed;
+                    System.Console.WriteLine("I: [" + speedLowBound.ToString() + ", " + speedHighBound.ToString() + "]");
+                    for (int i = 0; i < 4; i++)
+                    {
+                        var midpointSpeed = (speedLowBound + speedHighBound) * 0.5;
+                        var midpointDist = Util.closestStructure(state.activeLevel.structures, runner.center + delta * midpointSpeed, database.runnerBlockingStructures).Item2;
+                        if (midpointDist <= Constants.runnerRadius)
+                        {
+                            speedHighBound = midpointSpeed;
+                        }
+                        else
+                        {
+                            speedLowBound = midpointSpeed;
+                        }
+                        System.Console.WriteLine(i.ToString() + ": [" + speedLowBound.ToString() + ", " + speedHighBound.ToString() + "]");
+                    }
+                    acceptedSpeed = speedLowBound;
+                }
+                runner.center = runner.center + delta * acceptedSpeed;
             }
         }
 
@@ -58,9 +77,17 @@ namespace WebRunner
             double deltaX = 0.0;
             state.updateViewport(deltaX);
 
-            foreach(GameLevel level in state.activeLevels)
+            state.curFrameTemporaryStructures = state.nextFrameTemporaryStructures;
+            if (state.activeRunnerA != null)
+                state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerA, database, state.activeRunnerA.center));
+            if (state.activeRunnerB != null)
+                state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerB, database, state.activeRunnerB.center));
+
+            state.nextFrameTemporaryStructures = new List<Structure>();
+
+            foreach(GameLevel level in state.visibleLevels)
             {
-                level.updateStructures(database, state);
+                level.updatePermanentStructures(database, state);
             }
 
             foreach (Marker m in state.markers)

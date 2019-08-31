@@ -54,7 +54,7 @@
             this.labelSpeed = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.radioButtonSpawnPoint = new System.Windows.Forms.RadioButton();
+            this.radioButtonSpawnA = new System.Windows.Forms.RadioButton();
             this.radioButtonDoor = new System.Windows.Forms.RadioButton();
             this.radioButtonObjective = new System.Windows.Forms.RadioButton();
             this.scrollICESpawnRate = new System.Windows.Forms.HScrollBar();
@@ -70,6 +70,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.radioButtonSpawnB = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -324,19 +325,19 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Level Properties";
             // 
-            // radioButtonSpawnPoint
+            // radioButtonSpawnA
             // 
-            this.radioButtonSpawnPoint.AutoSize = true;
-            this.radioButtonSpawnPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSpawnPoint.Location = new System.Drawing.Point(12, 922);
-            this.radioButtonSpawnPoint.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.radioButtonSpawnPoint.Name = "radioButtonSpawnPoint";
-            this.radioButtonSpawnPoint.Size = new System.Drawing.Size(116, 24);
-            this.radioButtonSpawnPoint.TabIndex = 1;
-            this.radioButtonSpawnPoint.TabStop = true;
-            this.radioButtonSpawnPoint.Text = "Spawn Point";
-            this.radioButtonSpawnPoint.UseVisualStyleBackColor = true;
-            this.radioButtonSpawnPoint.CheckedChanged += new System.EventHandler(this.radioButtonSpawnPoint_CheckedChanged);
+            this.radioButtonSpawnA.AutoSize = true;
+            this.radioButtonSpawnA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSpawnA.Location = new System.Drawing.Point(12, 922);
+            this.radioButtonSpawnA.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radioButtonSpawnA.Name = "radioButtonSpawnA";
+            this.radioButtonSpawnA.Size = new System.Drawing.Size(87, 24);
+            this.radioButtonSpawnA.TabIndex = 1;
+            this.radioButtonSpawnA.TabStop = true;
+            this.radioButtonSpawnA.Text = "SpawnA";
+            this.radioButtonSpawnA.UseVisualStyleBackColor = true;
+            this.radioButtonSpawnA.CheckedChanged += new System.EventHandler(this.radioButtonSpawnA_CheckedChanged);
             // 
             // radioButtonDoor
             // 
@@ -476,6 +477,20 @@
             this.label10.TabIndex = 12;
             this.label10.Text = "Max time:";
             // 
+            // radioButtonSpawnB
+            // 
+            this.radioButtonSpawnB.AutoSize = true;
+            this.radioButtonSpawnB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSpawnB.Location = new System.Drawing.Point(107, 922);
+            this.radioButtonSpawnB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radioButtonSpawnB.Name = "radioButtonSpawnB";
+            this.radioButtonSpawnB.Size = new System.Drawing.Size(87, 24);
+            this.radioButtonSpawnB.TabIndex = 1;
+            this.radioButtonSpawnB.TabStop = true;
+            this.radioButtonSpawnB.Text = "SpawnB";
+            this.radioButtonSpawnB.UseVisualStyleBackColor = true;
+            this.radioButtonSpawnB.CheckedChanged += new System.EventHandler(this.radioButtonSpawnB_CheckedChanged);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -515,7 +530,8 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.radioButtonObjective);
             this.Controls.Add(this.radioButtonDoor);
-            this.Controls.Add(this.radioButtonSpawnPoint);
+            this.Controls.Add(this.radioButtonSpawnB);
+            this.Controls.Add(this.radioButtonSpawnA);
             this.Controls.Add(this.radioButtonWall);
             this.Controls.Add(this.radioButtonFirewall);
             this.Controls.Add(this.radioButtonShielding);
@@ -559,7 +575,7 @@
         private System.Windows.Forms.Label labelSpeed;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RadioButton radioButtonSpawnPoint;
+        private System.Windows.Forms.RadioButton radioButtonSpawnA;
         private System.Windows.Forms.RadioButton radioButtonDoor;
         private System.Windows.Forms.RadioButton radioButtonObjective;
         private System.Windows.Forms.HScrollBar scrollICESpawnRate;
@@ -575,5 +591,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.RadioButton radioButtonSpawnB;
     }
 }

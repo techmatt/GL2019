@@ -14,13 +14,21 @@ namespace WebRunner
     }
     enum StructureType
     {
+        // permanent structures
         Camera,
         Shielding,
         Firewall,
         Wall,
-        SpawnPoint,
+        SpawnPointA,
+        SpawnPointB,
         Door,
         Objective,
+
+        // temporary structures
+        RunnerA,
+        RunnerB,
+        Distraction
+
     }
 
     enum ToolType
@@ -96,9 +104,14 @@ namespace WebRunner
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, new Vec2(1, 1));
-            registerStructure(StructureType.SpawnPoint, "spawnpoint", 36.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.SpawnPointA, "spawnpointA", 36.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.SpawnPointB, "spawnpointB", 36.0, ShapeType.Circle, new Vec2(2, 2));
             registerStructure(StructureType.Door, "door", 36.0, ShapeType.Square, new Vec2(2, 2));
             registerStructure(StructureType.Objective, "objective", 32.0, ShapeType.Square, new Vec2(2, 2));
+
+            registerStructure(StructureType.RunnerA, "runnerA", Constants.runnerRadius, ShapeType.Circle, null);
+            registerStructure(StructureType.RunnerB, "runnerB", Constants.runnerRadius, ShapeType.Circle, null);
+            registerStructure(StructureType.Distraction, "distraction", 40.0f, ShapeType.Circle, null);
         }
         public ToolType getToolType(int id)
         {
@@ -126,6 +139,9 @@ namespace WebRunner
 
         public HashSet<StructureType> runnerBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.Firewall, StructureType.Camera, StructureType.Shielding };
+
+        public HashSet<StructureType> cameraBlockingStructures = new HashSet<StructureType>() {
+            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction };
 
         public ImageDatabase images;
     }

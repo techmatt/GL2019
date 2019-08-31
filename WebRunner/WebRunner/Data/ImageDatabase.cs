@@ -65,8 +65,12 @@ namespace WebRunner
             structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
             structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
             structures[StructureType.Door] = new ImageEntry("door", new Vec2(64, 64), 255);
-            structures[StructureType.SpawnPoint] = new ImageEntry("spawnpoint", new Vec2(60, 60), 255);
+            structures[StructureType.SpawnPointA] = new ImageEntry("spawnpointA", new Vec2(70, 70), 255);
+            structures[StructureType.SpawnPointB] = new ImageEntry("spawnpointB", new Vec2(70, 70), 255);
             structures[StructureType.Objective] = new ImageEntry("objective", 2, new Vec2(60, 60), 255);
+            structures[StructureType.RunnerA] = new ImageEntry("runnerA", new Vec2(60, 60), 255);
+            structures[StructureType.RunnerB] = new ImageEntry("runnerB", new Vec2(60, 60), 255);
+            structures[StructureType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
 
             tools[ToolType.RunA] = new ImageEntry("runA", new Vec2(60, 60), 255);
             tools[ToolType.RunB] = new ImageEntry("runB", new Vec2(60, 60), 255);
@@ -89,6 +93,6 @@ namespace WebRunner
         public Dictionary<ToolType, ImageEntry> tools = new Dictionary<ToolType, ImageEntry>();
 
         //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
-        public ImageEntry runners = new ImageEntry("runner", 2, new Vec2(55, 55), 255);
+        //public ImageEntry runners = new ImageEntry("runner", 2, new Vec2(55, 55), 255);
     }
 }

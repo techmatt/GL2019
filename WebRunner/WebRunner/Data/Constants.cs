@@ -32,7 +32,7 @@ namespace WebRunner
 
         static public double runMaxDistA = 150.0;
         static public double runMaxDistB = 400.0;
-        static public double runSpeed = 7.0;
+        static public double runSpeed = 10.0;
 
         static public double runnerRadius = 20.0;
 
