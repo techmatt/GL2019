@@ -93,6 +93,7 @@ namespace WebRunner
         public Dictionary<ToolType, ImageEntry> tools = new Dictionary<ToolType, ImageEntry>();
 
         //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
+        public ImageEntry orientationViewer = new ImageEntry("shield", new Vec2(200, 24), 128);
         //public ImageEntry runners = new ImageEntry("runner", 2, new Vec2(55, 55), 255);
     }
 }

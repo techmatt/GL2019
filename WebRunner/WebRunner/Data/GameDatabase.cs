@@ -28,7 +28,6 @@ namespace WebRunner
         RunnerA,
         RunnerB,
         Distraction
-
     }
 
     enum ToolType
