@@ -34,28 +34,41 @@ namespace WebRunner
                 editor.level = state.levels[0];
         }
 
+        Vec2 moveTowardsPoint(Vec2 runnerCenter, Vec2 targetPoint, double speed)
+        {
+            Vec2 delta = (targetPoint - runnerCenter).getNormalized();
+            Vec2 newPoint = runnerCenter + delta * speed;
+            bool xFlip = Math.Sign(newPoint.x - targetPoint.x) != Math.Sign(runnerCenter.x - targetPoint.x);
+            bool yFlip = Math.Sign(newPoint.y - targetPoint.y) != Math.Sign(runnerCenter.y - targetPoint.y);
+            if (xFlip) newPoint.x = targetPoint.x;
+            if (yFlip) newPoint.y = targetPoint.y;
+            return newPoint;
+        }
+
         void moveRunner(Marker m, Runner runner)
         {
-            Vec2 delta = m.center - runner.center;
+            Vec2 delta = m.worldCenter - runner.center;
             double dist = delta.length();
-            double speed = 0.0;
-            if (dist < Constants.runMaxDistA) speed = Constants.runSpeed;
-            else if (dist < Constants.runMaxDistB) speed = Util.linearMap(dist, Constants.runMaxDistA, Constants.runMaxDistB, Constants.runSpeed, 0.0);
+            double speedCap = 0.0;
+            if (dist < Constants.runMaxDistA) speedCap = Constants.runSpeed;
+            else if (dist < Constants.runMaxDistB) speedCap = Util.linearMap(dist, Constants.runMaxDistA, Constants.runMaxDistB, Constants.runSpeed, 0.0);
 
-            if (speed > 0.0)
+            var remainingSpeed = 0.0;
+            if (speedCap > 0.0)
             {
                 delta = delta.getNormalized();
-                var acceptedSpeed = speed;
-                var closest = Util.closestStructure(state.activeLevel.structures, runner.center + delta * speed, database.runnerBlockingStructures);
+                var acceptedSpeed = speedCap;
+                var newCenter = moveTowardsPoint(runner.center, m.worldCenter, speedCap);
+                var closest = Util.closestStructure(state.activeLevel.structures, newCenter, database.runnerBlockingStructures);
                 if (closest.Item2 <= Constants.runnerRadius)
                 {
                     var speedLowBound = 0.0;
-                    var speedHighBound = speed;
-                    System.Console.WriteLine("I: [" + speedLowBound.ToString() + ", " + speedHighBound.ToString() + "]");
+                    var speedHighBound = speedCap;
+                    //System.Console.WriteLine("I: [" + speedLowBound.ToString() + ", " + speedHighBound.ToString() + "]");
                     for (int i = 0; i < 4; i++)
                     {
                         var midpointSpeed = (speedLowBound + speedHighBound) * 0.5;
-                        var midpointDist = Util.closestStructure(state.activeLevel.structures, runner.center + delta * midpointSpeed, database.runnerBlockingStructures).Item2;
+                        var midpointDist = Util.closestStructure(state.activeLevel.structures, moveTowardsPoint(runner.center, m.worldCenter, midpointSpeed), database.runnerBlockingStructures).Item2;
                         if (midpointDist <= Constants.runnerRadius)
                         {
                             speedHighBound = midpointSpeed;
@@ -64,11 +77,34 @@ namespace WebRunner
                         {
                             speedLowBound = midpointSpeed;
                         }
-                        System.Console.WriteLine(i.ToString() + ": [" + speedLowBound.ToString() + ", " + speedHighBound.ToString() + "]");
+                        //System.Console.WriteLine(i.ToString() + ": [" + speedLowBound.ToString() + ", " + speedHighBound.ToString() + "]");
                     }
                     acceptedSpeed = speedLowBound;
+                    remainingSpeed = speedCap - acceptedSpeed;
                 }
-                runner.center = runner.center + delta * acceptedSpeed;
+                runner.center = moveTowardsPoint(runner.center, m.worldCenter, acceptedSpeed);
+            }
+            if (remainingSpeed > 0.0)
+            {
+                Vec2 targetPtX = new Vec2(m.worldCenter.x, runner.center.y);
+                Vec2 newCenterX = moveTowardsPoint(runner.center, targetPtX, remainingSpeed);
+                var closestX = Util.closestStructure(state.activeLevel.structures, newCenterX, database.runnerBlockingStructures);
+                if (closestX.Item2 > Constants.runnerRadius)
+                {
+                    runner.center = newCenterX;
+                    remainingSpeed = 0.0;
+                }
+            }
+            if (remainingSpeed > 0.0)
+            {
+                Vec2 targetPtY = new Vec2(runner.center.x, m.worldCenter.y);
+                Vec2 newCenterY = moveTowardsPoint(runner.center, targetPtY, remainingSpeed);
+                var closestY = Util.closestStructure(state.activeLevel.structures, newCenterY, database.runnerBlockingStructures);
+                if (closestY.Item2 > Constants.runnerRadius)
+                {
+                    runner.center = newCenterY;
+                    remainingSpeed = 0.0;
+                }
             }
         }
 
@@ -105,7 +141,7 @@ namespace WebRunner
 
         public void stepAndRender(int renderWidth, int renderHeight)
         {
-            Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, database);
+            Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, database, state.viewport.pMin);
             //image.Save("test.png");
             step();
             screen.render(webcamBitmap, state, editor, renderWidth, renderHeight);

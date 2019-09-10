@@ -43,7 +43,7 @@ namespace WebRunner
         }
 
         //Mat frameCopy = new Mat();
-        private List<Marker> runDetection(Mat frame, GameDatabase database)
+        private List<Marker> runDetection(Mat frame, GameDatabase database, Vec2 worldOrigin)
         {
             var result = new List<Marker>();
 
@@ -69,17 +69,17 @@ namespace WebRunner
                     var corner2 = new Vec2(cornerList[2].X * xScale, cornerList[2].Y * yScale);
                     var corner3 = new Vec2(cornerList[3].X * xScale, cornerList[3].Y * yScale);
                     
-                    result.Add(new Marker(toolData, corner0, corner1, corner2, corner3));
+                    result.Add(new Marker(toolData, worldOrigin, corner0, corner1, corner2, corner3));
                 }
             }
             return result;
         }
 
         Mat latestWebcamImage = null;
-        public Bitmap processWebcamImage(out List<Marker> markers, GameDatabase data)
+        public Bitmap processWebcamImage(out List<Marker> markers, GameDatabase database, Vec2 worldOrigin)
         {
             latestWebcamImage = capture.QueryFrame();
-            markers = runDetection(latestWebcamImage, data);
+            markers = runDetection(latestWebcamImage, database, worldOrigin);
             return latestWebcamImage.Bitmap;
         }
     }
