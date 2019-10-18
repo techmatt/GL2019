@@ -114,11 +114,11 @@ namespace WebRunner
                         Structure hitStructure = structureLists[intersection.Item2][intersection.Item3];
                         if(hitStructure.type == StructureType.RunnerA)
                         {
-                            //state.killRunnerA();
+                            state.killRunnerA();
                         }
                         if (hitStructure.type == StructureType.RunnerB)
                         {
-                            //state.killRunnerB();
+                            state.killRunnerB();
                         }
                     }
                 }

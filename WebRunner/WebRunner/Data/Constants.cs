@@ -24,7 +24,7 @@ namespace WebRunner
 
         static public Vec2 viewportSize = new Vec2(1280, 720);
 
-        static public int webcamCaptureIndex = 1;
+        static public int webcamCaptureIndex = 0;
 
         static public int backgroundAlpha = 200;
 
@@ -37,7 +37,22 @@ namespace WebRunner
         static public double runnerRadius = 20.0;
 
         static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
+        static public String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
         static public String imageOriginalDir = dataDir + "imagesOriginal/";
         static public String missionBaseDir = dataDir + "missions/";
+    }
+
+    enum JoystickButtonType
+    {
+        A,
+        B,
+        X,
+        Y,
+        Start,
+        Back,
+        L1,
+        L2,
+        R1,
+        R2,
     }
 }

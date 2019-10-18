@@ -26,12 +26,16 @@ namespace WebRunner
         GameScreen screen;
         public EditorManager editor = null;
         public VisionManager vision = new VisionManager();
+        public JoystickManager joystick = new JoystickManager();
+        public SoundManager sound = new SoundManager();
 
         public void startMission(string missionName, string levelName)
         {
             state = new GameState(missionName, levelName, database);
             if(editor != null)
                 editor.level = state.levels[0];
+
+            sound.playSpeech("mission start");
         }
 
         Vec2 moveTowardsPoint(Vec2 runnerCenter, Vec2 targetPoint, double speed)
@@ -110,6 +114,8 @@ namespace WebRunner
 
         void step()
         {
+            joystick.poll();
+
             double deltaX = 0.0;
             state.updateViewport(deltaX);
 
