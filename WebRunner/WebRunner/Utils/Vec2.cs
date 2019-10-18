@@ -94,6 +94,10 @@ namespace WebRunner
             double dY = v1.y - v0.y;
             return dX * dX + dY * dY;
         }
+        public override string ToString()
+        {
+            return x.ToString() + "," + y.ToString();
+        }
         public double x;
         public double y;
     }
