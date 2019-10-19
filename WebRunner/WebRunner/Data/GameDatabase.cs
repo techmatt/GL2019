@@ -23,6 +23,8 @@ namespace WebRunner
         SpawnPointB,
         Door,
         Objective,
+        Shoes,
+        LaserGun,
 
         // temporary structures
         RunnerA,
@@ -107,6 +109,8 @@ namespace WebRunner
             registerStructure(StructureType.SpawnPointB, "spawnpointB", 36.0, ShapeType.Circle, new Vec2(2, 2));
             registerStructure(StructureType.Door, "door", 36.0, ShapeType.Square, new Vec2(2, 2));
             registerStructure(StructureType.Objective, "objective", 32.0, ShapeType.Square, new Vec2(2, 2));
+            registerStructure(StructureType.Shoes, "shoes", 32.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.LaserGun, "laserGun", 32.0, ShapeType.Circle, new Vec2(2, 2));
 
             registerStructure(StructureType.RunnerA, "runnerA", Constants.runnerRadius, ShapeType.Circle, null);
             registerStructure(StructureType.RunnerB, "runnerB", Constants.runnerRadius, ShapeType.Circle, null);

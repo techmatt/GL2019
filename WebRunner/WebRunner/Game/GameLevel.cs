@@ -85,12 +85,19 @@ namespace WebRunner
             File.WriteAllLines(filenameOut, linesOut);
         }
 
-        public void updatePermanentStructures(GameDatabase database, GameState state)
+        public void updatePermanentStructures(GameManager manager)
         {
+            var database = manager.database;
+            var state = manager.state;
+            var sound = manager.sound;
+
             var structureLists = new List<List<Structure>> { structures, state.curFrameTemporaryStructures };
 
             foreach (Structure structure in structures)
             {
+                if (structure.type == StructureType.Wall)
+                    continue;
+
                 if (structure.type == StructureType.Camera)
                 {
                     structure.curSweepAngle += structure.sweepAngleSpeed * structure.curSweepAngleSign;
@@ -131,6 +138,34 @@ namespace WebRunner
                 {
                     state.activeRunnerB = new Runner(structure.center);
                 }
+
+                for(int runnerIndex = 0; runnerIndex < 2; runnerIndex++)
+                {
+                    Runner runner = state.getActiveRunner(runnerIndex);
+                    if (runner == null)
+                        continue;
+                    double distSq = Vec2.distSq(runner.center, structure.center);
+                    if(distSq <= Constants.runnerRadius * Constants.runnerRadius)
+                    {
+                        if(structure.type == StructureType.Shoes)
+                        {
+                            if(!runner.hasShoes)
+                            {
+                                sound.playSpeech("Biomia footware acquired");
+                                runner.hasShoes = true;
+                            }
+                        }
+                        if (structure.type == StructureType.LaserGun)
+                        {
+                            if (!runner.hasLaser)
+                            {
+                                sound.playSpeech("Onyx laser gun acquired");
+                                runner.hasLaser = true;
+                            }
+                        }
+                    }
+                }
+                //structure.center
             }
         }
 

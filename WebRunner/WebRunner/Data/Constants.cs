@@ -10,36 +10,36 @@ namespace WebRunner
     class Constants
     {
         //public Font consoleFont = new Font(new FontFamily("Times New Roman"), 32, FontStyle.Regular, GraphicsUnit.Pixel);
-        public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
-        public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
-        public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
+        static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
+        static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
+        static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
 
-        static public int renderWidthWindowed = 1280;
-        static public int renderHeightWindowed = 720;
+        public const int renderWidthWindowed = 1280;
+        public const int renderHeightWindowed = 720;
 
-        static public int renderWidthFull = 1280;
-        static public int renderHeightFull = 720;
+        public const int renderWidthFull = 1280;
+        public const int renderHeightFull = 720;
 
-        static public bool useFullscreen = true;
+        public const bool useFullscreen = true;
 
         static public Vec2 viewportSize = new Vec2(1280, 720);
 
-        static public int webcamCaptureIndex = 0;
+        public const int webcamCaptureIndex = 0;
 
-        static public int backgroundAlpha = 200;
+        public const int backgroundAlpha = 200;
 
-        static public int gridSize = 40;
+        public const int gridSize = 40;
 
-        static public double runMaxDistA = 150.0;
-        static public double runMaxDistB = 400.0;
-        static public double runSpeed = 10.0;
+        public const double runMaxDistA = 150.0;
+        public const double runMaxDistB = 400.0;
+        public const double runSpeed = 10.0;
 
-        static public double runnerRadius = 20.0;
+        public const double runnerRadius = 20.0;
 
-        static public String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
-        static public String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
-        static public String imageOriginalDir = dataDir + "imagesOriginal/";
-        static public String missionBaseDir = dataDir + "missions/";
+        public const String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
+        public const String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
+        public const String imageOriginalDir = dataDir + "imagesOriginal/";
+        public const String missionBaseDir = dataDir + "missions/";
     }
 
     enum JoystickButtonType

@@ -26,6 +26,12 @@ namespace WebRunner
 
         }
 
+        private void setEditorStructure(StructureType type)
+        {
+            if (editor != null)
+                editor.setToolStructure(type);
+        }
+
         private void radioButtonCamera_CheckedChanged(object sender, EventArgs e)
         {
             if(editor != null)
@@ -72,6 +78,16 @@ namespace WebRunner
         {
             if (editor != null)
                 editor.setToolStructure(StructureType.Objective);
+        }
+
+        private void radioButtonShoes_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.Shoes);
+        }
+
+        private void radioButtonLaserGun_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.LaserGun);
         }
 
         private void radioButtonSelect_CheckedChanged(object sender, EventArgs e)

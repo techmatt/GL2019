@@ -28,18 +28,17 @@ namespace WebRunner
 
     class JoystickManager
     {
-        const int debugMaxJoystickCount = 1;
+        const int debugMaxJoystickCount = 2;
 
         static double padClamp(double x)
         {
-            if (x >= -0.05 && x < 0.05) return 0.0;
+            if (x >= -0.2 && x < 0.2) return 0.0;
             return x;
         }
 
         public List<RunnerJoystickState> joysticks = new List<RunnerJoystickState>();
         List<Joystick> DXjoysticks = new List<Joystick>();
         
-
         public JoystickManager()
         {
             // Initialize DirectInput
@@ -106,7 +105,6 @@ namespace WebRunner
                         offset:Y roffset:4 seq:12 val:32766
                         */
                 }
-                //33279 32766
                 JoystickState DXstate = DXJoystick.GetCurrentState();
                 runnerState.padA.x = padClamp((DXstate.X - 32767) / 32767.0);
                 runnerState.padA.y = padClamp((DXstate.Y - 32767) / 32767.0);

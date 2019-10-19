@@ -12,8 +12,13 @@ namespace WebRunner
         public Runner(Vec2 _center)
         {
             center = _center;
+            laserDir = new Vec2(1.0, 0.0);
         }
         public Vec2 center;
+        public Vec2 laserDir;
+
+        public bool hasLaser = false;
+        public bool hasShoes = false;
     }
 
     class GameState
@@ -31,6 +36,12 @@ namespace WebRunner
         public Runner activeRunnerA = null;
         public Runner activeRunnerB = null;
         //public int activeRunnerImageHash = 0;
+
+        public Runner getActiveRunner(int index)
+        {
+            if (index == 0) return activeRunnerA;
+            return activeRunnerB;
+        }
 
         public GameState(string missionName, string levelNameOverride, GameDatabase database)
         {

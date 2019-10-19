@@ -1,5 +1,5 @@
 backgroundName=brushedMetal guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-123
+125
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -123,3 +123,5 @@ type=Wall centerX=980 centerY=380 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Objective centerX=1080 centerY=120 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=SpawnPointA centerX=80 centerY=120 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=SpawnPointB centerX=160 centerY=120 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Shoes centerX=80 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=LaserGun centerX=80 centerY=360 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

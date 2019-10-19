@@ -71,6 +71,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.radioButtonSpawnB = new System.Windows.Forms.RadioButton();
+            this.radioButtonShoes = new System.Windows.Forms.RadioButton();
+            this.radioButtonLaserGun = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -491,11 +493,37 @@
             this.radioButtonSpawnB.UseVisualStyleBackColor = true;
             this.radioButtonSpawnB.CheckedChanged += new System.EventHandler(this.radioButtonSpawnB_CheckedChanged);
             // 
+            // radioButtonShoes
+            // 
+            this.radioButtonShoes.AutoSize = true;
+            this.radioButtonShoes.Location = new System.Drawing.Point(111, 956);
+            this.radioButtonShoes.Name = "radioButtonShoes";
+            this.radioButtonShoes.Size = new System.Drawing.Size(73, 24);
+            this.radioButtonShoes.TabIndex = 15;
+            this.radioButtonShoes.TabStop = true;
+            this.radioButtonShoes.Text = "Shoes";
+            this.radioButtonShoes.UseVisualStyleBackColor = true;
+            this.radioButtonShoes.CheckedChanged += new System.EventHandler(this.radioButtonShoes_CheckedChanged);
+            // 
+            // radioButtonLaserGun
+            // 
+            this.radioButtonLaserGun.AutoSize = true;
+            this.radioButtonLaserGun.Location = new System.Drawing.Point(111, 990);
+            this.radioButtonLaserGun.Name = "radioButtonLaserGun";
+            this.radioButtonLaserGun.Size = new System.Drawing.Size(102, 24);
+            this.radioButtonLaserGun.TabIndex = 16;
+            this.radioButtonLaserGun.TabStop = true;
+            this.radioButtonLaserGun.Text = "Laser Gun";
+            this.radioButtonLaserGun.UseVisualStyleBackColor = true;
+            this.radioButtonLaserGun.CheckedChanged += new System.EventHandler(this.radioButtonLaserGun_CheckedChanged);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 1116);
+            this.Controls.Add(this.radioButtonLaserGun);
+            this.Controls.Add(this.radioButtonShoes);
             this.Controls.Add(this.hScrollBar5);
             this.Controls.Add(this.hScrollBar4);
             this.Controls.Add(this.scrollMaxTime);
@@ -592,5 +620,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.RadioButton radioButtonSpawnB;
+        private System.Windows.Forms.RadioButton radioButtonShoes;
+        private System.Windows.Forms.RadioButton radioButtonLaserGun;
     }
 }

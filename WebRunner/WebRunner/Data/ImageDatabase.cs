@@ -71,6 +71,8 @@ namespace WebRunner
             structures[StructureType.RunnerA] = new ImageEntry("runnerA", new Vec2(60, 60), 255);
             structures[StructureType.RunnerB] = new ImageEntry("runnerB", new Vec2(60, 60), 255);
             structures[StructureType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
+            structures[StructureType.Shoes] = new ImageEntry("shoes", new Vec2(60, 60), 255);
+            structures[StructureType.LaserGun] = new ImageEntry("laserGun", new Vec2(60, 60), 255);
 
             tools[ToolType.RunA] = new ImageEntry("runA", new Vec2(60, 60), 255);
             tools[ToolType.RunB] = new ImageEntry("runB", new Vec2(60, 60), 255);

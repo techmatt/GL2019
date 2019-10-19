@@ -49,20 +49,32 @@ namespace WebRunner
             return newPoint;
         }
 
-        void moveRunner(Marker m, Runner runner)
+        void moveRunnerUsingMarker(Marker m, Runner runner)
         {
             Vec2 delta = m.worldCenter - runner.center;
             double dist = delta.length();
             double speedCap = 0.0;
             if (dist < Constants.runMaxDistA) speedCap = Constants.runSpeed;
             else if (dist < Constants.runMaxDistB) speedCap = Util.linearMap(dist, Constants.runMaxDistA, Constants.runMaxDistB, Constants.runSpeed, 0.0);
+            moveRunner(delta.getNormalized(), speedCap, runner);
+        }
 
+        void moveRunnerUsingJoystick(Vec2 pad, Runner runner)
+        {
+            double padMagnitude = pad.length();
+            if (padMagnitude <= 0.01) return;
+
+            moveRunner(pad.getNormalized(), Constants.runSpeed, runner);
+        }
+
+        void moveRunner(Vec2 dir, double speedCap, Runner runner)
+        {
             var remainingSpeed = 0.0;
+            var targetPt = runner.center + dir * speedCap;
             if (speedCap > 0.0)
             {
-                delta = delta.getNormalized();
                 var acceptedSpeed = speedCap;
-                var newCenter = moveTowardsPoint(runner.center, m.worldCenter, speedCap);
+                var newCenter = moveTowardsPoint(runner.center, targetPt, speedCap);
                 var closest = Util.closestStructure(state.activeLevel.structures, newCenter, database.runnerBlockingStructures);
                 if (closest.Item2 <= Constants.runnerRadius)
                 {
@@ -72,7 +84,7 @@ namespace WebRunner
                     for (int i = 0; i < 4; i++)
                     {
                         var midpointSpeed = (speedLowBound + speedHighBound) * 0.5;
-                        var midpointDist = Util.closestStructure(state.activeLevel.structures, moveTowardsPoint(runner.center, m.worldCenter, midpointSpeed), database.runnerBlockingStructures).Item2;
+                        var midpointDist = Util.closestStructure(state.activeLevel.structures, moveTowardsPoint(runner.center, targetPt, midpointSpeed), database.runnerBlockingStructures).Item2;
                         if (midpointDist <= Constants.runnerRadius)
                         {
                             speedHighBound = midpointSpeed;
@@ -86,11 +98,11 @@ namespace WebRunner
                     acceptedSpeed = speedLowBound;
                     remainingSpeed = speedCap - acceptedSpeed;
                 }
-                runner.center = moveTowardsPoint(runner.center, m.worldCenter, acceptedSpeed);
+                runner.center = moveTowardsPoint(runner.center, targetPt, acceptedSpeed);
             }
             if (remainingSpeed > 0.0)
             {
-                Vec2 targetPtX = new Vec2(m.worldCenter.x, runner.center.y);
+                Vec2 targetPtX = new Vec2(targetPt.x, runner.center.y);
                 Vec2 newCenterX = moveTowardsPoint(runner.center, targetPtX, remainingSpeed);
                 var closestX = Util.closestStructure(state.activeLevel.structures, newCenterX, database.runnerBlockingStructures);
                 if (closestX.Item2 > Constants.runnerRadius)
@@ -101,7 +113,7 @@ namespace WebRunner
             }
             if (remainingSpeed > 0.0)
             {
-                Vec2 targetPtY = new Vec2(runner.center.x, m.worldCenter.y);
+                Vec2 targetPtY = new Vec2(runner.center.x, targetPt.y);
                 Vec2 newCenterY = moveTowardsPoint(runner.center, targetPtY, remainingSpeed);
                 var closestY = Util.closestStructure(state.activeLevel.structures, newCenterY, database.runnerBlockingStructures);
                 if (closestY.Item2 > Constants.runnerRadius)
@@ -129,19 +141,30 @@ namespace WebRunner
 
             foreach(GameLevel level in state.visibleLevels)
             {
-                level.updatePermanentStructures(database, state);
+                level.updatePermanentStructures(this);
             }
 
             foreach (Marker m in state.markers)
             {
                 if (m.entry.type == ToolType.RunA && state.activeRunnerA != null)
                 {
-                    moveRunner(m, state.activeRunnerA);
+                    moveRunnerUsingMarker(m, state.activeRunnerA);
                 }
                 if (m.entry.type == ToolType.RunB && state.activeRunnerB != null)
                 {
-                    moveRunner(m, state.activeRunnerB);
+                    moveRunnerUsingMarker(m, state.activeRunnerB);
                 }
+            }
+
+            if (joystick.joysticks.Count >= 1 && state.activeRunnerA != null)
+            {
+                moveRunnerUsingJoystick(joystick.joysticks[0].padA, state.activeRunnerA);
+                state.activeRunnerA.laserDir = joystick.joysticks[0].padB;
+            }
+            if (joystick.joysticks.Count >= 2 && state.activeRunnerB != null)
+            {
+                moveRunnerUsingJoystick(joystick.joysticks[1].padA, state.activeRunnerB);
+                state.activeRunnerB.laserDir = joystick.joysticks[1].padB;
             }
         }
 
