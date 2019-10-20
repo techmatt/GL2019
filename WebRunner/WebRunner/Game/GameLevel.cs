@@ -98,9 +98,16 @@ namespace WebRunner
                 if (structure.type == StructureType.Wall)
                     continue;
 
-                if (structure.type == StructureType.Camera)
+                if (structure.type == StructureType.Camera || structure.type == StructureType.StationaryMirror)
                 {
-                    structure.curSweepAngle += structure.sweepAngleSpeed * structure.curSweepAngleSign;
+                    if (structure.sweepAngleSpeed < 0.11)
+                    {
+                        structure.curSweepAngle = structure.sweepAngleStart + 0.002;
+                    }
+                    else
+                    {
+                        structure.curSweepAngle += structure.sweepAngleSpeed * structure.curSweepAngleSign;
+                    }
                     if (structure.curSweepAngle >= structure.sweepAngleEnd())
                     {
                         structure.curSweepAngle = structure.sweepAngleEnd() - 0.001;
@@ -111,7 +118,10 @@ namespace WebRunner
                         structure.curSweepAngle = structure.sweepAngleStart + 0.001;
                         structure.curSweepAngleSign = 1;
                     }
+                }
 
+                if (structure.type == StructureType.Camera)
+                {
                     //var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
                     var intersection = Util.findFirstRayStructureIntersection(structureLists, structure.center, structure.curSweepDirection(), database.cameraBlockingStructures);
                     structure.curCameraViewDist = intersection.Item1;
@@ -165,22 +175,31 @@ namespace WebRunner
                         }
                     }
                 }
-                //structure.center
             }
         }
 
-        public void render(GameScreen gameScreen, GameDatabase database, GameState state)
+        public void render(GameScreen screen, GameDatabase database, GameState state, EditorManager editor)
         {
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in structures)
             {
                 if(structure.type == StructureType.Camera)
                 {
-                    gameScreen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
-                    gameScreen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
-                    gameScreen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
+                    screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                    screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+                    screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
                 }
-                gameScreen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+                if (structure.type == StructureType.StationaryMirror)
+                {
+                    if (editor != null)
+                    {
+                        screen.drawCircle(structure.center, (int)(structure.entry.radius), database.cameraBrushInterior, database.cameraPenThin);
+                        screen.drawArc(structure.center, (int)(structure.entry.radius), database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+                    }
+                    screen.drawRotatedImage(structure.center, structure.curSweepDirection(), database.images.structures[StructureType.StationaryMirror].getBmp(0));
+                    continue;
+                }
+                screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
             }
         }
 

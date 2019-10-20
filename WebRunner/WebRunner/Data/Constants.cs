@@ -23,7 +23,7 @@ namespace WebRunner
         public const bool useFullscreen = true;
 
         static public Vec2 viewportSize = new Vec2(1280, 720);
-
+        public const double shoeSpeedMultiplier = 1.3;
         public const int webcamCaptureIndex = 0;
 
         public const int backgroundAlpha = 200;
@@ -36,13 +36,15 @@ namespace WebRunner
 
         public const double runnerRadius = 20.0;
 
+        public const int maxBeamBounces = 10;
+
         public const String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         public const String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
         public const String imageOriginalDir = dataDir + "imagesOriginal/";
         public const String missionBaseDir = dataDir + "missions/";
     }
 
-    enum JoystickButtonType
+    /*enum JoystickButtonType
     {
         A,
         B,
@@ -54,5 +56,5 @@ namespace WebRunner
         L2,
         R1,
         R2,
-    }
+    }*/
 }

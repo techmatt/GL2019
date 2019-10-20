@@ -34,50 +34,42 @@ namespace WebRunner
 
         private void radioButtonCamera_CheckedChanged(object sender, EventArgs e)
         {
-            if(editor != null)
-                editor.setToolStructure(StructureType.Camera);
+            setEditorStructure(StructureType.Camera);
         }
 
         private void radioButtonFirewall_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.Firewall);
+            setEditorStructure(StructureType.Firewall);
         }
 
         private void radioButtonWall_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.Wall);
+            setEditorStructure(StructureType.Wall);
         }
 
         private void radioButtonShielding_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.Shielding);
+            setEditorStructure(StructureType.Shielding);
         }
 
         private void radioButtonSpawnA_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.SpawnPointA);
+            setEditorStructure(StructureType.SpawnPointA);
         }
 
         private void radioButtonSpawnB_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.SpawnPointB);
+            setEditorStructure(StructureType.SpawnPointB);
         }
 
         private void radioButtonDoor_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.Door);
+            setEditorStructure(StructureType.Door);
         }
 
         private void radioButtonObjective_CheckedChanged(object sender, EventArgs e)
         {
-            if (editor != null)
-                editor.setToolStructure(StructureType.Objective);
+            setEditorStructure(StructureType.Objective);
         }
 
         private void radioButtonShoes_CheckedChanged(object sender, EventArgs e)
@@ -88,6 +80,21 @@ namespace WebRunner
         private void radioButtonLaserGun_CheckedChanged(object sender, EventArgs e)
         {
             setEditorStructure(StructureType.LaserGun);
+        }
+
+        private void radioButtonMirror_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.StationaryMirror);
+        }
+
+        private void radioButtonLaserTurret_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.LaserTurret);
+        }
+
+        private void radioButtonBulletTurret_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.BulletTurret);
         }
 
         private void radioButtonSelect_CheckedChanged(object sender, EventArgs e)

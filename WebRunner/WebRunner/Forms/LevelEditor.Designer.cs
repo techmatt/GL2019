@@ -73,6 +73,9 @@
             this.radioButtonSpawnB = new System.Windows.Forms.RadioButton();
             this.radioButtonShoes = new System.Windows.Forms.RadioButton();
             this.radioButtonLaserGun = new System.Windows.Forms.RadioButton();
+            this.radioButtonLaserTurret = new System.Windows.Forms.RadioButton();
+            this.radioButtonBulletTurret = new System.Windows.Forms.RadioButton();
+            this.radioButtonMirror = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -517,11 +520,50 @@
             this.radioButtonLaserGun.UseVisualStyleBackColor = true;
             this.radioButtonLaserGun.CheckedChanged += new System.EventHandler(this.radioButtonLaserGun_CheckedChanged);
             // 
+            // radioButtonLaserTurret
+            // 
+            this.radioButtonLaserTurret.AutoSize = true;
+            this.radioButtonLaserTurret.Location = new System.Drawing.Point(12, 1022);
+            this.radioButtonLaserTurret.Name = "radioButtonLaserTurret";
+            this.radioButtonLaserTurret.Size = new System.Drawing.Size(113, 24);
+            this.radioButtonLaserTurret.TabIndex = 16;
+            this.radioButtonLaserTurret.TabStop = true;
+            this.radioButtonLaserTurret.Text = "Laser Turret";
+            this.radioButtonLaserTurret.UseVisualStyleBackColor = true;
+            this.radioButtonLaserTurret.CheckedChanged += new System.EventHandler(this.radioButtonLaserTurret_CheckedChanged);
+            // 
+            // radioButtonBulletTurret
+            // 
+            this.radioButtonBulletTurret.AutoSize = true;
+            this.radioButtonBulletTurret.Location = new System.Drawing.Point(12, 1052);
+            this.radioButtonBulletTurret.Name = "radioButtonBulletTurret";
+            this.radioButtonBulletTurret.Size = new System.Drawing.Size(113, 24);
+            this.radioButtonBulletTurret.TabIndex = 16;
+            this.radioButtonBulletTurret.TabStop = true;
+            this.radioButtonBulletTurret.Text = "Bullet Turret";
+            this.radioButtonBulletTurret.UseVisualStyleBackColor = true;
+            this.radioButtonBulletTurret.CheckedChanged += new System.EventHandler(this.radioButtonBulletTurret_CheckedChanged);
+            // 
+            // radioButtonMirror
+            // 
+            this.radioButtonMirror.AutoSize = true;
+            this.radioButtonMirror.Location = new System.Drawing.Point(131, 1022);
+            this.radioButtonMirror.Name = "radioButtonMirror";
+            this.radioButtonMirror.Size = new System.Drawing.Size(67, 24);
+            this.radioButtonMirror.TabIndex = 16;
+            this.radioButtonMirror.TabStop = true;
+            this.radioButtonMirror.Text = "Mirror";
+            this.radioButtonMirror.UseVisualStyleBackColor = true;
+            this.radioButtonMirror.CheckedChanged += new System.EventHandler(this.radioButtonMirror_CheckedChanged);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 1116);
+            this.Controls.Add(this.radioButtonMirror);
+            this.Controls.Add(this.radioButtonBulletTurret);
+            this.Controls.Add(this.radioButtonLaserTurret);
             this.Controls.Add(this.radioButtonLaserGun);
             this.Controls.Add(this.radioButtonShoes);
             this.Controls.Add(this.hScrollBar5);
@@ -622,5 +664,8 @@
         private System.Windows.Forms.RadioButton radioButtonSpawnB;
         private System.Windows.Forms.RadioButton radioButtonShoes;
         private System.Windows.Forms.RadioButton radioButtonLaserGun;
+        private System.Windows.Forms.RadioButton radioButtonLaserTurret;
+        private System.Windows.Forms.RadioButton radioButtonBulletTurret;
+        private System.Windows.Forms.RadioButton radioButtonMirror;
     }
 }

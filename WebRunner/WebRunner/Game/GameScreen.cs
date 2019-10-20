@@ -88,7 +88,7 @@ namespace WebRunner
                 ImageEntry backgroundImg = database.images.getBackground(level.backgroundName, false);
                 Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;
                 gViewport.DrawImage(backgroundImg.getBmp(0), (int)bkgStart.x, (int)bkgStart.y);
-                level.render(this, database, state);
+                level.render(this, database, state, editor);
             }
 
             /*if(state.activeRunnerA != null)

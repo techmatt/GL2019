@@ -48,7 +48,7 @@ namespace WebRunner
         public static double distToStructure(Structure structure, Vec2 pos)
         {
             var entry = structure.entry;
-            if (entry.shape == ShapeType.Circle)
+            if (entry.shape == ShapeType.Circle || entry.shape == ShapeType.Mirror)
                 return DistUtil.pointToCircleDist(pos, structure.center, entry.radius);
             if (entry.shape == ShapeType.Square)
                 return Math.Sqrt(DistUtil.pointToSquareDistSq(pos, structure.center, entry.radius - 0.1));
@@ -86,18 +86,35 @@ namespace WebRunner
                     if (!validStructureTypes.Contains(structure.type))
                         continue;
 
-                    Rect2 rect = Rect2.fromCenterRadius(structure.center, new Vec2(structure.entry.radius, structure.entry.radius));
-
-                    Vec2[] verts = new Vec2[4];
-                    verts[0] = rect.pMin;
-                    verts[1] = new Vec2(rect.pMin.x, rect.pMax.y);
-                    verts[2] = rect.pMax;
-                    verts[3] = new Vec2(rect.pMax.x, rect.pMin.y);
-
-                    for (int edgeIdx = 0; edgeIdx < 4; edgeIdx++)
+                    if (structure.entry.shape == ShapeType.Square || structure.entry.shape == ShapeType.Circle)
                     {
-                        Vec2 v0 = verts[edgeIdx];
-                        Vec2 v1 = verts[(edgeIdx + 1) % 4];
+                        // TODO: handle circle shape type correctly
+                        Rect2 rect = Rect2.fromCenterRadius(structure.center, new Vec2(structure.entry.radius, structure.entry.radius));
+
+                        Vec2[] verts = new Vec2[4];
+                        verts[0] = rect.pMin;
+                        verts[1] = new Vec2(rect.pMin.x, rect.pMax.y);
+                        verts[2] = rect.pMax;
+                        verts[3] = new Vec2(rect.pMax.x, rect.pMin.y);
+
+                        for (int edgeIdx = 0; edgeIdx < 4; edgeIdx++)
+                        {
+                            Vec2 v0 = verts[edgeIdx];
+                            Vec2 v1 = verts[(edgeIdx + 1) % 4];
+                            double? hit = IntersectUtil.rayIntersectSegment(rOrigin, rDirection, v0, v1);
+                            if (hit != null)
+                            {
+                                if (hit.Value < result.Item1)
+                                    result = new Tuple<double, int, int>(hit.Value, idxA, idxB);
+                            }
+                        }
+                    }
+
+                    if(structure.entry.shape == ShapeType.Mirror)
+                    {
+                        Vec2 dir = structure.curSweepDirection();
+                        Vec2 v0 = structure.center + dir * structure.entry.radius;
+                        Vec2 v1 = structure.center - dir * structure.entry.radius;
                         double? hit = IntersectUtil.rayIntersectSegment(rOrigin, rDirection, v0, v1);
                         if (hit != null)
                         {

@@ -64,7 +64,12 @@ namespace WebRunner
             double padMagnitude = pad.length();
             if (padMagnitude <= 0.01) return;
 
-            moveRunner(pad.getNormalized(), Constants.runSpeed, runner);
+            double speedCap = Constants.runSpeed;
+
+            if (runner.hasShoes)
+                speedCap *= Constants.shoeSpeedMultiplier;
+
+            moveRunner(pad.getNormalized(), speedCap, runner);
         }
 
         void moveRunner(Vec2 dir, double speedCap, Runner runner)

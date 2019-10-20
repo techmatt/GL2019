@@ -10,7 +10,8 @@ namespace WebRunner
     enum ShapeType
     {
         Square,
-        Circle
+        Circle,
+        Mirror
     }
     enum StructureType
     {
@@ -25,11 +26,15 @@ namespace WebRunner
         Objective,
         Shoes,
         LaserGun,
+        StationaryMirror,
+        LaserTurret,
+        BulletTurret,
 
         // temporary structures
         RunnerA,
         RunnerB,
-        Distraction
+        Distraction,
+        RunnerMirror
     }
 
     enum ToolType
@@ -102,6 +107,9 @@ namespace WebRunner
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
 
             registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.BulletTurret, "bulletTurret", 36.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.LaserTurret, "laserTurret", 36.0, ShapeType.Circle, new Vec2(2, 2));
+            registerStructure(StructureType.StationaryMirror, "stationaryMirror", 36.0, ShapeType.Mirror, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, new Vec2(1, 1));
             registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, new Vec2(1, 1));
@@ -140,11 +148,23 @@ namespace WebRunner
         public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
         public Pen cameraRay = new Pen(Color.FromArgb(255, 240, 240, 140), 6.0f);
 
+        public Pen laserTurretRay = new Pen(Color.FromArgb(255, 163, 73, 164), 4.0f);
+        public Pen laserGunRay = new Pen(Color.FromArgb(255, 63, 73, 204), 4.0f);
+
         public HashSet<StructureType> runnerBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.Firewall, StructureType.Camera, StructureType.Shielding };
+            StructureType.Wall, StructureType.Firewall, StructureType.Camera,
+            StructureType.Shielding };
 
         public HashSet<StructureType> cameraBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction };
+            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction,
+            StructureType.StationaryMirror};
+
+        public HashSet<StructureType> runnerLaserBlockingStructures = new HashSet<StructureType>() {
+            StructureType.Wall, StructureType.RunnerMirror, StructureType.StationaryMirror };
+
+        public HashSet<StructureType> turretLaserBlockingStructures = new HashSet<StructureType>() {
+            StructureType.Wall, StructureType.RunnerMirror, StructureType.StationaryMirror,
+            StructureType.RunnerA, StructureType.RunnerB };
 
         public ImageDatabase images;
     }

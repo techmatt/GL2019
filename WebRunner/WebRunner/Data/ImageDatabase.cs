@@ -61,6 +61,9 @@ namespace WebRunner
         public ImageDatabase()
         {
             structures[StructureType.Camera] = new ImageEntry("camera", new Vec2(64, 64), 255);
+            structures[StructureType.LaserTurret] = new ImageEntry("laserTurret", new Vec2(64, 64), 255);
+            structures[StructureType.BulletTurret] = new ImageEntry("bulletTurret", new Vec2(64, 64), 255);
+            structures[StructureType.StationaryMirror] = new ImageEntry("stationaryMirror", new Vec2(72, 16), 255);
             structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
             structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
             structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
