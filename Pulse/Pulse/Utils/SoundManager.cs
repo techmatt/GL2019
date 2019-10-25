@@ -7,7 +7,7 @@ using System.Media;
 using System.IO;
 using System.Diagnostics;
 
-namespace WebRunner
+namespace Pulse
 {
     class SoundManager
     {
