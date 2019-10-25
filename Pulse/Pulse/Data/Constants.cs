@@ -15,25 +15,27 @@ namespace Pulse
 
         static public List<Color> allColors = new List<Color>()
         {
-            Color.FromArgb(80, 162, 232),
-            Color.FromArgb(80, 232, 162),
-            Color.FromArgb(162, 80, 232),
-            Color.FromArgb(232, 80, 162),
-            Color.FromArgb(162, 232, 80),
-            Color.FromArgb(232, 162, 80)
+            Color.FromArgb(136, 0, 21),
+            Color.FromArgb(237, 28, 36),
+            Color.FromArgb(255, 127, 39),
+            Color.FromArgb(255, 242, 0),
+            Color.FromArgb(34, 177, 76),
+            Color.FromArgb(0, 162, 232),
+            Color.FromArgb(63, 72, 204),
+            Color.FromArgb(163, 73, 164),
         };
 
-        public const int pulseWindowWidth= 1280 / 2;
-        public const int pulseWindowHeight = 720 / 2;
+        public const int pulseWindowWidth= 1280;
+        public const int pulseWindowHeight = 720;
 
-        public const int decoderWindowWidth = 1280 / 2;
-        public const int decoderWindowHeight = 720 / 2;
+        public const int decoderWindowWidth = 1280;
+        public const int decoderWindowHeight = 720;
 
         static public Vec2 viewportSize = new Vec2(1280, 720);
-
+        
         public const int beamCount = 3;
 
-        public const int totalGlyphCount = 8;
+        public const int totalGlyphCount = 15;
 
         static public List<int> beamStartsRaw = new List<int>()
         {
@@ -45,8 +47,14 @@ namespace Pulse
 
         static public Vec2 renerBufferSize = new Vec2(1280, 720);
 
-        public const int glyphDim = 80;
-        
+        public const int glyphDim = 95;
+        static public Vec2 textureSize = new Vec2(200, 80);
+
+        static public Vec2 decoderGridSize = new Vec2(3, 5);
+        static public Vec2 decoderGridStart = new Vec2(85, 60);
+        static public Vec2 decoderGridSpacing = new Vec2(400, 125);
+        static public Vec2 decoderTextureOffset = new Vec2(120, 10);
+
         public const String dataDir = @"C:\Code\GL2019\Pulse\data\";
         public const String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
         public const String imageDir = dataDir + "images/";

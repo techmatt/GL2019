@@ -60,13 +60,17 @@ namespace Pulse
             gViewport.FillRectangle(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
         }
 
-        public void drawImage(ImageEntry image, Vec2 center)
+        public void drawImage(Bitmap bmp, Vec2 center)
         {
-            Bitmap bmp = image.bmp;
             gViewport.DrawImage(bmp, (int)(center.x - bmp.Width / 2), (int)(center.y - bmp.Height / 2));
         }
 
-        public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp)
+        public void drawImage(Bitmap bmp, Vec2 start, Vec2 dim)
+        {
+            gViewport.DrawImage(bmp, new Rectangle((int)start.x, (int)start.y, (int)dim.x, (int)dim.y));
+        }
+
+        public void drawRotatedImage(Bitmap bmp, Vec2 center, Vec2 orientation)
         {
             double hw = bmp.Width * 0.5;
             double hh = bmp.Height * 0.5;
@@ -82,6 +86,29 @@ namespace Pulse
         {
             gViewport.Clear(Color.Black);
             gViewport.DrawImage(database.images.decoderBkg.bmp, 0, 0);
+
+            //static public Vec2 decoderGridSize = new Vec2(3, 6);
+            //static public Vec2 decoderGridStart = new Vec2(50, 50);
+            //static public Vec2 decoderGridSpacing = new Vec2(300, 100);
+            //static public Vec2 decoderTextureOffset = new Vec2(100, 0);
+            int glyphIndex = 0;
+            for (int gridY = 0; gridY < Constants.decoderGridSize.y; gridY++)
+                for (int gridX = 0; gridX < Constants.decoderGridSize.x; gridX++)
+                {
+                    if (glyphIndex >= Constants.totalGlyphCount)
+                        continue;
+
+                    GlyphState g = state.level.alphabet.glyphs[glyphIndex];
+                    Bitmap bmpA = database.images.glyphImages[glyphIndex].bmp;
+                    Bitmap bmpB = g.texture.bmp;
+
+                    //Constants.decoderGridStart + 
+                    Vec2 gridStartPos = Constants.decoderGridStart + new Vec2(gridX * Constants.decoderGridSpacing.x, gridY * Constants.decoderGridSpacing.y);
+                    drawImage(bmpA, gridStartPos, new Vec2(Constants.glyphDim, Constants.glyphDim));
+                    drawImage(bmpB, gridStartPos + Constants.decoderTextureOffset, Constants.textureSize);
+
+                    glyphIndex++;
+                }
 
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));

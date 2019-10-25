@@ -41,15 +41,22 @@ namespace Pulse
             PictureBox pictureBoxDecoder = decoderWindow.getPictureBox();
             PictureBox pictureBoxPulse = pulseWindow.getPictureBox();
 
+            int borderWidth = (decoderWindow.Width - decoderWindow.ClientSize.Width);
+            int borderHeight = (decoderWindow.Height - decoderWindow.ClientSize.Height);
+
             pictureBoxDecoder.Top = 0;
             pictureBoxDecoder.Left = 0;
             pictureBoxDecoder.Width = Constants.decoderWindowWidth;
             pictureBoxDecoder.Height = Constants.decoderWindowHeight;
+            decoderWindow.Width = Constants.decoderWindowWidth + borderWidth;
+            decoderWindow.Height = Constants.decoderWindowHeight + borderHeight;
 
             pictureBoxPulse.Top = 0;
             pictureBoxPulse.Left = 0;
             pictureBoxPulse.Width = Constants.pulseWindowWidth;
             pictureBoxPulse.Height = Constants.pulseWindowHeight;
+            pulseWindow.Width = Constants.pulseWindowWidth + borderWidth;
+            pulseWindow.Height = Constants.pulseWindowHeight + borderHeight;
 
             manager = new GameManager(pictureBoxDecoder, pictureBoxPulse);
 

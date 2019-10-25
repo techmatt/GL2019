@@ -17,7 +17,7 @@ namespace Pulse
         }
 
         public GameDatabase database = new GameDatabase();
-        public GameState state;
+        public GameState state = new GameState();
         GameScreen screenDecoder, screenPulse;
         public SoundManager sound = new SoundManager();
 
@@ -28,6 +28,7 @@ namespace Pulse
 
         public void render()
         {
+            state.level.alphabet.updateTextures();
             screenDecoder.renderDecoder(state, Constants.decoderWindowWidth, Constants.decoderWindowHeight);
             screenPulse.renderPulse(state, Constants.pulseWindowWidth, Constants.pulseWindowHeight);
         }

@@ -78,6 +78,13 @@ namespace Pulse
                 }
             }
         }
+        public void updateTextures()
+        {
+            foreach(GlyphState g in glyphs)
+            {
+                g.texture.updateBmp();
+            }
+        }
         public List<GlyphState> glyphs = new List<GlyphState>();
     }
 
@@ -169,8 +176,8 @@ namespace Pulse
         }
         public List<Beam> beams = new List<Beam>();
         public AlphabetState alphabet = null;
-        double pulseLocation = 0.0;
-        double pulseSpeed;
+        public double pulseLocation = 0.0;
+        public double pulseSpeed;
     }
 
     class GameState
@@ -181,8 +188,8 @@ namespace Pulse
             level = new GameLevel(levelIndex);
             totalTime = 0.0;
         }
-        GameLevel level;
-        int levelIndex;
-        double totalTime;
+        public GameLevel level;
+        public int levelIndex;
+        public double totalTime;
     }
 }

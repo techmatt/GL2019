@@ -45,6 +45,7 @@ namespace Pulse
     {
         public Texture(LevelGenInfo info)
         {
+            colors = info.colors;
             type = info.validTextureTypes.RandomElement();
 
             if (type == TextureType.ColorGrid)
@@ -56,6 +57,9 @@ namespace Pulse
                         colorGridIndices[x, y] = Util.randInt(0, info.colors.Count);
                     }
             }
+
+            bmp = new Bitmap((int)Constants.textureSize.x, (int)Constants.textureSize.y);
+            g = Graphics.FromImage(bmp);
         }
 
         static public bool texturesEquivalent(Texture t1, Texture t2)
@@ -76,8 +80,28 @@ namespace Pulse
             return true;
         }
 
+        public void updateBmp()
+        {
+            g.Clear(Color.Black);
+            if(type == TextureType.ColorGrid)
+            {
+                int spacingX = (int)Constants.textureSize.x / colorGridIndices.GetLength(0);
+                int spacingY = (int)Constants.textureSize.y / colorGridIndices.GetLength(1);
+                for (int gridX = 0; gridX < colorGridIndices.GetLength(0); gridX++)
+                    for (int gridY = 0; gridY < colorGridIndices.GetLength(1); gridY++)
+                    {
+                        Color color = colors[colorGridIndices[gridX, gridY]];
+                        Brush brush = new SolidBrush(color);
+                        g.FillRectangle(brush, gridX * spacingX, gridY * spacingY, spacingX, spacingY);
+                    }
+            }
+        }
+
         public TextureType type;
+        public List<Color> colors;
         public int[,] colorGridIndices;
+        public Bitmap bmp;
+        public Graphics g;
         //public ShapeType shapeType;
         //public ShiftingColor shapeColor;
         //public ShiftingColor backgroundColor;

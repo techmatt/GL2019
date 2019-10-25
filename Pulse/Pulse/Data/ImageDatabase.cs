@@ -53,8 +53,8 @@ namespace Pulse
             }
         }
 
-        public ImageEntry decoderBkg = new ImageEntry(Constants.imageDir + "brushedMetal.png", new Vec2(Constants.decoderWindowWidth, Constants.decoderWindowHeight));
-        public ImageEntry pulseBkg = new ImageEntry(Constants.imageDir + "pulseBackground.png", new Vec2(Constants.pulseWindowWidth, Constants.pulseWindowHeight));
+        public ImageEntry decoderBkg = new ImageEntry(Constants.imageDir + "brushedMetal.png", Constants.viewportSize);
+        public ImageEntry pulseBkg = new ImageEntry(Constants.imageDir + "pulseBackground.png", Constants.viewportSize);
         public List<ImageEntry> glyphImages = new List<ImageEntry>();
     }
 }
