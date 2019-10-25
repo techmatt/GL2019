@@ -17,9 +17,10 @@ namespace Pulse
             InitializeComponent();
         }
 
-        public Form decoderWindow = null;
-        public Form pulseWindow = null;
+        public DecoderWindow decoderWindow = null;
+        public PulseWindow pulseWindow = null;
         GameState state;
+        GameManager manager;
 
         public void killAllWindows()
         {
@@ -32,12 +33,33 @@ namespace Pulse
         private void buttonStart_Click(object sender, EventArgs e)
         {
             killAllWindows();
-            state = new GameState();
             decoderWindow = new DecoderWindow();
             pulseWindow = new PulseWindow();
             decoderWindow.Show();
             pulseWindow.Show();
+
+            PictureBox pictureBoxDecoder = decoderWindow.getPictureBox();
+            PictureBox pictureBoxPulse = pulseWindow.getPictureBox();
+
+            pictureBoxDecoder.Top = 0;
+            pictureBoxDecoder.Left = 0;
+            pictureBoxDecoder.Width = Constants.decoderWindowWidth;
+            pictureBoxDecoder.Height = Constants.decoderWindowHeight;
+
+            pictureBoxPulse.Top = 0;
+            pictureBoxPulse.Left = 0;
+            pictureBoxPulse.Width = Constants.pulseWindowWidth;
+            pictureBoxPulse.Height = Constants.pulseWindowHeight;
+
+            manager = new GameManager(pictureBoxDecoder, pictureBoxPulse);
+
             timerRender.Enabled = true;
+        }
+
+        private void timerRender_Tick(object sender, EventArgs e)
+        {
+            manager.step();
+            manager.render();
         }
     }
 }

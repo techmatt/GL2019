@@ -29,6 +29,8 @@ namespace Pulse
         public const int decoderWindowWidth = 1280 / 2;
         public const int decoderWindowHeight = 720 / 2;
 
+        static public Vec2 viewportSize = new Vec2(1280, 720);
+
         public const int beamCount = 3;
 
         public const int totalGlyphCount = 8;
@@ -42,10 +44,13 @@ namespace Pulse
         public const bool useFullscreen = false;
 
         static public Vec2 renerBufferSize = new Vec2(1280, 720);
+
+        public const int glyphDim = 80;
         
-        //public const String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
+        public const String dataDir = @"C:\Code\GL2019\Pulse\data\";
         public const String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
-        //public const String imageOriginalDir = dataDir + "imagesOriginal/";
+        public const String imageDir = dataDir + "images/";
+        public const String alphabetDir = dataDir + "alphabetA/";
         //public const String missionBaseDir = dataDir + "missions/";
 
         static public List<String> randomPhrases = new List<String>()

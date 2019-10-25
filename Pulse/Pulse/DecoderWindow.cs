@@ -16,5 +16,15 @@ namespace Pulse
         {
             InitializeComponent();
         }
+
+        private void DecoderWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public PictureBox getPictureBox()
+        {
+            return pictureBoxDecoder;
+        }
     }
 }

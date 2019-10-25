@@ -46,6 +46,7 @@
             // timerRender
             // 
             this.timerRender.Interval = 1;
+            this.timerRender.Tick += new System.EventHandler(this.timerRender_Tick);
             // 
             // MainWindow
             // 
