@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Ports;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Pulse
 {
@@ -19,8 +22,12 @@ namespace Pulse
 
         public DecoderWindow decoderWindow = null;
         public PulseWindow pulseWindow = null;
-        GameState state;
         GameManager manager;
+        SerialPort port = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
+
+        GameDatabase scanGlyphDatabase = null;
+        int scanGlyphIndex = -1;
+        List<string> scanGlyphStrings = null;
 
         public void killAllWindows()
         {
@@ -65,8 +72,79 @@ namespace Pulse
 
         private void timerRender_Tick(object sender, EventArgs e)
         {
-            manager.step();
-            manager.render();
+            if (Constants.useSerialPort)
+            {
+                if (!port.IsOpen)
+                    port.Open();
+
+                if (port.BytesToRead > 0)
+                {
+                    //byte[] buffer = new byte[port.BytesToRead];
+                    //int bytesRead = port.Read(buffer, 0, port.BytesToRead);
+                    string text = port.ReadExisting();
+                    string[] parts = text.Split(':');
+                    if (parts.Length != 2)
+                    {
+                        Console.WriteLine("unknown serial text: " + text);
+                        return;
+                    }
+                    string scannerID = parts[0];
+                    string glyphID = parts[1];
+                    glyphID = Regex.Replace(glyphID, @"\t|\n|\r", "");
+                    if (scanGlyphIndex != -1)
+                    {
+                        scanGlyphStrings.Add(glyphID);
+                        scanGlyphIndex++;
+                        if (scanGlyphIndex == Constants.totalGlyphCount)
+                        {
+                            File.WriteAllLines(Constants.glyphIDsFilename, scanGlyphStrings);
+                            scanGlyphIndex = -1;
+                            scanGlyphStrings = null;
+                            labelGlyphText.Text = "Scan Complete";
+                        }
+                        else
+                        {
+                            loadCurrentScanGlyph();
+                        }
+                    }
+
+                    //Console.WriteLine("read " + bytesRead.ToString() + " bytes: " + BitConverter.ToString(buffer));
+                    //Console.WriteLine("serial: " + text);
+                    // read 69 bytes: [From Bluefruit52]: 50 0 E7 1F 8C 53 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                    // read 68 bytes: [From Bluefruit52]: 50 0 59 40 0 A3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                    // read 69 bytes: [From Bluefruit52]: 50 0 19 78 5F A3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                }
+            }
+
+            if (manager != null)
+            {
+                manager.step();
+                manager.render();
+            }
+        }
+
+        private void buttonNextLevel_Click(object sender, EventArgs e)
+        {
+            if(manager != null)
+            {
+                manager.state.nextLevel();
+            }
+        }
+
+        void loadCurrentScanGlyph()
+        {
+            pictureBoxGlyph.Image = scanGlyphDatabase.images.glyphImages[scanGlyphIndex].bmp;
+            labelGlyphText.Text = "Scan Glyph " + scanGlyphIndex.ToString();
+        }
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            scanGlyphDatabase = new GameDatabase();
+            scanGlyphIndex = 0;
+            scanGlyphStrings = new List<string>();
+            loadCurrentScanGlyph();
+
+            timerRender.Enabled = true;
         }
     }
 }

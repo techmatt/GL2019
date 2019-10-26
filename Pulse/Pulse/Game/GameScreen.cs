@@ -87,10 +87,6 @@ namespace Pulse
             gViewport.Clear(Color.Black);
             gViewport.DrawImage(database.images.decoderBkg.bmp, 0, 0);
 
-            //static public Vec2 decoderGridSize = new Vec2(3, 6);
-            //static public Vec2 decoderGridStart = new Vec2(50, 50);
-            //static public Vec2 decoderGridSpacing = new Vec2(300, 100);
-            //static public Vec2 decoderTextureOffset = new Vec2(100, 0);
             int glyphIndex = 0;
             for (int gridY = 0; gridY < Constants.decoderGridSize.y; gridY++)
                 for (int gridX = 0; gridX < Constants.decoderGridSize.x; gridX++)
@@ -119,6 +115,31 @@ namespace Pulse
         {
             gViewport.Clear(Color.Black);
             gViewport.DrawImage(database.images.pulseBkg.bmp, 0, 0);
+
+            var level = state.level;
+            double beamXStart = Util.linearMap(Constants.beamXRange.x, 0.0, Constants.beamBkgRaw.x, 0.0, Constants.viewportSize.x);
+            double beamXEnd =   Util.linearMap(Constants.beamXRange.y, 0.0, Constants.beamBkgRaw.x, 0.0, Constants.viewportSize.x);
+            double beamHeight = Util.linearMap(Constants.beamHeightRaw, 0.0, Constants.beamBkgRaw.y, 0.0, Constants.viewportSize.y);
+            for (int beamIndex = 0; beamIndex < level.beams.Count; beamIndex++)
+            {
+                Beam b = level.beams[beamIndex];
+                double beamYStart = Util.linearMap(Constants.beamYStartRaw[beamIndex], 0.0, Constants.beamBkgRaw.y, 0.0, Constants.viewportSize.y);
+                foreach (Note n in b.notes)
+                {
+                    Bitmap bmp = level.alphabet.glyphs[n.glyphIndex].texture.bmp;
+                    double xStart = Util.linearMap(n.start, 0.0, 1.0, beamXStart, beamXEnd);
+                    double xEnd = Util.linearMap(n.end, 0.0, 1.0, beamXStart, beamXEnd);
+                    drawImage(bmp, new Vec2(xStart, beamYStart), new Vec2(xEnd - xStart, beamHeight));
+                    /*
+                     * static public Vec2 beamBkgRaw = new Vec2(1920, 1080);
+                        static public Vec2 beamXRange = new Vec2(76, 1873);
+                        static public List<int> beamYStartRaw = new List<int>()
+                        {
+                            80, 386, 700
+                        };
+                        public const int beamHeightRaw = 187;*/
+                }
+            }
 
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));

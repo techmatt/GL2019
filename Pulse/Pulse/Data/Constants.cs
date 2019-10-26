@@ -9,6 +9,8 @@ namespace Pulse
 {
     class Constants
     {
+        public const bool useSerialPort = true;
+
         static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
         static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
@@ -35,9 +37,11 @@ namespace Pulse
         
         public const int beamCount = 3;
 
-        public const int totalGlyphCount = 15;
+        public const int totalGlyphCount = 4;
 
-        static public List<int> beamStartsRaw = new List<int>()
+        static public Vec2 beamBkgRaw = new Vec2(1920, 1080);
+        static public Vec2 beamXRange = new Vec2(76, 1873);
+        static public List<int> beamYStartRaw = new List<int>()
         {
             80, 386, 700
         };
@@ -59,6 +63,8 @@ namespace Pulse
         public const String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
         public const String imageDir = dataDir + "images/";
         public const String alphabetDir = dataDir + "alphabetA/";
+
+        public const String glyphIDsFilename = dataDir + "glyphIDs.txt";
         //public const String missionBaseDir = dataDir + "missions/";
 
         static public List<String> randomPhrases = new List<String>()

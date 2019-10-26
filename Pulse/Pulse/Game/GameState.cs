@@ -17,27 +17,32 @@ namespace Pulse
             int d2 = levelIndex / 2 + 1;
             int d3 = levelIndex / 3 + 1;
             int d4 = levelIndex / 4 + 1;
-            minNoteAttempts = d3;
-            maxNoteAttempts = d3 + d3;
-            colorGridX = expansion + 1;
+            minNoteCount = d3;
+            maxNoteCount = d3 + d3;
+            if (levelIndex <= 1)
+            {
+                minNoteCount = 1;
+                maxNoteCount = 1;
+            }
+             colorGridX = expansion + 1;
             colorGridY = 2;
             int colorCount = 0;
-            if (levelIndex <= 2) colorCount = 6;
-            else if (levelIndex <= 4) colorCount = 5;
-            else if (levelIndex <= 6) colorCount = 4;
-            else if (levelIndex <= 8) colorCount = 3;
-            else colorCount = 2;
+            if (levelIndex <= 2) colorCount = 7;
+            else if (levelIndex <= 4) colorCount = 6;
+            else if (levelIndex <= 6) colorCount = 5;
+            else if (levelIndex <= 8) colorCount = 4;
+            else colorCount = 3;
 
             colors = Constants.allColors.Shuffle();
             colors = colors.GetRange(0, colorCount);
 
             validTextureTypes = new List<TextureType>() { TextureType.ColorGrid };
 
-            minNoteLength = 0.1;
-            maxNoteLength = 0.2;
+            minNoteLength = 0.15;
+            maxNoteLength = 0.3;
         }
         public int levelIndex;
-        public int minNoteAttempts, maxNoteAttempts;
+        public int minNoteCount, maxNoteCount;
         public int colorGridX, colorGridY;
         public double minNoteLength;
         public double maxNoteLength;
@@ -126,20 +131,26 @@ namespace Pulse
 
     class Beam
     {
-        public Beam(LevelGenInfo info)
+        public Beam(LevelGenInfo info, HashSet<int> glyphsUsed)
         {
-            int noteAddAttempts = Util.randInt(info.minNoteAttempts, info.maxNoteAttempts + 1);
-            for (int i = 0; i < noteAddAttempts; i++)
+            int maxNoteAddAttempts = 100;
+            int noteCount = Util.randInt(info.minNoteCount, info.maxNoteCount + 1);
+            for (int i = 0; i < maxNoteAddAttempts; i++)
             {
                 Note newNote = new Note(info);
-                if(canAddNote(newNote))
+                if(canAddNote(newNote, glyphsUsed))
                 {
                     notes.Add(newNote);
+                    glyphsUsed.Add(newNote.glyphIndex);
+                    if (notes.Count >= noteCount)
+                        break;
                 }
             }
         }
-        public bool canAddNote(Note newNote)
+        public bool canAddNote(Note newNote, HashSet<int> glyphsUsed)
         {
+            if (glyphsUsed.Contains(newNote.glyphIndex))
+                return false;
             foreach(Note n in notes)
             {
                 if(Note.notesOverlap(n, newNote))
@@ -169,8 +180,9 @@ namespace Pulse
                 }
             }
 
+            var glyphsUsed = new HashSet<int>();
             for (int i = 0; i < Constants.beamCount; i++)
-                beams.Add(new Beam(info));
+                beams.Add(new Beam(info, glyphsUsed));
 
             pulseSpeed = 0.0001;
         }
@@ -182,12 +194,20 @@ namespace Pulse
 
     class GameState
     {
-        public GameState()
+        public GameState(GameManager _manager)
         {
+            manager = _manager;
             levelIndex = 0;
             level = new GameLevel(levelIndex);
             totalTime = 0.0;
         }
+        public void nextLevel()
+        {
+            levelIndex++;
+            manager.sound.playSpeech("sector completed. Advancing to sector " + (levelIndex + 1).ToString());
+            level = new GameLevel(levelIndex);
+        }
+        public GameManager manager;
         public GameLevel level;
         public int levelIndex;
         public double totalTime;

@@ -12,12 +12,14 @@ namespace Pulse
     {
         public GameManager(PictureBox _pictureBoxDecoder, PictureBox _pictureBoxPulse)
         {
+            state = new GameState(this);
             screenDecoder = new GameScreen(_pictureBoxDecoder, database);
             screenPulse = new GameScreen(_pictureBoxPulse, database);
+            sound.playSpeech("welcome to sector 1");
         }
 
         public GameDatabase database = new GameDatabase();
-        public GameState state = new GameState();
+        public GameState state;
         GameScreen screenDecoder, screenPulse;
         public SoundManager sound = new SoundManager();
 
