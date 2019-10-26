@@ -147,6 +147,7 @@ namespace Pulse
                 }
             }
         }
+
         public bool canAddNote(Note newNote, HashSet<int> glyphsUsed)
         {
             if (glyphsUsed.Contains(newNote.glyphIndex))

@@ -21,11 +21,20 @@ namespace Pulse
         public GameDatabase database = new GameDatabase();
         public GameState state;
         GameScreen screenDecoder, screenPulse;
+        public JoystickManager joystick = new JoystickManager();
         public SoundManager sound = new SoundManager();
 
         public void step()
         {
-            
+            joystick.poll();
+            foreach (RunnerJoystickState j in joystick.joysticks)
+            {
+                foreach (GamepadButton b in j.buttonsToProcess)
+                {
+                    Console.WriteLine(b.ToString());
+                }
+                j.buttonsToProcess.Clear();
+            }
         }
 
         public void render()
