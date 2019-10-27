@@ -46,7 +46,7 @@ namespace Pulse
         public Texture(LevelGenInfo info)
         {
             colors = info.colors;
-            type = info.validTextureTypes.RandomElement();
+            type = info.textureType;
 
             if (type == TextureType.ColorGrid)
             {

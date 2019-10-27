@@ -11,43 +11,50 @@ namespace Pulse
 
     class LevelGenInfo
     {
-        public LevelGenInfo(int _levelIndex, int expansion)
+        public LevelGenInfo(int levelIndex, int expansion)
         {
-            levelIndex = _levelIndex;
-            int d2 = levelIndex / 2 + 1;
-            int d3 = levelIndex / 3 + 1;
-            int d4 = levelIndex / 4 + 1;
-            minNoteCount = d3;
-            maxNoteCount = d3 + d3;
-            if (levelIndex <= 1)
-            {
-                minNoteCount = 1;
-                maxNoteCount = 1;
-            }
-             colorGridX = expansion + 1;
-            colorGridY = 2;
-            int colorCount = 0;
-            if (levelIndex <= 2) colorCount = 7;
-            else if (levelIndex <= 4) colorCount = 6;
-            else if (levelIndex <= 6) colorCount = 5;
-            else if (levelIndex <= 8) colorCount = 4;
-            else colorCount = 3;
+            difficulty = Math.Min(levelIndex, 10);
 
+            int[] noteCountByDifficulty = { 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7};
+            int totalNoteCount = noteCountByDifficulty[difficulty];
+            for (int i = 0; i < Constants.beamCount; i++)
+                beamNoteCounts.Add(0);
+            for(int i = 0; i < totalNoteCount; i++)
+                beamNoteCounts[i % 3]++;
+            beamNoteCounts = beamNoteCounts.Shuffle();
+
+             colorGridX = expansion + 1;
+            if(difficulty <= 5)
+                colorGridY = 1;
+            else
+                colorGridY = 2;
+
+            int[] colorCountByDifficulty = {7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+            int colorCount = colorCountByDifficulty[difficulty];
+            
             colors = Constants.allColors.Shuffle();
             colors = colors.GetRange(0, colorCount);
 
-            validTextureTypes = new List<TextureType>() { TextureType.ColorGrid };
+            TextureType[] textureTypeByDifficulty = { TextureType.ColorGrid, TextureType.ColorGrid,
+                                                      TextureType.ColorGrid, TextureType.ColorGrid,
+                                                      TextureType.ColorGrid, TextureType.ColorGrid,
+                                                      TextureType.ColorGrid, TextureType.ColorGrid,
+                                                      TextureType.ColorGrid, TextureType.ColorGrid,
+                                                      TextureType.ColorGrid, TextureType.ColorGrid };
+            textureType = textureTypeByDifficulty[difficulty];
+            //validTextureTypes = new List<TextureType>() { TextureType.ColorGrid };
 
             minNoteLength = 0.15;
-            maxNoteLength = 0.3;
+            maxNoteLength = 0.25;
         }
-        public int levelIndex;
-        public int minNoteCount, maxNoteCount;
+        public int difficulty;
+        public List<int> beamNoteCounts = new List<int>();
         public int colorGridX, colorGridY;
         public double minNoteLength;
         public double maxNoteLength;
         public List<Color> colors;
-        public List<TextureType> validTextureTypes = new List<TextureType>();
+        //public List<TextureType> validTextureTypes = new List<TextureType>();
+        public TextureType textureType;
     }
 
     class GlyphState
@@ -131,10 +138,9 @@ namespace Pulse
 
     class Beam
     {
-        public Beam(LevelGenInfo info, HashSet<int> glyphsUsed)
+        public Beam(LevelGenInfo info, int noteCount, HashSet<int> glyphsUsed)
         {
             int maxNoteAddAttempts = 100;
-            int noteCount = Util.randInt(info.minNoteCount, info.maxNoteCount + 1);
             for (int i = 0; i < maxNoteAddAttempts; i++)
             {
                 Note newNote = new Note(info);
@@ -183,7 +189,7 @@ namespace Pulse
 
             var glyphsUsed = new HashSet<int>();
             for (int i = 0; i < Constants.beamCount; i++)
-                beams.Add(new Beam(info, glyphsUsed));
+                beams.Add(new Beam(info, info.beamNoteCounts[i], glyphsUsed));
 
             pulseSpeed = 0.0001;
         }

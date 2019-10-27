@@ -37,7 +37,7 @@ namespace Pulse
         
         public const int beamCount = 3;
 
-        public const int totalGlyphCount = 4;
+        public const int totalGlyphCount = 15;
 
         static public Vec2 beamBkgRaw = new Vec2(1920, 1080);
         static public Vec2 beamXRange = new Vec2(76, 1873);
