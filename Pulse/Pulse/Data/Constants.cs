@@ -11,6 +11,9 @@ namespace Pulse
     {
         public const bool useSerialPort = true;
 
+        //public const int totalGlyphCount = 15;
+        public const int totalGlyphCount = 4;
+
         static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
         static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
@@ -44,8 +47,7 @@ namespace Pulse
         static public Vec2 viewportSize = new Vec2(1280, 720);
         
         public const int beamCount = 3;
-
-        public const int totalGlyphCount = 15;
+        public const int pulseRadius = 64;
 
         static public Vec2 beamBkgRaw = new Vec2(1920, 1080);
         static public Vec2 beamXRange = new Vec2(76, 1873);

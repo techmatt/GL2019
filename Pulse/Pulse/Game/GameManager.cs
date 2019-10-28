@@ -35,7 +35,7 @@ namespace Pulse
         public SoundManager sound = new SoundManager();
         public Dictionary<string, int> glyphIDToIndex = new Dictionary<string, int>();
 
-        public void step(string scannerID, string glyphID)
+        public void step(string scannerID, string glyphID, double totalTime)
         {
             joystick.poll();
             foreach (RunnerJoystickState j in joystick.joysticks)
@@ -67,6 +67,8 @@ namespace Pulse
                     sound.playWAVFile(WAVFilename);
                 }
             }
+            state.totalTime = totalTime;
+            state.step();
         }
 
         public void render()

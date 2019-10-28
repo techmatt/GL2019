@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Pulse
 {
@@ -28,6 +29,8 @@ namespace Pulse
         GameDatabase scanGlyphDatabase = null;
         int scanGlyphIndex = -1;
         List<string> scanGlyphStrings = null;
+        Stopwatch stopwatch = new Stopwatch();
+        double previousFrameTotalSeconds;
 
         public void killAllWindows()
         {
@@ -67,6 +70,8 @@ namespace Pulse
 
             manager = new GameManager(pictureBoxDecoder, pictureBoxPulse);
 
+            stopwatch.Restart();
+            previousFrameTotalSeconds = 0.0;
             timerRender.Enabled = true;
         }
 
@@ -120,7 +125,10 @@ namespace Pulse
 
             if (manager != null)
             {
-                manager.step(scannerID, glyphID);
+                double totalTime = stopwatch.Elapsed.TotalSeconds;
+                double deltaT = totalTime - previousFrameTotalSeconds;
+                previousFrameTotalSeconds = stopwatch.Elapsed.TotalSeconds;
+                manager.step(scannerID, glyphID, totalTime);
                 manager.render();
             }
         }

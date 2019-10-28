@@ -205,7 +205,15 @@ namespace Pulse
             for (int i = 0; i < Constants.beamCount; i++)
                 beams.Add(new Beam(info, info.beamNoteCounts[i], glyphsUsed));
 
-            pulseSpeed = 0.0001;
+            pulseSpeed = 0.003;
+        }
+        public void step()
+        {
+            pulseLocation += pulseSpeed;
+            if(pulseLocation > 1.0)
+            {
+                pulseLocation = 0.0;
+            }
         }
         public List<Beam> beams = new List<Beam>();
         public AlphabetState alphabet = null;
@@ -227,6 +235,10 @@ namespace Pulse
             levelIndex++;
             manager.sound.playSpeech("sector completed. Advancing to sector " + (levelIndex + 1).ToString());
             level = new GameLevel(levelIndex);
+        }
+        public void step()
+        {
+            level.step();
         }
         public GameManager manager;
         public GameLevel level;

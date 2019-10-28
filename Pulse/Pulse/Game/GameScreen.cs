@@ -130,15 +130,18 @@ namespace Pulse
                     double xStart = Util.linearMap(n.start, 0.0, 1.0, beamXStart, beamXEnd);
                     double xEnd = Util.linearMap(n.end, 0.0, 1.0, beamXStart, beamXEnd);
                     drawImage(bmp, new Vec2(xStart, beamYStart), new Vec2(xEnd - xStart, beamHeight));
-                    /*
-                     * static public Vec2 beamBkgRaw = new Vec2(1920, 1080);
-                        static public Vec2 beamXRange = new Vec2(76, 1873);
-                        static public List<int> beamYStartRaw = new List<int>()
-                        {
-                            80, 386, 700
-                        };
-                        public const int beamHeightRaw = 187;*/
                 }
+            }
+
+            Bitmap[] beamBmps = new Bitmap[] { database.images.pulseBlue.bmp, database.images.pulseRed.bmp, database.images.pulseViolet.bmp };
+            double[] pulseOffsets = new double[] { 0.0, 2.0, 5.0 };
+            double[] pulseTimeRate = new double[] { 1.0, 3.0, 4.0 };
+            double pulseXCenter = Util.linearMap(level.pulseLocation, 0.0, 1.0, beamXStart, beamXEnd);
+            for (int pulseImageIdx = 0; pulseImageIdx < 3; pulseImageIdx++)
+            {
+                double pulseRadiusScale = Util.linearMap(Math.Cos(state.totalTime * pulseTimeRate[pulseImageIdx] + pulseOffsets[pulseImageIdx]), -1.0, 1.0, 0.2, 0.8);
+                double pulseRadius = Constants.pulseRadius * pulseRadiusScale;
+                drawImage(beamBmps[pulseImageIdx], new Vec2(pulseXCenter - pulseRadius, 0), new Vec2(pulseRadius * 2.0, Constants.viewportSize.y));
             }
 
             resizeScreen(renderWidth, renderHeight);
