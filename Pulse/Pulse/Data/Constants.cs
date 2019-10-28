@@ -15,6 +15,14 @@ namespace Pulse
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
         static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
 
+        static public Dictionary<string, string> scannerIDToWAV = new Dictionary<string, string>
+        {
+            { "[From Scanner02]", "scanB.wav" },
+            { "[From Scanner01]", "scanC.wav" },
+            { "[From Bluefruit52]", "scanD.wav" },
+            { "default", "scanA.wav" }
+        };
+
         static public List<Color> allColors = new List<Color>()
         {
             Color.FromArgb(136, 0, 21),
@@ -60,7 +68,8 @@ namespace Pulse
         static public Vec2 decoderTextureOffset = new Vec2(120, 10);
 
         public const String dataDir = @"C:\Code\GL2019\Pulse\data\";
-        public const String soundDir = @"C:\Code\GL2019\TTS\mp3s\";
+        public const String voiceDir = @"C:\Code\GL2019\TTS\mp3s\";
+        public const String soundEffectsDir = dataDir + "sounds/";
         public const String imageDir = dataDir + "images/";
         public const String alphabetDir = dataDir + "alphabetA/";
 

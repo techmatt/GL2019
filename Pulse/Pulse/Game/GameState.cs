@@ -36,10 +36,10 @@ namespace Pulse
             colors = colors.GetRange(0, colorCount);
 
             TextureType[] textureTypeByDifficulty = { TextureType.ColorGrid, TextureType.ColorGrid,
-                                                      TextureType.ColorGrid, TextureType.ColorGrid,
-                                                      TextureType.ColorGrid, TextureType.ColorGrid,
-                                                      TextureType.ColorGrid, TextureType.ColorGrid,
-                                                      TextureType.ColorGrid, TextureType.ColorGrid,
+                                                      TextureType.TextureGroup0, TextureType.TextureGroup1,
+                                                      TextureType.ColorGrid, TextureType.TextureGroup0,
+                                                      TextureType.TextureGroup1, TextureType.ColorGrid,
+                                                      TextureType.TextureGroup0, TextureType.TextureGroup1,
                                                       TextureType.ColorGrid, TextureType.ColorGrid };
             textureType = textureTypeByDifficulty[difficulty];
             //validTextureTypes = new List<TextureType>() { TextureType.ColorGrid };
@@ -59,9 +59,9 @@ namespace Pulse
 
     class GlyphState
     {
-        public GlyphState(LevelGenInfo info)
+        public GlyphState(LevelGenInfo info, int textureIndex)
         {
-            texture = new Texture(info);
+            texture = new Texture(info, textureIndex);
         }
         public Texture texture;
     }
@@ -70,23 +70,39 @@ namespace Pulse
     {
         public AlphabetState(LevelGenInfo info)
         {
-            int maxAttemptCount = 100;
-            for (int i = 0; i < Constants.totalGlyphCount; i++)
+            if (info.textureType == TextureType.ColorGrid)
             {
-                for(int attempt = 0; attempt < maxAttemptCount; attempt++)
+                int maxAttemptCount = 100;
+                for (int i = 0; i < Constants.totalGlyphCount; i++)
                 {
-                    GlyphState newGlyph = new GlyphState(info);
-                    bool isValid = true;
-                    foreach(GlyphState g in glyphs)
+                    for (int attempt = 0; attempt < maxAttemptCount; attempt++)
                     {
-                        if (Texture.texturesEquivalent(g.texture, newGlyph.texture))
-                            isValid = false;
+                        GlyphState newGlyph = new GlyphState(info, -1);
+                        bool isValid = true;
+                        foreach (GlyphState g in glyphs)
+                        {
+                            if (Texture.texturesEquivalent(g.texture, newGlyph.texture))
+                                isValid = false;
+                        }
+                        if (isValid)
+                        {
+                            glyphs.Add(newGlyph);
+                            break;
+                        }
                     }
-                    if (isValid)
-                    {
-                        glyphs.Add(newGlyph);
-                        break;
-                    }
+                }
+            }
+            else
+            {
+                var textureIndices = new List<int>();
+                for (int i = 0; i < Constants.totalGlyphCount; i++)
+                    textureIndices.Add(i);
+                textureIndices = textureIndices.Shuffle();
+
+                for (int i = 0; i < Constants.totalGlyphCount; i++)
+                {
+                    GlyphState newGlyph = new GlyphState(info, textureIndices[i]);
+                    glyphs.Add(newGlyph);
                 }
             }
         }
@@ -141,15 +157,13 @@ namespace Pulse
         public Beam(LevelGenInfo info, int noteCount, HashSet<int> glyphsUsed)
         {
             int maxNoteAddAttempts = 100;
-            for (int i = 0; i < maxNoteAddAttempts; i++)
+            for (int i = 0; i < maxNoteAddAttempts && notes.Count < noteCount; i++)
             {
                 Note newNote = new Note(info);
                 if(canAddNote(newNote, glyphsUsed))
                 {
                     notes.Add(newNote);
                     glyphsUsed.Add(newNote.glyphIndex);
-                    if (notes.Count >= noteCount)
-                        break;
                 }
             }
         }

@@ -72,6 +72,8 @@ namespace Pulse
 
         private void timerRender_Tick(object sender, EventArgs e)
         {
+            string scannerID = null;
+            string glyphID = null;
             if (Constants.useSerialPort)
             {
                 if (!port.IsOpen)
@@ -88,8 +90,8 @@ namespace Pulse
                         Console.WriteLine("unknown serial text: " + text);
                         return;
                     }
-                    string scannerID = parts[0];
-                    string glyphID = parts[1];
+                    scannerID = parts[0];
+                    glyphID = parts[1];
                     glyphID = Regex.Replace(glyphID, @"\t|\n|\r", "");
                     if (scanGlyphIndex != -1)
                     {
@@ -118,7 +120,7 @@ namespace Pulse
 
             if (manager != null)
             {
-                manager.step();
+                manager.step(scannerID, glyphID);
                 manager.render();
             }
         }

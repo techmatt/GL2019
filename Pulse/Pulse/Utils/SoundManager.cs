@@ -21,7 +21,7 @@ namespace Pulse
         {
             if (!sounds.ContainsKey(speech))
             {
-                string filename = Constants.soundDir + speech + ".wav";
+                string filename = Constants.voiceDir + speech + ".wav";
                 if (!File.Exists(filename))
                 {
                     string cmdText = "\"C:/code/GL2019/TTS/ttsGoogle.py\" \"" + speech + "\" \"C:/code/GL2019/TTS/mp3s/\"";
@@ -53,6 +53,19 @@ namespace Pulse
                 sounds[speech] = newSound;
             }
             SoundPlayer sound = sounds[speech];
+            sound.Play();
+        }
+
+        public void playWAVFile(string WAVFilename)
+        {
+            if (!sounds.ContainsKey(WAVFilename))
+            {
+                string path = Constants.soundEffectsDir + WAVFilename;
+                Debug.Assert(File.Exists(path));
+                SoundPlayer newSound = new SoundPlayer(path);
+                sounds[WAVFilename] = newSound;
+            }
+            SoundPlayer sound = sounds[WAVFilename];
             sound.Play();
         }
     }
