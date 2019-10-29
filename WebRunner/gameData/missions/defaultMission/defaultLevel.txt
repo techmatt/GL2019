@@ -1,0 +1,18 @@
+backgroundName=brushedMetal guardSpawnRate=20.2 ICESpawnRate=2 maxCompletionTime=54.8 
+16
+type=Camera centerX=800 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Camera centerX=760 centerY=520 sweepAngleStart=152 sweepAngleSpan=20 sweepAngleSpeed=3.74 
+type=Wall centerX=660 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=700 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=700 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=700 centerY=260 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=700 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=380 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=540 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Wall centerX=660 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
