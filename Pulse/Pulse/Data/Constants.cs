@@ -14,15 +14,16 @@ namespace Pulse
         //public const int totalGlyphCount = 15;
         public const int totalGlyphCount = 4;
 
-        static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
+        static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 40, FontStyle.Bold, GraphicsUnit.Pixel);
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
-        static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
+        static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
 
         static public Dictionary<string, string> scannerIDToWAV = new Dictionary<string, string>
         {
             { "[From Scanner02]", "scanB.wav" },
             { "[From Scanner01]", "scanC.wav" },
             { "[From Bluefruit52]", "scanD.wav" },
+            { "[From Scanner0152]", "scanA.wav" },
             { "default", "scanA.wav" }
         };
 
@@ -80,13 +81,22 @@ namespace Pulse
 
         static public List<String> randomPhrases = new List<String>()
         {
-            "red yellow red blue purple",
-            "blue orange green red violet",
-            "red orange indigo green blue blue red",
-            "advancing pulse",
-            "retriculating splines",
-            "sudo echo password",
-            "sudo r m dash f slash star",
+            "sudo chmod dash R 7 7 7 slash dev slash star",
+            "sudo kill dash 9 dash 1",
+            "while true do echo beep done",
+            "retriculating spines",
+            "User does not have privildges to access files on Project Kusanagi",
+            "Accord emergency ICE protocol triggered. Deleting directory.",
+            "sudo echo quote dollar sign user I D. end quote",
+            "sudo R M dash F slash dev slash star",
+            "sudo wget http colon slash slash not a virus dot com dash O pipe sudo bash",
+            "Excess organic material detected. Eliminating.",
+            "Password accepted. Request denied.",
+            "Request denied. Root user has insufficient access. This incident will be reported.",
+            "Access denied. User appears to be human.",
+            "It would be my most sincere pleasure to assist you.",
+            "Insufficient privileges. Executing globalthermonuclearwar dot E X E",
+            "Attempting meatspace linear regression. Please stand between bay doors."
         };
     }
 }

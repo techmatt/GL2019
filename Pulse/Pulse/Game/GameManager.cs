@@ -25,7 +25,7 @@ namespace Pulse
                     glyphIDToIndex[lines[i]] = i;
                 }
             }
-            sound.playSpeech("welcome to sector 1");
+            sound.playSpeech("welcome to sector 1. ten minutes remaining");
         }
 
         public GameDatabase database = new GameDatabase();
@@ -35,7 +35,12 @@ namespace Pulse
         public SoundManager sound = new SoundManager();
         public Dictionary<string, int> glyphIDToIndex = new Dictionary<string, int>();
 
-        public void step(string scannerID, string glyphID, double totalTime)
+        static bool timeInRange(double time, double start, double end)
+        {
+            return (time >= start && time < end);
+        }
+
+        public void step(string scannerID, string glyphID, double newTotalTime)
         {
             joystick.poll();
             foreach (RunnerJoystickState j in joystick.joysticks)
@@ -67,7 +72,30 @@ namespace Pulse
                     sound.playWAVFile(WAVFilename);
                 }
             }
-            state.totalTime = totalTime;
+            double prevTotalTime = state.totalTime;
+            double deltaT = newTotalTime - prevTotalTime;
+            state.totalTime = newTotalTime;
+            double prevRemainingTime = state.remainingTime;
+            state.remainingTime -= deltaT;
+
+            for(double intervalCandidate = 0; intervalCandidate < state.remainingTime + 1.0; intervalCandidate += 10.0)
+            {
+                if (timeInRange(intervalCandidate, state.remainingTime, prevRemainingTime))
+                    sound.playSpeech(Constants.randomPhrases.RandomElement());
+            }
+
+            if (timeInRange(10.0      , state.remainingTime, prevRemainingTime)) sound.playSpeech("ten seconds remaining");
+            if (timeInRange(30.0      , state.remainingTime, prevRemainingTime)) sound.playSpeech("thirty seconds remaining");
+            if (timeInRange(60.0 * 1.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("one minutes remaining");
+            if (timeInRange(60.0 * 2.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("two minutes remaining");
+            if (timeInRange(60.0 * 3.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("three minutes remaining");
+            if (timeInRange(60.0 * 4.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("four minutes remaining");
+            if (timeInRange(60.0 * 5.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("five minutes remaining");
+            if (timeInRange(60.0 * 6.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("six minutes remaining");
+            if (timeInRange(60.0 * 7.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("seven minutes remaining");
+            if (timeInRange(60.0 * 8.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("eight minutes remaining");
+            if (timeInRange(60.0 * 9.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("nine minutes remaining");
+
             state.step();
         }
 

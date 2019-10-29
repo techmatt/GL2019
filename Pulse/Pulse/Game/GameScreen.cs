@@ -144,6 +144,11 @@ namespace Pulse
                 drawImage(beamBmps[pulseImageIdx], new Vec2(pulseXCenter - pulseRadius, 0), new Vec2(pulseRadius * 2.0, Constants.viewportSize.y));
             }
 
+            int secondsRemaining = (int)state.remainingTime;
+            string minutesText = (secondsRemaining / 60).ToString().PadLeft(2, '0');
+            string secondsText = (secondsRemaining % 60).ToString().PadLeft(2, '0');
+            gViewport.DrawString("Remaining time: " + minutesText + ":" + secondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(15, 658));
+
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;

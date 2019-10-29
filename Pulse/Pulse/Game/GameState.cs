@@ -229,6 +229,7 @@ namespace Pulse
             levelIndex = 0;
             level = new GameLevel(levelIndex);
             totalTime = 0.0;
+            remainingTime = 60.0 * 10.0;
         }
         public void nextLevel()
         {
@@ -244,5 +245,6 @@ namespace Pulse
         public GameLevel level;
         public int levelIndex;
         public double totalTime;
+        public double remainingTime;
     }
 }
