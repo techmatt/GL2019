@@ -70,6 +70,7 @@ namespace Pulse
                         WAVFilename = Constants.scannerIDToWAV[scannerID];
                     }
                     sound.playWAVFile(WAVFilename);
+                    state.level.recordGlyphScan(this, scannedGlyphIndex);
                 }
             }
             double prevTotalTime = state.totalTime;
@@ -102,7 +103,11 @@ namespace Pulse
         public void render()
         {
             state.level.alphabet.updateTextures();
-            screenDecoder.renderDecoder(state, Constants.decoderWindowWidth, Constants.decoderWindowHeight);
+            if (state.decoderStale)
+            {
+                screenDecoder.renderDecoder(state, Constants.decoderWindowWidth, Constants.decoderWindowHeight);
+                state.decoderStale = false;
+            }
             screenPulse.renderPulse(state, Constants.pulseWindowWidth, Constants.pulseWindowHeight);
         }
     }

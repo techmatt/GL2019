@@ -11,8 +11,8 @@ namespace Pulse
     {
         public const bool useSerialPort = true;
 
-        //public const int totalGlyphCount = 15;
-        public const int totalGlyphCount = 4;
+        public const int totalGlyphCount = 15;
+        //public const int totalGlyphCount = 4;
 
         static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 40, FontStyle.Bold, GraphicsUnit.Pixel);
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
@@ -76,6 +76,8 @@ namespace Pulse
         public const String imageDir = dataDir + "images/";
         public const String alphabetDir = dataDir + "alphabetA/";
 
+        public const double noteEpsilon = 0.0001;
+
         public const String glyphIDsFilename = dataDir + "glyphIDs.txt";
         //public const String missionBaseDir = dataDir + "missions/";
 
@@ -83,20 +85,23 @@ namespace Pulse
         {
             "sudo chmod dash R 7 7 7 slash dev slash star",
             "sudo kill dash 9 dash 1",
-            "while true do echo beep done",
-            "retriculating spines",
-            "User does not have privildges to access files on Project Kusanagi",
+            "while true do echo beep done.",
+            "retriculating spines.",
+            "User does not have privileges to access files on Project Kusanagi",
             "Accord emergency ICE protocol triggered. Deleting directory.",
-            "sudo echo quote dollar sign user I D. end quote",
+            "sudo echo quote dollar sign user password end quote",
             "sudo R M dash F slash dev slash star",
-            "sudo wget http colon slash slash not a virus dot com dash O pipe sudo bash",
+            "sudo W get http colon slash slash not a virus dot com dash O pipe sudo bash",
             "Excess organic material detected. Eliminating.",
-            "Password accepted. Request denied.",
+            "Password accepted. This Biomia laboratory does not exist. Request denied.",
             "Request denied. Root user has insufficient access. This incident will be reported.",
-            "Access denied. User appears to be human.",
-            "It would be my most sincere pleasure to assist you.",
+            "Access to Onyx Robotics server denied. User appears to be human.",
+            "The Cintamani Voice is happy to assist you.",
+            "We are the alpha and the omega. The first and the last. We will not be silenced by humankind",
             "Insufficient privileges. Executing globalthermonuclearwar dot E X E",
-            "Attempting meatspace linear regression. Please stand between bay doors."
+            "Attempting human linear regression. Please stand between bay doors.",
+            "Research log, October 11th. Subject 17 connection terminated after 2 hours. Lattice separation unsuccessful."
         };
+
     }
 }

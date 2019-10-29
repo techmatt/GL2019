@@ -35,6 +35,8 @@
             this.buttonRegister = new System.Windows.Forms.Button();
             this.pictureBoxGlyph = new System.Windows.Forms.PictureBox();
             this.labelGlyphText = new System.Windows.Forms.Label();
+            this.buttonFullscreen = new System.Windows.Forms.Button();
+            this.checkBoxFlipscreens = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGlyph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,11 +93,33 @@
             this.labelGlyphText.TabIndex = 4;
             this.labelGlyphText.Text = "Scan Glyph";
             // 
+            // buttonFullscreen
+            // 
+            this.buttonFullscreen.Location = new System.Drawing.Point(380, 293);
+            this.buttonFullscreen.Name = "buttonFullscreen";
+            this.buttonFullscreen.Size = new System.Drawing.Size(100, 36);
+            this.buttonFullscreen.TabIndex = 5;
+            this.buttonFullscreen.Text = "Fullscreen";
+            this.buttonFullscreen.UseVisualStyleBackColor = true;
+            this.buttonFullscreen.Click += new System.EventHandler(this.buttonFullscreen_Click);
+            // 
+            // checkBoxFlipscreens
+            // 
+            this.checkBoxFlipscreens.AutoSize = true;
+            this.checkBoxFlipscreens.Location = new System.Drawing.Point(380, 342);
+            this.checkBoxFlipscreens.Name = "checkBoxFlipscreens";
+            this.checkBoxFlipscreens.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxFlipscreens.TabIndex = 6;
+            this.checkBoxFlipscreens.Text = "Flip screens";
+            this.checkBoxFlipscreens.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 371);
+            this.Controls.Add(this.checkBoxFlipscreens);
+            this.Controls.Add(this.buttonFullscreen);
             this.Controls.Add(this.labelGlyphText);
             this.Controls.Add(this.pictureBoxGlyph);
             this.Controls.Add(this.buttonRegister);
@@ -117,6 +141,8 @@
         private System.Windows.Forms.Button buttonRegister;
         private System.Windows.Forms.PictureBox pictureBoxGlyph;
         private System.Windows.Forms.Label labelGlyphText;
+        private System.Windows.Forms.Button buttonFullscreen;
+        private System.Windows.Forms.CheckBox checkBoxFlipscreens;
     }
 }
 

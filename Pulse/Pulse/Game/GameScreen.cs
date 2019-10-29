@@ -106,11 +106,21 @@ namespace Pulse
                     glyphIndex++;
                 }
 
+            renderWidth = targetBox.Width;
+            renderHeight = targetBox.Height;
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;
+            
         }
 
+        public Color colorFromNoteState(NoteState n)
+        {
+            if (n == NoteState.Attempted) return Color.FromArgb(255, 198, 50);
+            if (n == NoteState.Failed) return Color.FromArgb(225, 28, 28);
+            if (n == NoteState.Success) return Color.FromArgb(20, 200, 20);
+            return Color.FromArgb(0, 0, 0);
+        }
         public void renderPulse(GameState state, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
@@ -130,6 +140,12 @@ namespace Pulse
                     double xStart = Util.linearMap(n.start, 0.0, 1.0, beamXStart, beamXEnd);
                     double xEnd = Util.linearMap(n.end, 0.0, 1.0, beamXStart, beamXEnd);
                     drawImage(bmp, new Vec2(xStart, beamYStart), new Vec2(xEnd - xStart, beamHeight));
+
+                    if (n.state != NoteState.Neutral)
+                    {
+                        Pen notePen = new Pen(colorFromNoteState(n.state), 10.0f);
+                        gViewport.DrawRectangle(notePen, (int)xStart, (int)beamYStart, (int)(xEnd - xStart), (int)beamHeight);
+                    }
                 }
             }
 
@@ -149,6 +165,8 @@ namespace Pulse
             string secondsText = (secondsRemaining % 60).ToString().PadLeft(2, '0');
             gViewport.DrawString("Remaining time: " + minutesText + ":" + secondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(15, 658));
 
+            renderWidth = targetBox.Width;
+            renderHeight = targetBox.Height;
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;

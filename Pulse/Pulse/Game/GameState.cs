@@ -116,7 +116,7 @@ namespace Pulse
         public List<GlyphState> glyphs = new List<GlyphState>();
     }
 
-    enum NoteStateType
+    enum NoteState
     {
         Neutral,
         Success,
@@ -148,12 +148,14 @@ namespace Pulse
         }
         public double start;
         public double end;
-        public NoteStateType state = NoteStateType.Neutral;
+        public NoteState state = NoteState.Neutral;
         public int glyphIndex;
     }
 
     class Beam
     {
+        public List<Note> notes = new List<Note>();
+
         public Beam(LevelGenInfo info, int noteCount, HashSet<int> glyphsUsed)
         {
             int maxNoteAddAttempts = 100;
@@ -180,7 +182,28 @@ namespace Pulse
             return true;
         }
 
-        public List<Note> notes = new List<Note>();
+        public void recordGlyphScan(GameManager manager, double pulseLocation, int scannedGlyphIndex)
+        {
+            foreach (Note n in notes)
+            {
+                if (n.state == NoteState.Success || n.state == NoteState.Failed)
+                    continue;
+
+                if (pulseLocation >= n.start - Constants.noteEpsilon && pulseLocation <= n.end + Constants.noteEpsilon)
+                {
+                    if (n.glyphIndex == scannedGlyphIndex)
+                    {
+                        n.state = NoteState.Success;
+                        manager.sound.playWAVFile("success.wav");
+                    }
+                    else
+                    {
+                        n.state = NoteState.Attempted;
+                        manager.sound.playWAVFile("failure.wav");
+                    }
+                }
+            }
+        }
     }
 
     class GameLevel
@@ -206,18 +229,60 @@ namespace Pulse
                 beams.Add(new Beam(info, info.beamNoteCounts[i], glyphsUsed));
 
             pulseSpeed = 0.003;
+
+            resetPulse();
         }
+
+        public void resetPulse()
+        {
+            pulseLocation = 0.0;
+            foreach (Beam b in beams)
+            {
+                foreach(Note n in b.notes)
+                {
+                    n.state = NoteState.Neutral;
+                }
+            }
+        }
+
         public void step()
         {
             pulseLocation += pulseSpeed;
             if(pulseLocation > 1.0)
             {
-                pulseLocation = 0.0;
+                victory = true;
+                foreach (Beam b in beams)
+                {
+                    foreach (Note n in b.notes)
+                    {
+                        if (n.state != NoteState.Success)
+                            victory = false;
+                    }
+                }
+                resetPulse();
+            }
+            foreach (Beam b in beams)
+            {
+                foreach(Note n in b.notes)
+                {
+                    if (n.state != NoteState.Success && n.end + Constants.noteEpsilon < pulseLocation)
+                        n.state = NoteState.Failed;
+                }
             }
         }
+
+        public void recordGlyphScan(GameManager manager, int scannedGlyphIndex)
+        {
+            foreach(Beam b in beams)
+            {
+                b.recordGlyphScan(manager, pulseLocation, scannedGlyphIndex);
+            }
+        }
+
         public List<Beam> beams = new List<Beam>();
         public AlphabetState alphabet = null;
         public double pulseLocation = 0.0;
+        public bool victory = false;
         public double pulseSpeed;
     }
 
@@ -230,9 +295,11 @@ namespace Pulse
             level = new GameLevel(levelIndex);
             totalTime = 0.0;
             remainingTime = 60.0 * 10.0;
+            decoderStale = true;
         }
         public void nextLevel()
         {
+            decoderStale = true;
             levelIndex++;
             manager.sound.playSpeech("sector completed. Advancing to sector " + (levelIndex + 1).ToString());
             level = new GameLevel(levelIndex);
@@ -240,11 +307,16 @@ namespace Pulse
         public void step()
         {
             level.step();
+            if(level.victory)
+            {
+                nextLevel();
+            }
         }
         public GameManager manager;
         public GameLevel level;
         public int levelIndex;
         public double totalTime;
         public double remainingTime;
+        public bool decoderStale;
     }
 }

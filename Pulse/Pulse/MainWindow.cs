@@ -26,6 +26,7 @@ namespace Pulse
         GameManager manager;
         SerialPort port = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
 
+        SoundManager scanSounds = null;
         GameDatabase scanGlyphDatabase = null;
         int scanGlyphIndex = -1;
         List<string> scanGlyphStrings = null;
@@ -100,6 +101,7 @@ namespace Pulse
                     glyphID = Regex.Replace(glyphID, @"\t|\n|\r", "");
                     if (scanGlyphIndex != -1)
                     {
+                        scanSounds.playWAVFile("success.wav");
                         scanGlyphStrings.Add(glyphID);
                         scanGlyphIndex++;
                         if (scanGlyphIndex == Constants.totalGlyphCount)
@@ -152,9 +154,34 @@ namespace Pulse
             scanGlyphDatabase = new GameDatabase();
             scanGlyphIndex = 0;
             scanGlyphStrings = new List<string>();
+            scanSounds = new SoundManager();
             loadCurrentScanGlyph();
 
             timerRender.Enabled = true;
+        }
+
+        private void fullScreenForm(Form form, PictureBox box, Screen screen)
+        {
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Top = screen.Bounds.Top;
+            form.Left = screen.Bounds.Left;
+            form.Width = screen.Bounds.Width;
+            form.Height = screen.Bounds.Height;
+            box.Top = 0;
+            box.Left = 0;
+            box.Width = screen.Bounds.Width;
+            box.Height = screen.Bounds.Height;
+        }
+
+        private void buttonFullscreen_Click(object sender, EventArgs e)
+        {
+            int flip = checkBoxFlipscreens.Checked ? 0 : 1;
+            var screen0 = Screen.AllScreens[(0 + flip) % 2];
+            var screen1 = Screen.AllScreens[(1 + flip) % 2];
+
+            fullScreenForm(decoderWindow, decoderWindow.getPictureBox(), screen0);
+            fullScreenForm(pulseWindow, pulseWindow.getPictureBox(), screen1);
+            manager.state.decoderStale = true;
         }
     }
 }
