@@ -31,8 +31,8 @@ namespace Pulse
         int scanGlyphIndex = -1;
         List<string> scanGlyphStrings = null;
         Stopwatch stopwatch = new Stopwatch();
-        double previousFrameTotalSeconds;
-
+        FrameTimer frameTimer = new FrameTimer();
+        
         public void killAllWindows()
         {
             if (decoderWindow != null)
@@ -72,7 +72,6 @@ namespace Pulse
             manager = new GameManager(pictureBoxDecoder, pictureBoxPulse);
 
             stopwatch.Restart();
-            previousFrameTotalSeconds = 0.0;
             timerRender.Enabled = true;
         }
 
@@ -125,12 +124,14 @@ namespace Pulse
                 }
             }
 
+            frameTimer.frame();
+            labelFPS.Text = "FPS: " + frameTimer.framesPerSecond.ToString();
             if (manager != null)
             {
                 double totalTime = stopwatch.Elapsed.TotalSeconds;
-                double deltaT = totalTime - previousFrameTotalSeconds;
-                previousFrameTotalSeconds = stopwatch.Elapsed.TotalSeconds;
-                manager.step(scannerID, glyphID, totalTime);
+                //double deltaT = totalTime - previousFrameTotalSeconds;
+                //previousFrameTotalSeconds = stopwatch.Elapsed.TotalSeconds;
+                manager.step(scannerID, glyphID, totalTime, frameTimer.secondsPerFrame);
                 manager.render();
             }
         }
@@ -181,7 +182,7 @@ namespace Pulse
 
             fullScreenForm(decoderWindow, decoderWindow.getPictureBox(), screen0);
             fullScreenForm(pulseWindow, pulseWindow.getPictureBox(), screen1);
-            manager.state.decoderStale = true;
+            //manager.state.decoderStale = true;
         }
     }
 }

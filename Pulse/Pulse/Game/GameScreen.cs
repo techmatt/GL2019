@@ -60,6 +60,11 @@ namespace Pulse
             gViewport.FillRectangle(brush, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
         }
 
+        public void drawRectangle(Pen pen, Vec2 start, Vec2 dim)
+        {
+            gViewport.DrawRectangle(pen, new Rectangle((int)start.x, (int)start.y, (int)dim.x, (int)dim.y));
+        }
+
         public void drawImage(Bitmap bmp, Vec2 center)
         {
             gViewport.DrawImage(bmp, (int)(center.x - bmp.Width / 2), (int)(center.y - bmp.Height / 2));
@@ -103,12 +108,22 @@ namespace Pulse
                     drawImage(bmpA, gridStartPos, new Vec2(Constants.glyphDim, Constants.glyphDim));
                     drawImage(bmpB, gridStartPos + Constants.decoderTextureOffset, Constants.textureSize);
 
+                    if(g.residualScanStrength > 0.0)
+                    {
+                        double strength = g.residualScanStrength / Constants.residualScanMax;
+                        Color c = Color.FromArgb((int)(strength * 255.0), g.scannerColor);
+                        Pen borderPen = new Pen(c, 10.0f);
+                        drawRectangle(borderPen, gridStartPos + Constants.decoderTextureOffset, Constants.textureSize);
+                    }
+
                     glyphIndex++;
                 }
 
             renderWidth = targetBox.Width;
             renderHeight = targetBox.Height;
             resizeScreen(renderWidth, renderHeight);
+            gScreen.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+            gScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bilinear;
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;
             
@@ -121,6 +136,7 @@ namespace Pulse
             if (n == NoteState.Success) return Color.FromArgb(20, 200, 20);
             return Color.FromArgb(0, 0, 0);
         }
+
         public void renderPulse(GameState state, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
@@ -168,6 +184,8 @@ namespace Pulse
             renderWidth = targetBox.Width;
             renderHeight = targetBox.Height;
             resizeScreen(renderWidth, renderHeight);
+            gScreen.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+            gScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bilinear;
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;
         }

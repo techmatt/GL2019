@@ -40,7 +40,7 @@ namespace Pulse
             return (time >= start && time < end);
         }
 
-        public void step(string scannerID, string glyphID, double newTotalTime)
+        public void step(string scannerID, string glyphID, double newTotalTime, double secondsPerFrame)
         {
             joystick.poll();
             foreach (RunnerJoystickState j in joystick.joysticks)
@@ -70,14 +70,21 @@ namespace Pulse
                         WAVFilename = Constants.scannerIDToWAV[scannerID];
                     }
                     sound.playWAVFile(WAVFilename);
-                    state.level.recordGlyphScan(this, scannedGlyphIndex);
+
+                    Color scannerColor = Constants.scannerIDToColor["default"];
+                    if (Constants.scannerIDToColor.ContainsKey(scannerID))
+                    {
+                        scannerColor = Constants.scannerIDToColor[scannerID];
+                    }
+                    state.level.recordGlyphScan(this, scannedGlyphIndex, scannerColor);
                 }
             }
+
             double prevTotalTime = state.totalTime;
-            double deltaT = newTotalTime - prevTotalTime;
+            double deltaTAbsolute = newTotalTime - prevTotalTime;
             state.totalTime = newTotalTime;
             double prevRemainingTime = state.remainingTime;
-            state.remainingTime -= deltaT;
+            state.remainingTime -= deltaTAbsolute;
 
             for(double intervalCandidate = 0; intervalCandidate < state.remainingTime + 1.0; intervalCandidate += 10.0)
             {
@@ -97,17 +104,22 @@ namespace Pulse
             if (timeInRange(60.0 * 8.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("eight minutes remaining");
             if (timeInRange(60.0 * 9.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("nine minutes remaining");
 
-            state.step();
+            state.step(secondsPerFrame);
         }
 
         public void render()
         {
             state.level.alphabet.updateTextures();
-            if (state.decoderStale)
+            List<int> screenIndices = new List<int>() { 0, 1 };
+            /*Parallel.ForEach(screenIndices, (screenIdx) =>
             {
-                screenDecoder.renderDecoder(state, Constants.decoderWindowWidth, Constants.decoderWindowHeight);
-                state.decoderStale = false;
-            }
+                if (screenIdx == 0)
+                    screenDecoder.renderDecoder(state, Constants.decoderWindowWidth, Constants.decoderWindowHeight);
+                if (screenIdx == 1)
+                    screenPulse.renderPulse(state, Constants.pulseWindowWidth, Constants.pulseWindowHeight);
+            });*/
+
+            screenDecoder.renderDecoder(state, Constants.decoderWindowWidth, Constants.decoderWindowHeight);
             screenPulse.renderPulse(state, Constants.pulseWindowWidth, Constants.pulseWindowHeight);
         }
     }

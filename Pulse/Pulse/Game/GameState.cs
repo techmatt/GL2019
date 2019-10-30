@@ -62,8 +62,11 @@ namespace Pulse
         public GlyphState(LevelGenInfo info, int textureIndex)
         {
             texture = new Texture(info, textureIndex);
+            residualScanStrength = 0.0;
         }
         public Texture texture;
+        public double residualScanStrength;
+        public Color scannerColor;
     }
 
     class AlphabetState
@@ -228,7 +231,7 @@ namespace Pulse
             for (int i = 0; i < Constants.beamCount; i++)
                 beams.Add(new Beam(info, info.beamNoteCounts[i], glyphsUsed));
 
-            pulseSpeed = 0.003;
+            pulseSpeed = 0.1;
 
             resetPulse();
         }
@@ -245,9 +248,9 @@ namespace Pulse
             }
         }
 
-        public void step()
+        public void step(double secondsPerFrame)
         {
-            pulseLocation += pulseSpeed;
+            pulseLocation += pulseSpeed * secondsPerFrame;
             if(pulseLocation > 1.0)
             {
                 victory = true;
@@ -269,14 +272,24 @@ namespace Pulse
                         n.state = NoteState.Failed;
                 }
             }
+            foreach(GlyphState g in alphabet.glyphs)
+            {
+                if(g.residualScanStrength > 0.0)
+                {
+                    g.residualScanStrength -= secondsPerFrame;
+                }
+            }
         }
 
-        public void recordGlyphScan(GameManager manager, int scannedGlyphIndex)
+        public void recordGlyphScan(GameManager manager, int scannedGlyphIndex, Color scannerColor)
         {
             foreach(Beam b in beams)
             {
                 b.recordGlyphScan(manager, pulseLocation, scannedGlyphIndex);
             }
+            GlyphState g = alphabet.glyphs[scannedGlyphIndex];
+            g.residualScanStrength = Constants.residualScanMax;
+            g.scannerColor = scannerColor;
         }
 
         public List<Beam> beams = new List<Beam>();
@@ -295,18 +308,18 @@ namespace Pulse
             level = new GameLevel(levelIndex);
             totalTime = 0.0;
             remainingTime = 60.0 * 10.0;
-            decoderStale = true;
+            //decoderStale = true;
         }
         public void nextLevel()
         {
-            decoderStale = true;
+            //decoderStale = true;
             levelIndex++;
             manager.sound.playSpeech("sector completed. Advancing to sector " + (levelIndex + 1).ToString());
             level = new GameLevel(levelIndex);
         }
-        public void step()
+        public void step(double secondsPerFrame)
         {
-            level.step();
+            level.step(secondsPerFrame);
             if(level.victory)
             {
                 nextLevel();
@@ -317,6 +330,6 @@ namespace Pulse
         public int levelIndex;
         public double totalTime;
         public double remainingTime;
-        public bool decoderStale;
+        //public bool decoderStale;
     }
 }

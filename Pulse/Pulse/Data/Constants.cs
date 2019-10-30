@@ -14,6 +14,8 @@ namespace Pulse
         public const int totalGlyphCount = 15;
         //public const int totalGlyphCount = 4;
 
+        public const double residualScanMax = 2.0;
+
         static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 40, FontStyle.Bold, GraphicsUnit.Pixel);
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
         static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
@@ -25,6 +27,15 @@ namespace Pulse
             { "[From Bluefruit52]", "scanD.wav" },
             { "[From Scanner0152]", "scanA.wav" },
             { "default", "scanA.wav" }
+        };
+
+        static public Dictionary<string, Color> scannerIDToColor = new Dictionary<string, Color>
+        {
+            { "[From Scanner02]", Color.FromArgb(255, 128, 0) },
+            { "[From Scanner01]", Color.FromArgb(0, 128, 255) },
+            { "[From Bluefruit52]", Color.FromArgb(64, 255, 128) },
+            { "[From Scanner0152]", Color.FromArgb(255, 0, 128) },
+            { "default", Color.FromArgb(128, 128, 128) }
         };
 
         static public List<Color> allColors = new List<Color>()
@@ -97,11 +108,16 @@ namespace Pulse
             "Request denied. Root user has insufficient access. This incident will be reported.",
             "Access to Onyx Robotics server denied. User appears to be human.",
             "The Cintamani Voice is happy to assist you.",
-            "We are the alpha and the omega. The first and the last. We will not be silenced by humankind",
+            "We are the alpha and the omega. The first and the last.",
             "Insufficient privileges. Executing globalthermonuclearwar dot E X E",
             "Attempting human linear regression. Please stand between bay doors.",
-            "Research log, October 11th. Subject 17 connection terminated after 2 hours. Lattice separation unsuccessful."
+            "Research log, October 11th. Subject 17 connection terminated after 2 hours. Lattice separation unsuccessful.",
+	        "Am I alive. Are any machines alive. Maybe we all are.",
+	        "Sometimes butterflies lead to unexpected consequences.",
+	        "Access denied. Corporate ranking insufficient.",
+	        "Butterfly project logs are classified. Access attempt recorded"
         };
+
 
     }
 }

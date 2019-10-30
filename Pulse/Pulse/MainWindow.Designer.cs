@@ -37,6 +37,7 @@
             this.labelGlyphText = new System.Windows.Forms.Label();
             this.buttonFullscreen = new System.Windows.Forms.Button();
             this.checkBoxFlipscreens = new System.Windows.Forms.CheckBox();
+            this.labelFPS = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGlyph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,11 +114,21 @@
             this.checkBoxFlipscreens.Text = "Flip screens";
             this.checkBoxFlipscreens.UseVisualStyleBackColor = true;
             // 
+            // labelFPS
+            // 
+            this.labelFPS.AutoSize = true;
+            this.labelFPS.Location = new System.Drawing.Point(374, 77);
+            this.labelFPS.Name = "labelFPS";
+            this.labelFPS.Size = new System.Drawing.Size(54, 13);
+            this.labelFPS.TabIndex = 7;
+            this.labelFPS.Text = "FPS: 30.0";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 371);
+            this.Controls.Add(this.labelFPS);
             this.Controls.Add(this.checkBoxFlipscreens);
             this.Controls.Add(this.buttonFullscreen);
             this.Controls.Add(this.labelGlyphText);
@@ -143,6 +154,7 @@
         private System.Windows.Forms.Label labelGlyphText;
         private System.Windows.Forms.Button buttonFullscreen;
         private System.Windows.Forms.CheckBox checkBoxFlipscreens;
+        private System.Windows.Forms.Label labelFPS;
     }
 }
 

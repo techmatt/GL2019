@@ -79,6 +79,7 @@
     <Compile Include="PulseWindow.Designer.cs">
       <DependentUpon>PulseWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\FrameTimer.cs" />
     <Compile Include="Utils\JoystickManager.cs" />
     <Compile Include="Utils\Rect2.cs" />
     <Compile Include="Utils\SoundManager.cs" />
