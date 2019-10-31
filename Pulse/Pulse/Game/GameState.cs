@@ -301,9 +301,10 @@ namespace Pulse
 
     class GameState
     {
-        public GameState(GameManager _manager)
+        public GameState(GameManager _manager, string _teamName)
         {
             manager = _manager;
+            teamName = _teamName;
             levelIndex = 0;
             level = new GameLevel(levelIndex);
             remainingTime = 60.0 * 10.0;
@@ -328,6 +329,7 @@ namespace Pulse
         public GameLevel level;
         public int levelIndex;
         public double remainingTime;
+        public string teamName;
         //public bool decoderStale;
     }
 }

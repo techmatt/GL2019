@@ -38,6 +38,8 @@
             this.buttonFullscreen = new System.Windows.Forms.Button();
             this.checkBoxFlipscreens = new System.Windows.Forms.CheckBox();
             this.labelFPS = new System.Windows.Forms.Label();
+            this.labelTeam = new System.Windows.Forms.Label();
+            this.textBoxTeamName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGlyph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,11 +125,32 @@
             this.labelFPS.TabIndex = 7;
             this.labelFPS.Text = "FPS: 30.0";
             // 
+            // labelTeam
+            // 
+            this.labelTeam.AutoSize = true;
+            this.labelTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTeam.Location = new System.Drawing.Point(217, 119);
+            this.labelTeam.Name = "labelTeam";
+            this.labelTeam.Size = new System.Drawing.Size(110, 20);
+            this.labelTeam.TabIndex = 8;
+            this.labelTeam.Text = "Runner Team:";
+            // 
+            // textBoxTeamName
+            // 
+            this.textBoxTeamName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTeamName.Location = new System.Drawing.Point(333, 119);
+            this.textBoxTeamName.Name = "textBoxTeamName";
+            this.textBoxTeamName.Size = new System.Drawing.Size(160, 26);
+            this.textBoxTeamName.TabIndex = 9;
+            this.textBoxTeamName.Text = "TeamName";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 371);
+            this.Controls.Add(this.textBoxTeamName);
+            this.Controls.Add(this.labelTeam);
             this.Controls.Add(this.labelFPS);
             this.Controls.Add(this.checkBoxFlipscreens);
             this.Controls.Add(this.buttonFullscreen);
@@ -155,6 +178,8 @@
         private System.Windows.Forms.Button buttonFullscreen;
         private System.Windows.Forms.CheckBox checkBoxFlipscreens;
         private System.Windows.Forms.Label labelFPS;
+        private System.Windows.Forms.Label labelTeam;
+        private System.Windows.Forms.TextBox textBoxTeamName;
     }
 }
 

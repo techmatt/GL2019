@@ -69,7 +69,7 @@ namespace Pulse
             pulseWindow.Width = Constants.pulseWindowWidth + borderWidth;
             pulseWindow.Height = Constants.pulseWindowHeight + borderHeight;
 
-            manager = new GameManager(pictureBoxDecoder, pictureBoxPulse);
+            manager = new GameManager(pictureBoxDecoder, pictureBoxPulse, textBoxTeamName.Text);
 
             stopwatch.Restart();
             timerRender.Enabled = true;

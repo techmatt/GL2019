@@ -11,9 +11,9 @@ namespace Pulse
 {
     class GameManager
     {
-        public GameManager(PictureBox _pictureBoxDecoder, PictureBox _pictureBoxPulse)
+        public GameManager(PictureBox _pictureBoxDecoder, PictureBox _pictureBoxPulse, string teamName)
         {
-            state = new GameState(this);
+            state = new GameState(this, teamName);
             screenDecoder = new GameScreen(_pictureBoxDecoder, database);
             screenPulse = new GameScreen(_pictureBoxPulse, database);
 
@@ -106,6 +106,7 @@ namespace Pulse
                 Directory.CreateDirectory(Constants.resultsDir);
                 string runFilename = Constants.resultsDir + "pulse-" + string.Format("{0:MM-dd_hh-mm-ss}", DateTime.Now) + ".txt";
                 var allLines = new List<string>();
+                allLines.Add("team: " + state.teamName);
                 allLines.Add("max level: " + (state.levelIndex + 1).ToString());
                 File.WriteAllLines(runFilename, allLines);
                 sound.playSpeech("oxygen depleted on level " + (state.levelIndex + 1).ToString() + ". All runners must return to headquarters immediately.");
