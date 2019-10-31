@@ -21,9 +21,20 @@ namespace WebRunner
             return new Vec2(Math.Cos(theta), Math.Sin(theta));
         }
 
+        public Vec2 curNormal()
+        {
+            double theta = (curSweepAngle + 90.0) * Math.PI / 180.0;
+            return new Vec2(Math.Cos(theta), Math.Sin(theta));
+        }
+
         public double sweepAngleEnd()
         {
             return sweepAngleStart + sweepAngleSpan;
+        }
+
+        public bool isTopLayer()
+        {
+            return (type == StructureType.LaserTurret || type == StructureType.Camera);
         }
 
         //
@@ -41,6 +52,7 @@ namespace WebRunner
         public int curSweepAngleSign = 1;
         public double curCameraViewDist = 0.0;
         public int curImgInstanceHash = Util.randInt(0, 1000000);
+        public LaserPath laserPath = null;
 
         public Dictionary<string, string> toDict()
         {

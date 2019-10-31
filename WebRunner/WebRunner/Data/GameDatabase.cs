@@ -73,6 +73,10 @@ namespace WebRunner
             shape = _shape;
             gridSize = _gridSize;
         }
+        public bool isReflective()
+        {
+            return (type == StructureType.RunnerMirror || type == StructureType.StationaryMirror);
+        }
         public StructureType type;
         public ImageEntry image;
         public string name;
@@ -147,7 +151,7 @@ namespace WebRunner
         public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
         public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
         public Pen cameraRay = new Pen(Color.FromArgb(255, 240, 240, 140), 6.0f);
-
+        
         public Pen laserTurretRay = new Pen(Color.FromArgb(255, 163, 73, 164), 4.0f);
         public Pen laserGunRay = new Pen(Color.FromArgb(255, 63, 73, 204), 4.0f);
 
@@ -159,12 +163,12 @@ namespace WebRunner
             StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction,
             StructureType.StationaryMirror};
 
+        public HashSet<StructureType> laserTurretBlockingStructures = new HashSet<StructureType>() {
+            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction,
+            StructureType.StationaryMirror, StructureType.RunnerMirror};
+
         public HashSet<StructureType> runnerLaserBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.RunnerMirror, StructureType.StationaryMirror };
-
-        public HashSet<StructureType> turretLaserBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.RunnerMirror, StructureType.StationaryMirror,
-            StructureType.RunnerA, StructureType.RunnerB };
 
         public ImageDatabase images;
     }

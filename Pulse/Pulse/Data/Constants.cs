@@ -69,8 +69,6 @@ namespace Pulse
         };
         public const int beamHeightRaw = 187;
 
-        //public const bool useFullscreen = false;
-
         static public Vec2 renerBufferSize = new Vec2(1280, 720);
 
         public const int glyphDim = 95;

@@ -33,7 +33,7 @@ namespace WebRunner
         public List<Structure> curFrameTemporaryStructures;
         public List<Structure> nextFrameTemporaryStructures;
 
-        public List<Beam> activeBeams;
+        //public List<Beam> activeBeams;
 
         public Runner activeRunnerA = null;
         public Runner activeRunnerB = null;

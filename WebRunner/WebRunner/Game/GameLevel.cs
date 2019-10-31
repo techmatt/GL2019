@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Drawing;
 
 namespace WebRunner
 {
@@ -12,7 +13,7 @@ namespace WebRunner
     {
         public Rect2 worldRect;
         public List<Structure> structures;
-
+        
         public string backgroundName;
         public double guardSpawnRate = 1000.0;
         public double ICESpawnRate = 1000.0;
@@ -93,8 +94,9 @@ namespace WebRunner
 
             var structureLists = new List<List<Structure>> { structures, state.curFrameTemporaryStructures };
 
-            foreach (Structure structure in structures)
+            for(int structureIdx = 0; structureIdx < structures.Count; structureIdx++)
             {
+                Structure structure = structures[structureIdx];
                 if (structure.type == StructureType.Wall)
                     continue;
 
@@ -140,6 +142,13 @@ namespace WebRunner
                     }
                 }
 
+                if(structure.type == StructureType.LaserTurret)
+                {
+                    structure.curSweepAngle = structure.sweepAngleStart;
+                    var laserPath = Util.traceLaser(structureLists, structure.center, structure.curSweepDirection(), database.laserTurretBlockingStructures, 0, structureIdx);
+                    structure.laserPath = laserPath;
+                }
+
                 if (structure.type == StructureType.SpawnPointA && state.activeRunnerA == null)
                 {
                     state.activeRunnerA = new Runner(structure.center);
@@ -178,17 +187,24 @@ namespace WebRunner
             }
         }
 
+        public void renderLaserPath(GameScreen screen, LaserPath path, Pen pen)
+        {
+            if (path == null)
+                return;
+            for (int beamIdx = 0; beamIdx < path.beamPoints.Count - 1; beamIdx++)
+            {
+                screen.drawLine(path.beamPoints[beamIdx], path.beamPoints[beamIdx + 1], pen);
+            }
+        }
+
         public void render(GameScreen screen, GameDatabase database, GameState state, EditorManager editor)
         {
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in structures)
             {
-                if(structure.type == StructureType.Camera)
-                {
-                    screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
-                    screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
-                    screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
-                }
+                if (structure.isTopLayer())
+                    continue;
+
                 if (structure.type == StructureType.StationaryMirror)
                 {
                     if (editor != null)
@@ -198,6 +214,25 @@ namespace WebRunner
                     }
                     screen.drawRotatedImage(structure.center, structure.curSweepDirection(), database.images.structures[StructureType.StationaryMirror].getBmp(0));
                     continue;
+                }
+                screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+            }
+
+            foreach (Structure structure in structures)
+            {
+                if (!structure.isTopLayer())
+                    continue;
+
+                if (structure.type == StructureType.Camera)
+                {
+                    screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                    screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+                    screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
+                }
+                if (structure.type == StructureType.LaserTurret)
+                {
+                    renderLaserPath(screen, structure.laserPath, database.laserTurretRay);
+                    screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
                 }
                 screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
             }

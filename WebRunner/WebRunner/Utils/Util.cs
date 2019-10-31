@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace WebRunner
 {
+    class LaserPath
+    {
+        public List<Vec2> beamPoints = new List<Vec2>();
+        public Tuple<int, int> finalObject;
+    }
+
     static class Util
     {
         static Random random = new Random();
@@ -74,7 +80,40 @@ namespace WebRunner
             return new Tuple<int, double>(bestIdx, result);
         }
 
-        public static Tuple<double, int, int> findFirstRayStructureIntersection(List<List<Structure>> structureLists, Vec2 rOrigin, Vec2 rDirection, HashSet<StructureType> validStructureTypes)
+        public static LaserPath traceLaser(List<List<Structure>> structureLists, Vec2 rOrigin, Vec2 rDirection, HashSet<StructureType> validStructureTypes, int excludeIdx0, int excludeIdx1)
+        {
+            LaserPath result = new LaserPath();
+            result.beamPoints.Add(rOrigin);
+            Vec2 curOrigin = rOrigin;
+            Vec2 curDir = rDirection;
+            for (int beamIndex = 0; beamIndex < Constants.maxBeamBounces; beamIndex++)
+            {
+                Tuple<double, int, int> isect = findFirstRayStructureIntersection(structureLists, curOrigin, curDir, validStructureTypes, excludeIdx0, excludeIdx1);
+                curOrigin = curOrigin + curDir * isect.Item1;
+                result.beamPoints.Add(curOrigin);
+                if (isect.Item2 == -1)
+                {
+                    result.finalObject = new Tuple<int, int>(-1, -1);
+                    break;
+                }
+                Structure s = structureLists[isect.Item2][isect.Item3];
+                if(s.entry.isReflective())
+                {
+                    Vec2 normal = s.curNormal();
+                    excludeIdx0 = isect.Item2;
+                    excludeIdx1 = isect.Item3;
+                    curDir = (curDir - 2.0 * Vec2.dot(curDir, normal) * normal).getNormalized();
+                }
+                else
+                {
+                    result.finalObject = new Tuple<int, int>(isect.Item2, isect.Item3);
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public static Tuple<double, int, int> findFirstRayStructureIntersection(List<List<Structure>> structureLists, Vec2 rOrigin, Vec2 rDirection, HashSet<StructureType> validStructureTypes, int excludeIdx0 = -1, int excludeIdx1 = -1)
         {
             var result = new Tuple<double, int, int>(Constants.viewportSize.x * 2.0, -1, -1);
             for(int idxA = 0; idxA < structureLists.Count(); idxA++)
@@ -84,6 +123,8 @@ namespace WebRunner
                 {
                     var structure = structureList[idxB];
                     if (!validStructureTypes.Contains(structure.type))
+                        continue;
+                    if (excludeIdx0 == idxA && excludeIdx1 == idxB)
                         continue;
 
                     if (structure.entry.shape == ShapeType.Square || structure.entry.shape == ShapeType.Circle)

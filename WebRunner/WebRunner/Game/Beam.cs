@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebRunner
 {
-    class BeamPart
+    /*class BeamPart
     {
         public BeamPart(Vec2 _p0, Vec2 _p1)
         {
@@ -74,6 +74,6 @@ namespace WebRunner
         public BeamType type;
         public List<BeamPart> parts = new List<BeamPart>();
         
-    }
+    }*/
 
 }
