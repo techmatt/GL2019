@@ -66,6 +66,7 @@ namespace Pulse
             if(textureGroupIndex != -1)
             {
                 string filename = Constants.dataDir + "textureGroup" + textureGroupIndex.ToString() + "/tex" + textureIndex.ToString() + ".png";
+                //bmp = new Bitmap(Bitmap.FromFile(filename), new Size((int)Constants.textureSize.x, (int)Constants.textureSize.y));
                 bmp = new Bitmap(Bitmap.FromFile(filename));
             }
         }

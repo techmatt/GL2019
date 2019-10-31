@@ -248,9 +248,9 @@ namespace Pulse
             }
         }
 
-        public void step(double secondsPerFrame)
+        public void step(double secondsPerFrame, double pulseSpeedModifier)
         {
-            pulseLocation += pulseSpeed * secondsPerFrame;
+            pulseLocation += pulseSpeed * secondsPerFrame * pulseSpeedModifier;
             if(pulseLocation > 1.0)
             {
                 victory = true;
@@ -306,7 +306,6 @@ namespace Pulse
             manager = _manager;
             levelIndex = 0;
             level = new GameLevel(levelIndex);
-            totalTime = 0.0;
             remainingTime = 60.0 * 10.0;
             //decoderStale = true;
         }
@@ -317,9 +316,9 @@ namespace Pulse
             manager.sound.playSpeech("sector completed. Advancing to sector " + (levelIndex + 1).ToString());
             level = new GameLevel(levelIndex);
         }
-        public void step(double secondsPerFrame)
+        public void step(double secondsPerFrame, double pulseSpeedModifier)
         {
-            level.step(secondsPerFrame);
+            level.step(secondsPerFrame, pulseSpeedModifier);
             if(level.victory)
             {
                 nextLevel();
@@ -328,7 +327,6 @@ namespace Pulse
         public GameManager manager;
         public GameLevel level;
         public int levelIndex;
-        public double totalTime;
         public double remainingTime;
         //public bool decoderStale;
     }

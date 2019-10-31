@@ -40,16 +40,34 @@ namespace Pulse
             return (time >= start && time < end);
         }
 
-        public void step(string scannerID, string glyphID, double newTotalTime, double secondsPerFrame)
+        public void step(string scannerID, string glyphID, double secondsPerFrame)
         {
             joystick.poll();
+            double pulseSpeedModifier = 1.0;
+            double extraTimeSpent = 0.0;
             foreach (RunnerJoystickState j in joystick.joysticks)
             {
                 foreach (GamepadButton b in j.buttonsToProcess)
                 {
-                    Console.WriteLine(b.ToString());
+                    //Console.WriteLine(b.ToString());
+                    if(b == GamepadButton.X)
+                    {
+                        sound.playSpeech("resetting pulse", false);
+                        state.level.resetPulse();
+                    }
+                    if (b == GamepadButton.Y)
+                    {
+                        sound.playSpeech("restarting sector " + (state.levelIndex + 1).ToString());
+                        state.level = new GameLevel(state.levelIndex);
+                        extraTimeSpent = 10.0;
+                    }
                 }
                 j.buttonsToProcess.Clear();
+
+                if (j.buttonStates[GamepadButton.B])
+                    pulseSpeedModifier = 0.5;
+                if (j.buttonStates[GamepadButton.A])
+                    pulseSpeedModifier = 2.5;
             }
             if(glyphID != null)
             {
@@ -80,21 +98,21 @@ namespace Pulse
                 }
             }
 
-            double prevTotalTime = state.totalTime;
-            double deltaTAbsolute = newTotalTime - prevTotalTime;
-            state.totalTime = newTotalTime;
             double prevRemainingTime = state.remainingTime;
-            state.remainingTime -= deltaTAbsolute;
+            state.remainingTime = state.remainingTime - secondsPerFrame - extraTimeSpent;
 
-            for(double intervalCandidate = 0; intervalCandidate < state.remainingTime + 1.0; intervalCandidate += 10.0)
+            if (timeInRange(0.0, state.remainingTime, prevRemainingTime))
             {
-                if (timeInRange(intervalCandidate, state.remainingTime, prevRemainingTime))
-                    sound.playSpeech(Constants.randomPhrases.RandomElement());
+                Directory.CreateDirectory(Constants.resultsDir);
+                string runFilename = Constants.resultsDir + "pulse-" + string.Format("{0:MM-dd_hh-mm-ss}", DateTime.Now) + ".txt";
+                var allLines = new List<string>();
+                allLines.Add("max level: " + (state.levelIndex + 1).ToString());
+                File.WriteAllLines(runFilename, allLines);
+                sound.playSpeech("oxygen depleted on level " + (state.levelIndex + 1).ToString() + ". All runners must return to headquarters immediately.");
             }
-
             if (timeInRange(10.0      , state.remainingTime, prevRemainingTime)) sound.playSpeech("ten seconds remaining");
             if (timeInRange(30.0      , state.remainingTime, prevRemainingTime)) sound.playSpeech("thirty seconds remaining");
-            if (timeInRange(60.0 * 1.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("one minutes remaining");
+            if (timeInRange(60.0 * 1.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("one minute remaining");
             if (timeInRange(60.0 * 2.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("two minutes remaining");
             if (timeInRange(60.0 * 3.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("three minutes remaining");
             if (timeInRange(60.0 * 4.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("four minutes remaining");
@@ -104,7 +122,19 @@ namespace Pulse
             if (timeInRange(60.0 * 8.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("eight minutes remaining");
             if (timeInRange(60.0 * 9.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("nine minutes remaining");
 
-            state.step(secondsPerFrame);
+            state.step(secondsPerFrame, pulseSpeedModifier);
+
+            /*for(double intervalCandidate = 0; intervalCandidate < state.remainingTime + 1.0; intervalCandidate += 10.0)
+            {
+                if (timeInRange(intervalCandidate, state.remainingTime, prevRemainingTime))
+                    sound.playSpeech(Constants.randomPhrases.RandomElement());
+            }*/
+
+            double timeSinceLastSpeechPlayed = (DateTime.Now - sound.lastSpeechPlayed).TotalSeconds;
+            if (timeSinceLastSpeechPlayed > 12.0)
+            {
+                sound.playSpeech(Constants.randomPhrases.RandomElement());
+            }
         }
 
         public void render()

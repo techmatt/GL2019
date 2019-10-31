@@ -25,6 +25,8 @@ namespace Pulse
             gViewport.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             gViewport.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             gViewport.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+
+            targetBox.SizeMode = PictureBoxSizeMode.Normal;
         }
 
         void resizeScreen(int renderWidth, int renderHeight)
@@ -123,7 +125,7 @@ namespace Pulse
             renderHeight = targetBox.Height;
             resizeScreen(renderWidth, renderHeight);
             gScreen.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-            gScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bilinear;
+            gScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;
             
@@ -171,7 +173,7 @@ namespace Pulse
             double pulseXCenter = Util.linearMap(level.pulseLocation, 0.0, 1.0, beamXStart, beamXEnd);
             for (int pulseImageIdx = 0; pulseImageIdx < 3; pulseImageIdx++)
             {
-                double pulseRadiusScale = Util.linearMap(Math.Cos(state.totalTime * pulseTimeRate[pulseImageIdx] + pulseOffsets[pulseImageIdx]), -1.0, 1.0, 0.2, 0.8);
+                double pulseRadiusScale = Util.linearMap(Math.Cos(state.remainingTime * pulseTimeRate[pulseImageIdx] + pulseOffsets[pulseImageIdx]), -1.0, 1.0, 0.2, 0.8);
                 double pulseRadius = Constants.pulseRadius * pulseRadiusScale;
                 drawImage(beamBmps[pulseImageIdx], new Vec2(pulseXCenter - pulseRadius, 0), new Vec2(pulseRadius * 2.0, Constants.viewportSize.y));
             }
@@ -185,7 +187,7 @@ namespace Pulse
             renderHeight = targetBox.Height;
             resizeScreen(renderWidth, renderHeight);
             gScreen.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-            gScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bilinear;
+            gScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;
         }

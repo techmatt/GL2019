@@ -31,10 +31,10 @@ namespace Pulse
 
         static public Dictionary<string, Color> scannerIDToColor = new Dictionary<string, Color>
         {
-            { "[From Scanner02]", Color.FromArgb(255, 128, 0) },
-            { "[From Scanner01]", Color.FromArgb(0, 128, 255) },
-            { "[From Bluefruit52]", Color.FromArgb(64, 255, 128) },
-            { "[From Scanner0152]", Color.FromArgb(255, 0, 128) },
+            { "[From Scanner02]", Color.FromArgb(255, 128, 80) },
+            { "[From Scanner01]", Color.FromArgb(80, 128, 255) },
+            { "[From Bluefruit52]", Color.FromArgb(80, 255, 128) },
+            { "[From Scanner0152]", Color.FromArgb(255, 80, 128) },
             { "default", Color.FromArgb(128, 128, 128) }
         };
 
@@ -82,6 +82,7 @@ namespace Pulse
         static public Vec2 decoderTextureOffset = new Vec2(120, 10);
 
         public const String dataDir = @"C:\Code\GL2019\Pulse\data\";
+        public const String resultsDir = @"C:\Code\GL2019\gameResults\Pulse\";
         public const String voiceDir = @"C:\Code\GL2019\TTS\mp3s\";
         public const String soundEffectsDir = dataDir + "sounds/";
         public const String imageDir = dataDir + "images/";
@@ -117,7 +118,5 @@ namespace Pulse
 	        "Access denied. Corporate ranking insufficient.",
 	        "Butterfly project logs are classified. Access attempt recorded"
         };
-
-
     }
 }

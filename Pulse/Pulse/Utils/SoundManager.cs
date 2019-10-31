@@ -17,7 +17,7 @@ namespace Pulse
             //SoundPlayer simpleSound = new SoundPlayer(strAudioFilePath);
             //simpleSound.Play();
         }
-        public void playSpeech(string speech)
+        public void playSpeech(string speech, bool updateLastSpeechPlayed = true)
         {
             if (!sounds.ContainsKey(speech))
             {
@@ -54,6 +54,8 @@ namespace Pulse
             }
             SoundPlayer sound = sounds[speech];
             sound.Play();
+            if(updateLastSpeechPlayed)
+                lastSpeechPlayed = DateTime.Now;
         }
 
         public void playWAVFile(string WAVFilename)
@@ -68,5 +70,7 @@ namespace Pulse
             SoundPlayer sound = sounds[WAVFilename];
             sound.Play();
         }
+
+        public DateTime lastSpeechPlayed;
     }
 }

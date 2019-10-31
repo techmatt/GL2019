@@ -98,6 +98,7 @@ namespace Pulse
                     scannerID = parts[0];
                     glyphID = parts[1];
                     glyphID = Regex.Replace(glyphID, @"\t|\n|\r", "");
+                    Console.WriteLine(scannerID + " -- " + glyphID);
                     if (scanGlyphIndex != -1)
                     {
                         scanSounds.playWAVFile("success.wav");
@@ -131,7 +132,7 @@ namespace Pulse
                 double totalTime = stopwatch.Elapsed.TotalSeconds;
                 //double deltaT = totalTime - previousFrameTotalSeconds;
                 //previousFrameTotalSeconds = stopwatch.Elapsed.TotalSeconds;
-                manager.step(scannerID, glyphID, totalTime, frameTimer.secondsPerFrame);
+                manager.step(scannerID, glyphID, frameTimer.secondsPerFrame);
                 manager.render();
             }
         }
