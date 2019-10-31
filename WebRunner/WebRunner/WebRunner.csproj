@@ -91,6 +91,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Structure.cs" />
+    <Compile Include="Utils\FrameTimer.cs" />
     <Compile Include="Utils\JoystickManager.cs" />
     <Compile Include="Utils\Rect2.cs" />
     <Compile Include="Utils\SoundManager.cs" />

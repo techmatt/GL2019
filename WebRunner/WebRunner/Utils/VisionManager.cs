@@ -15,13 +15,24 @@ namespace WebRunner
 {
     class VisionManager
     {
-        VideoCapture capture = new VideoCapture(Constants.webcamCaptureIndex); //create a camera capture
+        VideoCapture capture; 
         Dictionary arucoDictionary = new Dictionary(Dictionary.PredefinedDictionaryName.Dict4X4_50);
         DetectorParameters detectorParameters = DetectorParameters.GetDefault();
+        Bitmap defaultBkg;
 
         public VisionManager()
         {
-            capture.FlipHorizontal = true;
+            if (Constants.useWebcam)
+            {
+                capture = new VideoCapture(Constants.webcamCaptureIndex); //create a camera capture
+                capture.FlipHorizontal = true;
+            }
+            else
+            {
+                defaultBkg = new Bitmap(640, 480);
+                Graphics g = Graphics.FromImage(defaultBkg);
+                g.Clear(Color.FromArgb(200, 200, 200));
+            }
             //detectorParameters.AdaptiveThreshConstant = 3;
             //detectorParameters.AprilTagMinWhiteBlackDiff
         }
@@ -78,9 +89,17 @@ namespace WebRunner
         Mat latestWebcamImage = null;
         public Bitmap processWebcamImage(out List<Marker> markers, GameDatabase database, Vec2 worldOrigin)
         {
-            latestWebcamImage = capture.QueryFrame();
-            markers = runDetection(latestWebcamImage, database, worldOrigin);
-            return latestWebcamImage.Bitmap;
+            if (Constants.useWebcam)
+            {
+                latestWebcamImage = capture.QueryFrame();
+                markers = runDetection(latestWebcamImage, database, worldOrigin);
+                return latestWebcamImage.Bitmap;
+            }
+            else
+            {
+                markers = new List<Marker>();
+                return defaultBkg;
+            }
         }
     }
 }
