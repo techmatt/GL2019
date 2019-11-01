@@ -8,12 +8,12 @@ using System.Drawing;
 
 namespace WebRunner
 {
-    
+
     class GameLevel
     {
         public Rect2 worldRect;
         public List<Structure> structures;
-        
+
         public string backgroundName;
         public double guardSpawnRate = 1000.0;
         public double ICESpawnRate = 1000.0;
@@ -63,7 +63,7 @@ namespace WebRunner
             var globalsDict = Util.stringToDict(lines[0]);
             loadGlobalsFromDict(globalsDict);
             int structureCount = Convert.ToInt32(lines[1]);
-            for(int i = 0; i < structureCount; i++)
+            for (int i = 0; i < structureCount; i++)
             {
                 var dict = Util.stringToDict(lines[2 + i]);
                 structures.Add(new Structure(dict, database));
@@ -77,13 +77,41 @@ namespace WebRunner
             var globalsDict = makeGlobalsDict();
             linesOut.Add(Util.dictToString(globalsDict));
             linesOut.Add(structures.Count().ToString());
-            for(int i = 0; i < structures.Count(); i++)
+            for (int i = 0; i < structures.Count(); i++)
             {
                 var dict = structures[i].toDict();
                 var dictString = Util.dictToString(dict);
                 linesOut.Add(dictString);
             }
             File.WriteAllLines(filenameOut, linesOut);
+        }
+
+        public void damageStructure(GameState state, List<List<Structure>>  structureLists, int idx0, int idx1, double damage)
+        {
+            if (idx0 == -1)
+                return;
+
+            Structure structure = structureLists[idx0][idx1];
+
+            if (structure.type == StructureType.RunnerA || structure.type == StructureType.RunnerB)
+            {
+                Runner runner = state.getActiveRunner(structure.type);
+                runner.curHealth -= damage;
+                if(runner.curHealth < 0.0)
+                {
+                    state.killRunner(structure.type, "runner down");
+                }
+            }
+            
+            if (structure.entry.maxHealth > 0.0 && structure.curHealth > 0.0)
+            {
+                structure.curHealth -= damage;
+                if(structure.curHealth < 0.0)
+                {
+                    state.manager.sound.playSpeech(structure.entry.name + " disabled");
+                    structure.disableTimeLeft = Constants.structureDisableTime;
+                }
+            }
         }
 
         public void updatePermanentStructures(GameManager manager)
@@ -100,7 +128,16 @@ namespace WebRunner
                 if (structure.type == StructureType.Wall)
                     continue;
 
-                if (structure.type == StructureType.Camera || structure.type == StructureType.StationaryMirror)
+                if(structure.disableTimeLeft > 0.0)
+                {
+                    structure.disableTimeLeft = Math.Max(0.0, structure.disableTimeLeft - 0.1);
+                }
+                else if(structure.curHealth < structure.entry.maxHealth)
+                {
+                    structure.curHealth = Math.Min(structure.entry.maxHealth, structure.curHealth + Constants.structureHealRate);
+                }
+
+                if (structure.type == StructureType.Camera || structure.type == StructureType.StationaryMirror || structure.type == StructureType.LaserTurret)
                 {
                     if (structure.sweepAngleSpeed < 0.11)
                     {
@@ -122,7 +159,7 @@ namespace WebRunner
                     }
                 }
 
-                if (structure.type == StructureType.Camera)
+                if (structure.type == StructureType.Camera && structure.disableTimeLeft <= 0.0)
                 {
                     //var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
                     var intersection = Util.findFirstRayStructureIntersection(structureLists, structure.center, structure.curSweepDirection(), database.cameraBlockingStructures);
@@ -131,22 +168,19 @@ namespace WebRunner
                     if(intersection.Item2 != -1)
                     {
                         Structure hitStructure = structureLists[intersection.Item2][intersection.Item3];
-                        if(hitStructure.type == StructureType.RunnerA)
+                        if(hitStructure.type == StructureType.RunnerA || hitStructure.type == StructureType.RunnerB)
                         {
-                            state.killRunnerA();
-                        }
-                        if (hitStructure.type == StructureType.RunnerB)
-                        {
-                            state.killRunnerB();
+                            state.killRunner(hitStructure.type, "runner compromised");
                         }
                     }
                 }
 
-                if(structure.type == StructureType.LaserTurret)
+                if(structure.type == StructureType.LaserTurret && structure.disableTimeLeft <= 0.0)
                 {
-                    structure.curSweepAngle = structure.sweepAngleStart;
                     var laserPath = Util.traceLaser(structureLists, structure.center, structure.curSweepDirection(), database.laserTurretBlockingStructures, 0, structureIdx);
                     structure.laserPath = laserPath;
+
+                    damageStructure(manager.state, structureLists, laserPath.finalObject.Item1, laserPath.finalObject.Item2, Constants.laserTurretDamage);
                 }
 
                 if (structure.type == StructureType.SpawnPointA && state.activeRunnerA == null)
@@ -197,6 +231,23 @@ namespace WebRunner
             }
         }
 
+        public void renderStructureHealth(GameScreen screen, GameDatabase database, GameState state, Structure structure)
+        {
+            double healthRadius = (1.0 - structure.curHealth / structure.entry.maxHealth) * structure.entry.radius;
+            screen.drawCircle(structure.center, (int)healthRadius, database.structureHealth, database.cameraPenThin);
+        }
+
+        public void renderStructureDisabled(GameScreen screen, GameDatabase database, GameState state, Structure structure)
+        {
+            if (structure.disableTimeLeft > 0.0)
+            {
+                //double disableRadius = structure.disableTimeLeft / Constants.structureDisableTime * structure.entry.radius;
+                double scaleFactor = structure.disableTimeLeft / Constants.structureDisableTime + 0.01;
+                double theta = state.frameCount * 0.1;
+                screen.drawRotatedImage(structure.center, new Vec2(Math.Cos(theta), Math.Sin(theta)), database.images.disabledStructure.bmp[0], scaleFactor);
+            }
+        }
+
         public void render(GameScreen screen, GameDatabase database, GameState state, EditorManager editor)
         {
             Vec2 viewportOrigin = state.viewport.pMin;
@@ -226,15 +277,24 @@ namespace WebRunner
                 if (structure.type == StructureType.Camera)
                 {
                     screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                    renderStructureHealth(screen, database, state, structure);
                     screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
-                    screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
+                    if(structure.disableTimeLeft <= 0.0)
+                        screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
                 }
                 if (structure.type == StructureType.LaserTurret)
                 {
-                    renderLaserPath(screen, structure.laserPath, database.laserTurretRay);
+                    if (structure.disableTimeLeft <= 0.0)
+                        renderLaserPath(screen, structure.laserPath, database.laserTurretRay);
                     screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                    renderStructureHealth(screen, database, state, structure);
+                    screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
                 }
                 screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+                if (structure.type == StructureType.Camera || structure.type == StructureType.LaserTurret)
+                {
+                    renderStructureDisabled(screen, database, state, structure);
+                }
             }
         }
 

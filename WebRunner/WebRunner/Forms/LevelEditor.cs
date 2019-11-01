@@ -217,7 +217,7 @@ namespace WebRunner
 
         private void scrollAngleA_Scroll(object sender, ScrollEventArgs e)
         {
-            labelAngleA.Text = Math.Min(scrollAngleA.Value, 350.0).ToString();
+            labelAngleA.Text = Math.Min(scrollAngleA.Value, 360.0).ToString();
             scrollUpdate();
         }
 

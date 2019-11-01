@@ -12,10 +12,12 @@ namespace WebRunner
         public Runner(Vec2 _center)
         {
             center = _center;
+            curHealth = Constants.runnerMaxHealth;
             laserDir = new Vec2(1.0, 0.0);
         }
         public Vec2 center;
         public Vec2 laserDir;
+        public double curHealth;
 
         public bool hasLaser = false;
         public bool hasShoes = false;
@@ -23,11 +25,13 @@ namespace WebRunner
 
     class GameState
     {
+        public GameManager manager;
         public List<Marker> markers;
         public List<GameLevel> allLevels;
 
         public GameLevel curLevel;
         public int curLevelIndex;
+        public int frameCount = 0;
         public Rect2 viewport;
 
         public List<Structure> curFrameTemporaryStructures;
@@ -45,8 +49,17 @@ namespace WebRunner
             return activeRunnerB;
         }
 
-        public GameState(string missionName, string levelNameOverride, GameDatabase database)
+        public Runner getActiveRunner(StructureType s)
         {
+            if (s == StructureType.RunnerA) return activeRunnerA;
+            if (s == StructureType.RunnerB) return activeRunnerB;
+            throw new Exception("invalid runner");
+        }
+
+        public GameState(GameManager _manager, string missionName, string levelNameOverride)
+        {
+            manager = _manager;
+            //database = manager.database;
             string missionDir = Constants.missionBaseDir + missionName + '/';
             var levelList = new List<string>(Directory.EnumerateFiles(missionDir, "*.txt"));
             if (levelNameOverride != null)
@@ -62,7 +75,7 @@ namespace WebRunner
                 string levelFilename = missionDir + levelName + ".txt";
                 if (levelNameOverride == "emptyLevel")
                     levelFilename = "emptyLevel";
-                GameLevel curLevel = new GameLevel(levelFilename, database, xStart);
+                GameLevel curLevel = new GameLevel(levelFilename, manager.database, xStart);
                 xStart += curLevel.worldRect.size().x;
                 allLevels.Add(curLevel);
             }
@@ -72,14 +85,17 @@ namespace WebRunner
             nextFrameTemporaryStructures = new List<Structure>();
         }
 
-        public void killRunnerA()
+        public void killRunner(StructureType whichRunner, string deathSpeech)
         {
-            activeRunnerA = null;
-        }
-
-        public void killRunnerB()
-        {
-            activeRunnerB = null;
+            manager.sound.playSpeech(deathSpeech);
+            if(whichRunner == StructureType.RunnerA)
+                activeRunnerA = null;
+            else if (whichRunner == StructureType.RunnerB)
+                activeRunnerB = null;
+            else
+            {
+                throw new Exception("unknown runner");
+            }
         }
     }
 }

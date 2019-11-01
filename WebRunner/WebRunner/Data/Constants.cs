@@ -9,7 +9,17 @@ namespace WebRunner
 {
     class Constants
     {
+        // music
+        // https://www.youtube.com/watch?v=RlVTb3g-COY
+        // https://www.youtube.com/watch?v=B9wGMgW-no4
+
         public const bool useWebcam = false;
+
+        public const double laserTurretDamage = 0.15;
+        public const double structureDisableTime = 10.0;
+        public const double runnerMaxHealth = 1.0;
+
+        public const double structureHealRate = 0.02;
 
         //public Font consoleFont = new Font(new FontFamily("Times New Roman"), 32, FontStyle.Regular, GraphicsUnit.Pixel);
         static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -34,7 +44,7 @@ namespace WebRunner
 
         public const double runMaxDistA = 150.0;
         public const double runMaxDistB = 400.0;
-        public const double runSpeed = 10.0;
+        public const double runSpeed = 8.0;
 
         public const double runnerRadius = 20.0;
 

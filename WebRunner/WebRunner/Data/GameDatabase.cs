@@ -64,14 +64,14 @@ namespace WebRunner
 
     class StructureEntry
     {
-        public StructureEntry(StructureType _type, string _name, double _radius, ShapeType _shape, double _health, Vec2 _gridSize, ImageEntry _image)
+        public StructureEntry(StructureType _type, string _name, double _radius, ShapeType _shape, double _maxHealth, Vec2 _gridSize, ImageEntry _image)
         {
             type = _type;
             image = _image;
             name = _name;
             radius = _radius;
             shape = _shape;
-            health = _health;
+            maxHealth = _maxHealth;
             gridSize = _gridSize;
         }
         public bool isReflective()
@@ -82,7 +82,7 @@ namespace WebRunner
         public ImageEntry image;
         public string name;
         public double radius;
-        public double health;
+        public double maxHealth;
         public ShapeType shape;
         public Vec2 gridSize;
     }
@@ -112,13 +112,15 @@ namespace WebRunner
             registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
 
-            registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, 1.0, new Vec2(2, 2));
-            registerStructure(StructureType.BulletTurret, "bulletTurret", 36.0, ShapeType.Circle, 1.0, new Vec2(2, 2));
-            registerStructure(StructureType.LaserTurret, "laserTurret", 36.0, ShapeType.Circle, 1.0, new Vec2(2, 2));
+            double dh = 4.0; // default health
+
+            registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
+            registerStructure(StructureType.BulletTurret, "bulletTurret", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
+            registerStructure(StructureType.LaserTurret, "laserTurret", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
             registerStructure(StructureType.StationaryMirror, "stationaryMirror", 36.0, ShapeType.Mirror, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, 0.0, new Vec2(1, 1));
-            registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, 1.0, new Vec2(1, 1));
-            registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, 1.0, new Vec2(1, 1));
+            registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
+            registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
             registerStructure(StructureType.SpawnPointA, "spawnpointA", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.SpawnPointB, "spawnpointB", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.Door, "door", 36.0, ShapeType.Square, 0.0, new Vec2(2, 2));
@@ -150,6 +152,8 @@ namespace WebRunner
         Dictionary<StructureType, StructureEntry> structureTypeToDataDict = new Dictionary<StructureType, StructureEntry>();
 
         public Brush cameraBrushInterior = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
+        public Brush runnerHealthInterior = new SolidBrush(Color.FromArgb(200, 237, 40, 40));
+        public Brush structureHealth = new SolidBrush(Color.FromArgb(200, 137, 143, 224));
         public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
         public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
         public Pen cameraRay = new Pen(Color.FromArgb(255, 240, 240, 140), 6.0f);
@@ -166,11 +170,12 @@ namespace WebRunner
             StructureType.StationaryMirror};
 
         public HashSet<StructureType> laserTurretBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction,
+            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Camera, StructureType.LaserTurret,
             StructureType.StationaryMirror, StructureType.RunnerMirror};
 
         public HashSet<StructureType> runnerLaserBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.RunnerMirror, StructureType.StationaryMirror };
+            StructureType.Wall, StructureType.RunnerMirror, StructureType.Camera, StructureType.LaserTurret,
+            StructureType.StationaryMirror };
 
         public ImageDatabase images;
     }

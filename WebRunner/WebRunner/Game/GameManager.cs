@@ -31,7 +31,7 @@ namespace WebRunner
 
         public void startMission(string missionName, string levelName)
         {
-            state = new GameState(missionName, levelName, database);
+            state = new GameState(this, missionName, levelName);
             if(editor != null)
                 editor.level = state.allLevels[0];
 
@@ -131,6 +131,7 @@ namespace WebRunner
 
         void step()
         {
+            state.frameCount++;
             joystick.poll();
 
             state.curFrameTemporaryStructures = state.nextFrameTemporaryStructures;

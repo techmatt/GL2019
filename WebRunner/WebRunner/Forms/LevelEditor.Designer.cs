@@ -231,7 +231,7 @@
             // scrollAngleA
             // 
             this.scrollAngleA.Location = new System.Drawing.Point(370, 771);
-            this.scrollAngleA.Maximum = 360;
+            this.scrollAngleA.Maximum = 370;
             this.scrollAngleA.Name = "scrollAngleA";
             this.scrollAngleA.Size = new System.Drawing.Size(328, 20);
             this.scrollAngleA.TabIndex = 11;
@@ -259,7 +259,7 @@
             // 
             this.scrollAngleB.Location = new System.Drawing.Point(370, 801);
             this.scrollAngleB.Maximum = 360;
-            this.scrollAngleB.Minimum = 20;
+            this.scrollAngleB.Minimum = 5;
             this.scrollAngleB.Name = "scrollAngleB";
             this.scrollAngleB.Size = new System.Drawing.Size(328, 20);
             this.scrollAngleB.TabIndex = 11;

@@ -66,16 +66,29 @@ namespace WebRunner
             gViewport.DrawImage(bmp, (int)(center.x - bmp.Width / 2), (int)(center.y - bmp.Height / 2));
         }
 
-        public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp)
+        public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp, double scale = 1.0)
         {
             double hw = bmp.Width * 0.5;
             double hh = bmp.Height * 0.5;
             gViewport.TranslateTransform((float)center.x, (float)center.y);
+            if(scale != 1.0)
+                gViewport.ScaleTransform((float)scale, (float)scale);
             gViewport.RotateTransform((float)orientation.angle());
             gViewport.TranslateTransform((float)-hw, (float)-hh);
             
             gViewport.DrawImage(bmp, 0, 0);
             gViewport.ResetTransform();
+        }
+
+        public void drawRunnerHealthCircle(GameDatabase database, Runner r)
+        {
+            if (r == null || r.curHealth >= Constants.runnerMaxHealth)
+                return;
+
+            int maxRadius = 30;
+            double radius = (1.0 - r.curHealth / Constants.runnerMaxHealth) * maxRadius;
+            drawCircle(r.center, maxRadius, null, database.cameraPenThin);
+            drawCircle(r.center, (int)radius, database.runnerHealthInterior, null);
         }
 
         public void render(Bitmap webcamImage, GameState state, EditorManager editor, int renderWidth, int renderHeight)
@@ -91,14 +104,8 @@ namespace WebRunner
                 level.render(this, database, state, editor);
             }
 
-            /*if(state.activeRunnerA != null)
-            {
-                drawImage(database.images.runners, 0, state.activeRunnerA.center);
-            }
-            if (state.activeRunnerB != null)
-            {
-                drawImage(database.images.runners, 1, state.activeRunnerB.center);
-            }*/
+            drawRunnerHealthCircle(database, state.activeRunnerA);
+            drawRunnerHealthCircle(database, state.activeRunnerB);
 
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in state.curFrameTemporaryStructures)

@@ -13,6 +13,8 @@ namespace WebRunner
             type = _type;
             entry = _entry.getStructureEntry(_type);
             center = _center;
+
+            curHealth = entry.maxHealth;
         }
 
         public Vec2 curSweepDirection()
@@ -52,7 +54,8 @@ namespace WebRunner
         public int curSweepAngleSign = 1;
         public double curCameraViewDist = 0.0;
         public int curImgInstanceHash = Util.randInt(0, 1000000);
-        public double curHealth = -1.0;
+        public double curHealth = 0.0;
+        public double disableTimeLeft = 0.0;
         public LaserPath laserPath = null;
 
         public Dictionary<string, string> toDict()

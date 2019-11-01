@@ -99,6 +99,7 @@ namespace WebRunner
 
         //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
         public ImageEntry orientationViewer = new ImageEntry("shield", new Vec2(200, 24), 128);
+        public ImageEntry disabledStructure = new ImageEntry("ChargeTextureOrange", new Vec2(90, 90), 180);
         //public ImageEntry runners = new ImageEntry("runner", 2, new Vec2(55, 55), 255);
     }
 }
