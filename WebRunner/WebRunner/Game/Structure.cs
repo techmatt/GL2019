@@ -52,6 +52,7 @@ namespace WebRunner
         public int curSweepAngleSign = 1;
         public double curCameraViewDist = 0.0;
         public int curImgInstanceHash = Util.randInt(0, 1000000);
+        public double curHealth = -1.0;
         public LaserPath laserPath = null;
 
         public Dictionary<string, string> toDict()
