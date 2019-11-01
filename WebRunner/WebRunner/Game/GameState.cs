@@ -24,10 +24,10 @@ namespace WebRunner
     class GameState
     {
         public List<Marker> markers;
-        public List<GameLevel> levels;
+        public List<GameLevel> allLevels;
 
-        public List<GameLevel> visibleLevels;
-        public GameLevel activeLevel;
+        public GameLevel curLevel;
+        public int curLevelIndex;
         public Rect2 viewport;
 
         public List<Structure> curFrameTemporaryStructures;
@@ -55,7 +55,7 @@ namespace WebRunner
                 levelList.Add(levelNameOverride);
             }
 
-            levels = new List<GameLevel>();
+            allLevels = new List<GameLevel>();
             double xStart = 0.0;
             foreach (string levelName in levelList)
             {
@@ -64,32 +64,12 @@ namespace WebRunner
                     levelFilename = "emptyLevel";
                 GameLevel curLevel = new GameLevel(levelFilename, database, xStart);
                 xStart += curLevel.worldRect.size().x;
-                levels.Add(curLevel);
+                allLevels.Add(curLevel);
             }
+            curLevelIndex = 0;
+            curLevel = allLevels[curLevelIndex];
             viewport = Rect2.fromOriginSize(new Vec2(), Constants.viewportSize);
-            updateViewport(0);
             nextFrameTemporaryStructures = new List<Structure>();
-        }
-
-        public List<GameLevel> computeVisibleLevels()
-        {
-            var result = new List<GameLevel>();
-            foreach(GameLevel level in levels)
-            {
-                if(Rect2.intersect(level.worldRect, viewport))
-                {
-                    result.Add(level);
-                }
-            }
-            return result;
-        }
-
-        public void updateViewport(double deltaX)
-        {
-            viewport.pMin.x += deltaX;
-            viewport.pMax.x += deltaX;
-            visibleLevels = computeVisibleLevels();
-            activeLevel = visibleLevels[0];
         }
 
         public void killRunnerA()

@@ -1,0 +1,20 @@
+public List<GameLevel> computeVisibleLevels()
+        {
+            var result = new List<GameLevel>();
+            foreach(GameLevel level in levels)
+            {
+                if(Rect2.intersect(level.worldRect, viewport))
+                {
+                    result.Add(level);
+                }
+            }
+            return result;
+        }
+
+        public void updateViewport(double deltaX)
+        {
+            viewport.pMin.x += deltaX;
+            viewport.pMax.x += deltaX;
+            visibleLevels = computeVisibleLevels();
+            activeLevel = visibleLevels[0];
+        }

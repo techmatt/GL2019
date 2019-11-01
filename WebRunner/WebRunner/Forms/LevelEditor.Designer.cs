@@ -81,7 +81,7 @@
             // 
             // pictureBoxMain
             // 
-            this.pictureBoxMain.Location = new System.Drawing.Point(20, 28);
+            this.pictureBoxMain.Location = new System.Drawing.Point(3, 7);
             this.pictureBoxMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxMain.Name = "pictureBoxMain";
             this.pictureBoxMain.Size = new System.Drawing.Size(1280, 720);
@@ -95,7 +95,7 @@
             // 
             this.radioButtonCamera.AutoSize = true;
             this.radioButtonCamera.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonCamera.Location = new System.Drawing.Point(12, 798);
+            this.radioButtonCamera.Location = new System.Drawing.Point(12, 771);
             this.radioButtonCamera.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonCamera.Name = "radioButtonCamera";
             this.radioButtonCamera.Size = new System.Drawing.Size(83, 24);
@@ -109,7 +109,7 @@
             // 
             this.radioButtonShielding.AutoSize = true;
             this.radioButtonShielding.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonShielding.Location = new System.Drawing.Point(12, 828);
+            this.radioButtonShielding.Location = new System.Drawing.Point(12, 801);
             this.radioButtonShielding.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonShielding.Name = "radioButtonShielding";
             this.radioButtonShielding.Size = new System.Drawing.Size(92, 24);
@@ -123,7 +123,7 @@
             // 
             this.radioButtonFirewall.AutoSize = true;
             this.radioButtonFirewall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonFirewall.Location = new System.Drawing.Point(12, 858);
+            this.radioButtonFirewall.Location = new System.Drawing.Point(12, 831);
             this.radioButtonFirewall.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonFirewall.Name = "radioButtonFirewall";
             this.radioButtonFirewall.Size = new System.Drawing.Size(80, 24);
@@ -137,7 +137,7 @@
             // 
             this.radioButtonWall.AutoSize = true;
             this.radioButtonWall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonWall.Location = new System.Drawing.Point(12, 888);
+            this.radioButtonWall.Location = new System.Drawing.Point(12, 861);
             this.radioButtonWall.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonWall.Name = "radioButtonWall";
             this.radioButtonWall.Size = new System.Drawing.Size(57, 24);
@@ -165,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(819, 795);
+            this.label1.Location = new System.Drawing.Point(819, 768);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 20);
             this.label1.TabIndex = 4;
@@ -173,7 +173,7 @@
             // 
             // textBoxLevelName
             // 
-            this.textBoxLevelName.Location = new System.Drawing.Point(921, 795);
+            this.textBoxLevelName.Location = new System.Drawing.Point(921, 768);
             this.textBoxLevelName.Name = "textBoxLevelName";
             this.textBoxLevelName.Size = new System.Drawing.Size(168, 26);
             this.textBoxLevelName.TabIndex = 5;
@@ -181,7 +181,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(1111, 773);
+            this.buttonSave.Location = new System.Drawing.Point(1111, 746);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(89, 28);
             this.buttonSave.TabIndex = 6;
@@ -191,7 +191,7 @@
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(1212, 774);
+            this.buttonLoad.Location = new System.Drawing.Point(1212, 747);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(88, 28);
             this.buttonLoad.TabIndex = 7;
@@ -202,7 +202,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(803, 762);
+            this.label2.Location = new System.Drawing.Point(803, 735);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 20);
             this.label2.TabIndex = 8;
@@ -210,7 +210,7 @@
             // 
             // textBoxMissionName
             // 
-            this.textBoxMissionName.Location = new System.Drawing.Point(921, 759);
+            this.textBoxMissionName.Location = new System.Drawing.Point(921, 732);
             this.textBoxMissionName.Name = "textBoxMissionName";
             this.textBoxMissionName.Size = new System.Drawing.Size(168, 26);
             this.textBoxMissionName.TabIndex = 9;
@@ -219,7 +219,7 @@
             // radioButtonSelect
             // 
             this.radioButtonSelect.AutoSize = true;
-            this.radioButtonSelect.Location = new System.Drawing.Point(12, 762);
+            this.radioButtonSelect.Location = new System.Drawing.Point(12, 735);
             this.radioButtonSelect.Name = "radioButtonSelect";
             this.radioButtonSelect.Size = new System.Drawing.Size(142, 24);
             this.radioButtonSelect.TabIndex = 10;
@@ -230,7 +230,7 @@
             // 
             // scrollAngleA
             // 
-            this.scrollAngleA.Location = new System.Drawing.Point(370, 798);
+            this.scrollAngleA.Location = new System.Drawing.Point(370, 771);
             this.scrollAngleA.Maximum = 360;
             this.scrollAngleA.Name = "scrollAngleA";
             this.scrollAngleA.Size = new System.Drawing.Size(328, 20);
@@ -240,7 +240,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(219, 798);
+            this.label3.Location = new System.Drawing.Point(219, 771);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(148, 20);
             this.label3.TabIndex = 12;
@@ -249,7 +249,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(223, 826);
+            this.label4.Location = new System.Drawing.Point(223, 799);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(144, 20);
             this.label4.TabIndex = 12;
@@ -257,7 +257,7 @@
             // 
             // scrollAngleB
             // 
-            this.scrollAngleB.Location = new System.Drawing.Point(370, 828);
+            this.scrollAngleB.Location = new System.Drawing.Point(370, 801);
             this.scrollAngleB.Maximum = 360;
             this.scrollAngleB.Minimum = 20;
             this.scrollAngleB.Name = "scrollAngleB";
@@ -269,7 +269,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(250, 858);
+            this.label5.Location = new System.Drawing.Point(250, 831);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(117, 20);
             this.label5.TabIndex = 12;
@@ -277,7 +277,7 @@
             // 
             // scrollSpeed
             // 
-            this.scrollSpeed.Location = new System.Drawing.Point(370, 858);
+            this.scrollSpeed.Location = new System.Drawing.Point(370, 831);
             this.scrollSpeed.Name = "scrollSpeed";
             this.scrollSpeed.Size = new System.Drawing.Size(328, 20);
             this.scrollSpeed.TabIndex = 11;
@@ -286,7 +286,7 @@
             // labelAngleA
             // 
             this.labelAngleA.AutoSize = true;
-            this.labelAngleA.Location = new System.Drawing.Point(701, 798);
+            this.labelAngleA.Location = new System.Drawing.Point(701, 771);
             this.labelAngleA.Name = "labelAngleA";
             this.labelAngleA.Size = new System.Drawing.Size(31, 20);
             this.labelAngleA.TabIndex = 13;
@@ -295,7 +295,7 @@
             // labelAngleB
             // 
             this.labelAngleB.AutoSize = true;
-            this.labelAngleB.Location = new System.Drawing.Point(701, 828);
+            this.labelAngleB.Location = new System.Drawing.Point(701, 801);
             this.labelAngleB.Name = "labelAngleB";
             this.labelAngleB.Size = new System.Drawing.Size(31, 20);
             this.labelAngleB.TabIndex = 13;
@@ -304,7 +304,7 @@
             // labelSpeed
             // 
             this.labelSpeed.AutoSize = true;
-            this.labelSpeed.Location = new System.Drawing.Point(701, 858);
+            this.labelSpeed.Location = new System.Drawing.Point(701, 831);
             this.labelSpeed.Name = "labelSpeed";
             this.labelSpeed.Size = new System.Drawing.Size(31, 20);
             this.labelSpeed.TabIndex = 13;
@@ -314,7 +314,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(381, 765);
+            this.label6.Location = new System.Drawing.Point(381, 738);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(171, 20);
             this.label6.TabIndex = 12;
@@ -324,7 +324,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(998, 839);
+            this.label7.Location = new System.Drawing.Point(998, 812);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(138, 20);
             this.label7.TabIndex = 12;
@@ -334,7 +334,7 @@
             // 
             this.radioButtonSpawnA.AutoSize = true;
             this.radioButtonSpawnA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSpawnA.Location = new System.Drawing.Point(12, 922);
+            this.radioButtonSpawnA.Location = new System.Drawing.Point(12, 895);
             this.radioButtonSpawnA.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonSpawnA.Name = "radioButtonSpawnA";
             this.radioButtonSpawnA.Size = new System.Drawing.Size(87, 24);
@@ -348,7 +348,7 @@
             // 
             this.radioButtonDoor.AutoSize = true;
             this.radioButtonDoor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDoor.Location = new System.Drawing.Point(12, 956);
+            this.radioButtonDoor.Location = new System.Drawing.Point(12, 929);
             this.radioButtonDoor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonDoor.Name = "radioButtonDoor";
             this.radioButtonDoor.Size = new System.Drawing.Size(62, 24);
@@ -362,7 +362,7 @@
             // 
             this.radioButtonObjective.AutoSize = true;
             this.radioButtonObjective.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonObjective.Location = new System.Drawing.Point(12, 990);
+            this.radioButtonObjective.Location = new System.Drawing.Point(12, 963);
             this.radioButtonObjective.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonObjective.Name = "radioButtonObjective";
             this.radioButtonObjective.Size = new System.Drawing.Size(92, 24);
@@ -374,7 +374,7 @@
             // 
             // scrollICESpawnRate
             // 
-            this.scrollICESpawnRate.Location = new System.Drawing.Point(954, 936);
+            this.scrollICESpawnRate.Location = new System.Drawing.Point(954, 911);
             this.scrollICESpawnRate.Name = "scrollICESpawnRate";
             this.scrollICESpawnRate.Size = new System.Drawing.Size(256, 22);
             this.scrollICESpawnRate.TabIndex = 14;
@@ -383,7 +383,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(829, 936);
+            this.label8.Location = new System.Drawing.Point(829, 909);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(122, 20);
             this.label8.TabIndex = 12;
@@ -392,7 +392,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(811, 901);
+            this.label9.Location = new System.Drawing.Point(811, 874);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(140, 20);
             this.label9.TabIndex = 12;
@@ -400,7 +400,7 @@
             // 
             // scrollGuardSpawnRate
             // 
-            this.scrollGuardSpawnRate.Location = new System.Drawing.Point(954, 901);
+            this.scrollGuardSpawnRate.Location = new System.Drawing.Point(954, 876);
             this.scrollGuardSpawnRate.Name = "scrollGuardSpawnRate";
             this.scrollGuardSpawnRate.Size = new System.Drawing.Size(256, 22);
             this.scrollGuardSpawnRate.TabIndex = 14;
@@ -408,7 +408,7 @@
             // 
             // scrollMaxTime
             // 
-            this.scrollMaxTime.Location = new System.Drawing.Point(954, 869);
+            this.scrollMaxTime.Location = new System.Drawing.Point(954, 844);
             this.scrollMaxTime.Name = "scrollMaxTime";
             this.scrollMaxTime.Size = new System.Drawing.Size(256, 22);
             this.scrollMaxTime.TabIndex = 14;
@@ -416,14 +416,14 @@
             // 
             // hScrollBar4
             // 
-            this.hScrollBar4.Location = new System.Drawing.Point(954, 968);
+            this.hScrollBar4.Location = new System.Drawing.Point(954, 943);
             this.hScrollBar4.Name = "hScrollBar4";
             this.hScrollBar4.Size = new System.Drawing.Size(256, 22);
             this.hScrollBar4.TabIndex = 14;
             // 
             // hScrollBar5
             // 
-            this.hScrollBar5.Location = new System.Drawing.Point(954, 1002);
+            this.hScrollBar5.Location = new System.Drawing.Point(954, 977);
             this.hScrollBar5.Name = "hScrollBar5";
             this.hScrollBar5.Size = new System.Drawing.Size(256, 22);
             this.hScrollBar5.TabIndex = 14;
@@ -431,7 +431,7 @@
             // labelIceSpawnRate
             // 
             this.labelIceSpawnRate.AutoSize = true;
-            this.labelIceSpawnRate.Location = new System.Drawing.Point(1213, 938);
+            this.labelIceSpawnRate.Location = new System.Drawing.Point(1213, 911);
             this.labelIceSpawnRate.Name = "labelIceSpawnRate";
             this.labelIceSpawnRate.Size = new System.Drawing.Size(31, 20);
             this.labelIceSpawnRate.TabIndex = 13;
@@ -440,7 +440,7 @@
             // labelGuardSpawnRate
             // 
             this.labelGuardSpawnRate.AutoSize = true;
-            this.labelGuardSpawnRate.Location = new System.Drawing.Point(1213, 903);
+            this.labelGuardSpawnRate.Location = new System.Drawing.Point(1213, 876);
             this.labelGuardSpawnRate.Name = "labelGuardSpawnRate";
             this.labelGuardSpawnRate.Size = new System.Drawing.Size(31, 20);
             this.labelGuardSpawnRate.TabIndex = 13;
@@ -449,7 +449,7 @@
             // labelMaxTime
             // 
             this.labelMaxTime.AutoSize = true;
-            this.labelMaxTime.Location = new System.Drawing.Point(1213, 871);
+            this.labelMaxTime.Location = new System.Drawing.Point(1213, 844);
             this.labelMaxTime.Name = "labelMaxTime";
             this.labelMaxTime.Size = new System.Drawing.Size(31, 20);
             this.labelMaxTime.TabIndex = 13;
@@ -458,7 +458,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1213, 970);
+            this.label13.Location = new System.Drawing.Point(1213, 943);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(31, 20);
             this.label13.TabIndex = 13;
@@ -467,7 +467,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(1213, 1002);
+            this.label14.Location = new System.Drawing.Point(1213, 975);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(31, 20);
             this.label14.TabIndex = 13;
@@ -476,7 +476,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(875, 871);
+            this.label10.Location = new System.Drawing.Point(875, 844);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(76, 20);
             this.label10.TabIndex = 12;
@@ -486,7 +486,7 @@
             // 
             this.radioButtonSpawnB.AutoSize = true;
             this.radioButtonSpawnB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSpawnB.Location = new System.Drawing.Point(107, 922);
+            this.radioButtonSpawnB.Location = new System.Drawing.Point(107, 895);
             this.radioButtonSpawnB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonSpawnB.Name = "radioButtonSpawnB";
             this.radioButtonSpawnB.Size = new System.Drawing.Size(87, 24);
@@ -499,7 +499,7 @@
             // radioButtonShoes
             // 
             this.radioButtonShoes.AutoSize = true;
-            this.radioButtonShoes.Location = new System.Drawing.Point(111, 956);
+            this.radioButtonShoes.Location = new System.Drawing.Point(111, 929);
             this.radioButtonShoes.Name = "radioButtonShoes";
             this.radioButtonShoes.Size = new System.Drawing.Size(73, 24);
             this.radioButtonShoes.TabIndex = 15;
@@ -511,7 +511,7 @@
             // radioButtonLaserGun
             // 
             this.radioButtonLaserGun.AutoSize = true;
-            this.radioButtonLaserGun.Location = new System.Drawing.Point(111, 990);
+            this.radioButtonLaserGun.Location = new System.Drawing.Point(111, 963);
             this.radioButtonLaserGun.Name = "radioButtonLaserGun";
             this.radioButtonLaserGun.Size = new System.Drawing.Size(102, 24);
             this.radioButtonLaserGun.TabIndex = 16;
@@ -523,7 +523,7 @@
             // radioButtonLaserTurret
             // 
             this.radioButtonLaserTurret.AutoSize = true;
-            this.radioButtonLaserTurret.Location = new System.Drawing.Point(12, 1022);
+            this.radioButtonLaserTurret.Location = new System.Drawing.Point(12, 995);
             this.radioButtonLaserTurret.Name = "radioButtonLaserTurret";
             this.radioButtonLaserTurret.Size = new System.Drawing.Size(113, 24);
             this.radioButtonLaserTurret.TabIndex = 16;
@@ -535,7 +535,7 @@
             // radioButtonBulletTurret
             // 
             this.radioButtonBulletTurret.AutoSize = true;
-            this.radioButtonBulletTurret.Location = new System.Drawing.Point(12, 1052);
+            this.radioButtonBulletTurret.Location = new System.Drawing.Point(12, 1025);
             this.radioButtonBulletTurret.Name = "radioButtonBulletTurret";
             this.radioButtonBulletTurret.Size = new System.Drawing.Size(113, 24);
             this.radioButtonBulletTurret.TabIndex = 16;
@@ -547,7 +547,7 @@
             // radioButtonMirror
             // 
             this.radioButtonMirror.AutoSize = true;
-            this.radioButtonMirror.Location = new System.Drawing.Point(131, 1022);
+            this.radioButtonMirror.Location = new System.Drawing.Point(131, 995);
             this.radioButtonMirror.Name = "radioButtonMirror";
             this.radioButtonMirror.Size = new System.Drawing.Size(67, 24);
             this.radioButtonMirror.TabIndex = 16;

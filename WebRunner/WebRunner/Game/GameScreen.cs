@@ -83,7 +83,7 @@ namespace WebRunner
             gViewport.Clear(Color.Black);
 
             gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
-            foreach (GameLevel level in state.visibleLevels)
+            foreach (GameLevel level in new GameLevel[] { state.curLevel })
             {
                 ImageEntry backgroundImg = database.images.getBackground(level.backgroundName, false);
                 Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;

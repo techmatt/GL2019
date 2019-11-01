@@ -33,7 +33,7 @@ namespace WebRunner
         {
             state = new GameState(missionName, levelName, database);
             if(editor != null)
-                editor.level = state.levels[0];
+                editor.level = state.allLevels[0];
 
             sound.playSpeech("mission start");
         }
@@ -80,7 +80,7 @@ namespace WebRunner
             {
                 var acceptedSpeed = speedCap;
                 var newCenter = moveTowardsPoint(runner.center, targetPt, speedCap);
-                var closest = Util.closestStructure(state.activeLevel.structures, newCenter, database.runnerBlockingStructures);
+                var closest = Util.closestStructure(state.curLevel.structures, newCenter, database.runnerBlockingStructures);
                 if (closest.Item2 <= Constants.runnerRadius)
                 {
                     var speedLowBound = 0.0;
@@ -89,7 +89,7 @@ namespace WebRunner
                     for (int i = 0; i < 4; i++)
                     {
                         var midpointSpeed = (speedLowBound + speedHighBound) * 0.5;
-                        var midpointDist = Util.closestStructure(state.activeLevel.structures, moveTowardsPoint(runner.center, targetPt, midpointSpeed), database.runnerBlockingStructures).Item2;
+                        var midpointDist = Util.closestStructure(state.curLevel.structures, moveTowardsPoint(runner.center, targetPt, midpointSpeed), database.runnerBlockingStructures).Item2;
                         if (midpointDist <= Constants.runnerRadius)
                         {
                             speedHighBound = midpointSpeed;
@@ -109,7 +109,7 @@ namespace WebRunner
             {
                 Vec2 targetPtX = new Vec2(targetPt.x, runner.center.y);
                 Vec2 newCenterX = moveTowardsPoint(runner.center, targetPtX, remainingSpeed);
-                var closestX = Util.closestStructure(state.activeLevel.structures, newCenterX, database.runnerBlockingStructures);
+                var closestX = Util.closestStructure(state.curLevel.structures, newCenterX, database.runnerBlockingStructures);
                 if (closestX.Item2 > Constants.runnerRadius)
                 {
                     runner.center = newCenterX;
@@ -120,7 +120,7 @@ namespace WebRunner
             {
                 Vec2 targetPtY = new Vec2(runner.center.x, targetPt.y);
                 Vec2 newCenterY = moveTowardsPoint(runner.center, targetPtY, remainingSpeed);
-                var closestY = Util.closestStructure(state.activeLevel.structures, newCenterY, database.runnerBlockingStructures);
+                var closestY = Util.closestStructure(state.curLevel.structures, newCenterY, database.runnerBlockingStructures);
                 if (closestY.Item2 > Constants.runnerRadius)
                 {
                     runner.center = newCenterY;
@@ -133,9 +133,6 @@ namespace WebRunner
         {
             joystick.poll();
 
-            double deltaX = 0.0;
-            state.updateViewport(deltaX);
-
             state.curFrameTemporaryStructures = state.nextFrameTemporaryStructures;
             if (state.activeRunnerA != null)
                 state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerA, database, state.activeRunnerA.center));
@@ -144,10 +141,7 @@ namespace WebRunner
 
             state.nextFrameTemporaryStructures = new List<Structure>();
 
-            foreach(GameLevel level in state.visibleLevels)
-            {
-                level.updatePermanentStructures(this);
-            }
+            state.curLevel.updatePermanentStructures(this);
 
             foreach (Marker m in state.markers)
             {

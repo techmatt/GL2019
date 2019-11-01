@@ -38,7 +38,7 @@
             // 
             // pictureBoxMain
             // 
-            this.pictureBoxMain.Location = new System.Drawing.Point(12, 35);
+            this.pictureBoxMain.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxMain.Name = "pictureBoxMain";
             this.pictureBoxMain.Size = new System.Drawing.Size(1280, 720);
             this.pictureBoxMain.TabIndex = 0;
@@ -71,7 +71,7 @@
             this.buttonFullScreen.UseVisualStyleBackColor = true;
             this.buttonFullScreen.Click += new System.EventHandler(this.buttonFullScreen_Click);
             // 
-            // Form2
+            // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,7 +79,7 @@
             this.Controls.Add(this.buttonFullScreen);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBoxMain);
-            this.Name = "Form2";
+            this.Name = "GameWindow";
             this.Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
