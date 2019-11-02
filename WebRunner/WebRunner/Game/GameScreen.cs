@@ -137,7 +137,7 @@ namespace WebRunner
 
             foreach (Marker m in state.markers)
             {
-                drawRotatedImage(m.screenCenter, m.orientation, database.images.orientationViewer.getBmp(0));
+                drawRotatedImage(m.screenCenter, m.orientation, database.images.mirrorOrientation.getBmp(0));
                 //drawCircle(m.center, 15, m.toolData.brush, null);
                 drawImage(m.entry.image, 0, m.screenCenter);
             }

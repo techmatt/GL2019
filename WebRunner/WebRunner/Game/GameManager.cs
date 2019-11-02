@@ -160,19 +160,23 @@ namespace WebRunner
 
             state.nextFrameTemporaryStructures = new List<Structure>();
 
-            state.curLevel.updatePermanentStructures(this);
-
             foreach (Marker m in state.markers)
             {
-                if (m.entry.type == ToolType.RunA && state.activeRunnerA != null)
+                /*if (m.entry.type == ToolType.RunA && state.activeRunnerA != null)
                 {
                     moveRunnerUsingMarker(m, state.activeRunnerA);
                 }
                 if (m.entry.type == ToolType.RunB && state.activeRunnerB != null)
                 {
                     moveRunnerUsingMarker(m, state.activeRunnerB);
+                }*/
+                if(m.entry.type == ToolType.Mirror)
+                {
+                    state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerMirror, database, m.worldCenter));
                 }
             }
+
+            state.curLevel.updatePermanentStructures(this);
 
             if (joystick.joysticks.Count >= 1 && state.activeRunnerA != null)
             {

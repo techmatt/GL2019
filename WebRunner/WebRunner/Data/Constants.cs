@@ -13,7 +13,8 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=RlVTb3g-COY
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
-        public const bool useWebcam = false;
+        public const bool useWebcam = true;
+        public const int webcamCaptureIndex = 1;
 
         public const double laserGunDamage = 0.03;
         public const double laserTurretDamage = 0.22;
@@ -21,6 +22,8 @@ namespace WebRunner
         public const double runnerMaxHealth = 1.0;
 
         public const double structureHealRate = 0.02;
+
+        public const int runnerMirrorRadius = 75;
 
         //public Font consoleFont = new Font(new FontFamily("Times New Roman"), 32, FontStyle.Regular, GraphicsUnit.Pixel);
         static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -37,7 +40,7 @@ namespace WebRunner
 
         static public Vec2 viewportSize = new Vec2(1280, 720);
         public const double shoeSpeedMultiplier = 1.3;
-        public const int webcamCaptureIndex = 0;
+        
 
         public const int backgroundAlpha = 200;
 

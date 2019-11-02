@@ -39,8 +39,9 @@ namespace WebRunner
 
     enum ToolType
     {
-        RunA,
-        RunB,
+        //RunA,
+        //RunB,
+        Mirror,
         Distraction,
         InvalidID
     }
@@ -101,15 +102,15 @@ namespace WebRunner
         {
             images = new ImageDatabase();
 
-            IDToToolDict[0] = ToolType.RunA;
-            IDToToolDict[1] = ToolType.RunB;
-            IDToToolDict[2] = ToolType.RunA;
-            IDToToolDict[3] = ToolType.RunB;
-            IDToToolDict[4] = ToolType.RunA;
+            IDToToolDict[0] = ToolType.Mirror;
+            IDToToolDict[1] = ToolType.Mirror;
+            IDToToolDict[2] = ToolType.Mirror;
+            IDToToolDict[3] = ToolType.Mirror;
+            IDToToolDict[4] = ToolType.Mirror;
             IDToToolDict[5] = ToolType.Distraction;
 
-            registerTool(ToolType.RunA, "runA", Color.FromArgb(200, 50, 50));
-            registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.Mirror, "runnerMirror", Color.FromArgb(200, 50, 50));
+            //registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
 
             double dh = 4.0; // default health
@@ -127,6 +128,7 @@ namespace WebRunner
             registerStructure(StructureType.Objective, "objective", 32.0, ShapeType.Square, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.Shoes, "shoes", 32.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.LaserGun, "laserGun", 32.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.RunnerMirror, "runnerMirror", Constants.runnerMirrorRadius, ShapeType.Mirror, 0.0, new Vec2(2, 2));
 
             registerStructure(StructureType.RunnerA, "runnerA", Constants.runnerRadius, ShapeType.Circle, 0.0, null);
             registerStructure(StructureType.RunnerB, "runnerB", Constants.runnerRadius, ShapeType.Circle, 0.0, null);
@@ -176,7 +178,7 @@ namespace WebRunner
 
         public HashSet<StructureType> runnerLaserBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.RunnerMirror, StructureType.Camera, StructureType.LaserTurret,
-            StructureType.StationaryMirror };
+            StructureType.StationaryMirror, StructureType.RunnerMirror };
 
         public ImageDatabase images;
     }

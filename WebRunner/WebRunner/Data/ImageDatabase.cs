@@ -64,6 +64,7 @@ namespace WebRunner
             structures[StructureType.LaserTurret] = new ImageEntry("laserTurret", new Vec2(64, 64), 255);
             structures[StructureType.BulletTurret] = new ImageEntry("bulletTurret", new Vec2(64, 64), 255);
             structures[StructureType.StationaryMirror] = new ImageEntry("stationaryMirror", new Vec2(72, 16), 255);
+            structures[StructureType.RunnerMirror] = new ImageEntry("empty", new Vec2(4, 4), 255);
             structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
             structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
             structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
@@ -77,8 +78,8 @@ namespace WebRunner
             structures[StructureType.Shoes] = new ImageEntry("shoes", new Vec2(60, 60), 255);
             structures[StructureType.LaserGun] = new ImageEntry("laserGun", new Vec2(60, 60), 255);
 
-            tools[ToolType.RunA] = new ImageEntry("runA", new Vec2(60, 60), 255);
-            tools[ToolType.RunB] = new ImageEntry("runB", new Vec2(60, 60), 255);
+            tools[ToolType.Mirror] = new ImageEntry("runnerMirrorCenter", new Vec2(17, 17), 255);
+            //tools[ToolType.RunB] = new ImageEntry("runB", new Vec2(60, 60), 255);
             tools[ToolType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
         }
 
@@ -98,7 +99,8 @@ namespace WebRunner
         public Dictionary<ToolType, ImageEntry> tools = new Dictionary<ToolType, ImageEntry>();
 
         //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
-        public ImageEntry orientationViewer = new ImageEntry("shield", new Vec2(200, 24), 128);
+        //public ImageEntry orientationViewer = new ImageEntry("shield", new Vec2(200, 24), 128);
+        public ImageEntry mirrorOrientation = new ImageEntry("mirrorOrientation", new Vec2(Constants.runnerMirrorRadius * 2, 20), 128);
         public ImageEntry disabledStructure = new ImageEntry("ChargeTextureOrange", new Vec2(90, 90), 180);
         public ImageEntry acquired = new ImageEntry("acquired", new Vec2(80, 80), 200);
         //public ImageEntry runners = new ImageEntry("runner", 2, new Vec2(55, 55), 255);
