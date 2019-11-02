@@ -17,10 +17,30 @@ namespace WebRunner
             curHealth = entry.maxHealth;
         }
 
+        public Structure(Dictionary<string, string> dict, GameDatabase database)
+        {
+            type = (StructureType)Enum.Parse(typeof(StructureType), dict["type"]);
+            entry = database.getStructureEntry(type);
+            center = new Vec2();
+            curHealth = entry.maxHealth;
+            center.x = Convert.ToDouble(dict["centerX"]);
+            center.y = Convert.ToDouble(dict["centerY"]);
+            sweepAngleStart = Convert.ToDouble(dict["sweepAngleStart"]);
+            sweepAngleSpan = Convert.ToDouble(dict["sweepAngleSpan"]);
+            sweepAngleSpeed = Convert.ToDouble(dict["sweepAngleSpeed"]);
+        }
+
         public Vec2 curSweepDirection()
         {
             double theta = curSweepAngle * Math.PI / 180.0;
             return new Vec2(Math.Cos(theta), Math.Sin(theta));
+        }
+
+        public bool inGoodHealth()
+        {
+            if (entry.maxHealth <= 0.0)
+                return true;
+            return (curHealth / entry.maxHealth > 0.1);
         }
 
         public Vec2 curNormal()
@@ -57,6 +77,7 @@ namespace WebRunner
         public double curHealth = 0.0;
         public double disableTimeLeft = 0.0;
         public LaserPath laserPath = null;
+        public bool achieved = false;
 
         public Dictionary<string, string> toDict()
         {
@@ -70,17 +91,7 @@ namespace WebRunner
             return result;
         }
 
-        public Structure(Dictionary<string, string> dict, GameDatabase database)
-        {
-            type = (StructureType)Enum.Parse(typeof(StructureType), dict["type"]);
-            entry = database.getStructureEntry(type);
-            center = new Vec2();
-            center.x = Convert.ToDouble(dict["centerX"]);
-            center.y = Convert.ToDouble(dict["centerY"]);
-            sweepAngleStart = Convert.ToDouble(dict["sweepAngleStart"]);
-            sweepAngleSpan = Convert.ToDouble(dict["sweepAngleSpan"]);
-            sweepAngleSpeed = Convert.ToDouble(dict["sweepAngleSpeed"]);
-        }
+        
     }
 
 }

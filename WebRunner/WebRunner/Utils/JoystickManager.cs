@@ -17,6 +17,8 @@ namespace WebRunner
         Y,
         A,
         B,
+        LB,
+        RB,
         Invalid
     }
 
@@ -28,6 +30,8 @@ namespace WebRunner
             buttonStates[GamepadButton.Y] = false;
             buttonStates[GamepadButton.A] = false;
             buttonStates[GamepadButton.B] = false;
+            buttonStates[GamepadButton.LB] = false;
+            buttonStates[GamepadButton.RB] = false;
         }
         public Vec2 padA = new Vec2(0.0, 0.0);
         public Vec2 padB = new Vec2(0.0, 0.0);
@@ -109,6 +113,9 @@ namespace WebRunner
                     if (command.Offset == JoystickOffset.Buttons1) button = GamepadButton.B;
                     if (command.Offset == JoystickOffset.Buttons2) button = GamepadButton.X;
                     if (command.Offset == JoystickOffset.Buttons3) button = GamepadButton.Y;
+                    if (command.Offset == JoystickOffset.Buttons4) button = GamepadButton.LB;
+                    if (command.Offset == JoystickOffset.Buttons5) button = GamepadButton.RB;
+                    //Console.WriteLine(command.Offset);
 
                     if (button != GamepadButton.Invalid)
                     {

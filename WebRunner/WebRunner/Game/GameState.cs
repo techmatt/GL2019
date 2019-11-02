@@ -41,6 +41,10 @@ namespace WebRunner
         public int frameCount = 0;
         public Rect2 viewport;
 
+        public DateTime gameStartTime;
+        public DateTime levelStartTime;
+        public List<double> levelCompletionTimes = new List<double>();
+
         public List<Structure> curFrameTemporaryStructures;
         public List<Structure> nextFrameTemporaryStructures;
 
@@ -65,6 +69,7 @@ namespace WebRunner
 
         public GameState(GameManager _manager, string missionName, string levelNameOverride)
         {
+            gameStartTime = DateTime.Now;
             manager = _manager;
             //database = manager.database;
             string missionDir = Constants.missionBaseDir + missionName + '/';

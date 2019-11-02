@@ -48,18 +48,6 @@ namespace WebRunner
             {
                 return;
             }
-            if (filename == "debug")
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    Structure randomCamera = new Structure(StructureType.Camera, database, worldRect.randomPoint());
-                    structures.Add(randomCamera);
-
-                    Structure randomWall = new Structure(StructureType.Wall, database, worldRect.randomPoint());
-                    structures.Add(randomWall);
-                }
-                return;
-            }
             var lines = File.ReadAllLines(filename);
             //backgroundName = lines[0];
             var globalsDict = Util.stringToDict(lines[0]);
@@ -161,7 +149,20 @@ namespace WebRunner
                     }
                 }
 
-                if (structure.type == StructureType.Camera && structure.disableTimeLeft <= 0.0)
+                if(structure.type == StructureType.Objective && !structure.achieved)
+                {
+                    for(int runnerIdx = 0; runnerIdx < 2; runnerIdx++)
+                    {
+                        Runner r = state.getActiveRunner(runnerIdx);
+                        if(r != null && Vec2.distSq(r.center, structure.center) < 30.0 * 30.0)
+                        {
+                            structure.achieved = true;
+                            manager.sound.playSpeech("objective acquired");
+                        }
+                    }
+                }
+
+                if (structure.type == StructureType.Camera && structure.inGoodHealth())
                 {
                     //var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
                     var intersection = Util.findFirstRayStructureIntersection(structureLists, structure.center, structure.curSweepDirection(), database.cameraBlockingStructures);
@@ -177,7 +178,7 @@ namespace WebRunner
                     }
                 }
 
-                if(structure.type == StructureType.LaserTurret && structure.disableTimeLeft <= 0.0)
+                if(structure.type == StructureType.LaserTurret && structure.inGoodHealth())
                 {
                     var laserPath = Util.traceLaser(structureLists, structure.center, structure.curSweepDirection(), database.laserTurretBlockingStructures, 0, structureIdx);
                     structure.laserPath = laserPath;
@@ -259,6 +260,10 @@ namespace WebRunner
                     continue;
                 }
                 screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+                if (structure.type == StructureType.Objective && structure.achieved)
+                {
+                    screen.drawImage(database.images.acquired, 0, structure.center);
+                }
             }
 
             foreach (Structure structure in structures)
@@ -271,12 +276,12 @@ namespace WebRunner
                     screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
                     renderStructureHealth(screen, database, state, structure);
                     screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
-                    if(structure.disableTimeLeft <= 0.0)
+                    if(structure.inGoodHealth())
                         screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
                 }
                 if (structure.type == StructureType.LaserTurret)
                 {
-                    if (structure.disableTimeLeft <= 0.0)
+                    if (structure.inGoodHealth())
                         screen.renderLaserPath(structure.laserPath, database.laserTurretRay);
                     screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
                     renderStructureHealth(screen, database, state, structure);

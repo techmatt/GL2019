@@ -135,7 +135,7 @@ namespace WebRunner
             if(joystick.padB.lengthSq() > 0.5 * 0.5)
                 runner.laserDir = joystick.padB.getNormalized();
 
-            if(runner.hasLaser && joystick.buttonStates[GamepadButton.A])
+            if(runner.hasLaser && (joystick.buttonStates[GamepadButton.LB] || joystick.buttonStates[GamepadButton.RB]))
             {
                 var structureLists = new List<List<Structure>> { state.curLevel.structures };
                 runner.laserPath = Util.traceLaser(structureLists, runner.laserOrigin(), runner.laserDir, database.runnerLaserBlockingStructures, -1, -1);
