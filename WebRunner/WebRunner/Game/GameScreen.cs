@@ -91,6 +91,25 @@ namespace WebRunner
             drawCircle(r.center, (int)radius, database.runnerHealthInterior, null);
         }
 
+        public void renderLaserPath(LaserPath path, Pen pen)
+        {
+            if (path == null)
+                return;
+            for (int beamIdx = 0; beamIdx < path.beamPoints.Count - 1; beamIdx++)
+            {
+                drawLine(path.beamPoints[beamIdx], path.beamPoints[beamIdx + 1], pen);
+            }
+        }
+
+        public void drawRunnerLaser(GameDatabase database, Runner r)
+        {
+            if (r == null || !r.hasLaser)
+                return;
+
+            drawCircle(r.laserOrigin(), 7, database.laserIndicatorInterior, database.cameraPenThin);
+            renderLaserPath(r.laserPath, database.laserGunRay);
+        }
+
         public void render(Bitmap webcamImage, GameState state, EditorManager editor, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
@@ -106,6 +125,9 @@ namespace WebRunner
 
             drawRunnerHealthCircle(database, state.activeRunnerA);
             drawRunnerHealthCircle(database, state.activeRunnerB);
+
+            drawRunnerLaser(database, state.activeRunnerA);
+            drawRunnerLaser(database, state.activeRunnerB);
 
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in state.curFrameTemporaryStructures)

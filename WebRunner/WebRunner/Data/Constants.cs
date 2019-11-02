@@ -15,6 +15,7 @@ namespace WebRunner
 
         public const bool useWebcam = false;
 
+        public const double laserGunDamage = 0.05;
         public const double laserTurretDamage = 0.15;
         public const double structureDisableTime = 10.0;
         public const double runnerMaxHealth = 1.0;

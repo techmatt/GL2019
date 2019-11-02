@@ -129,6 +129,24 @@ namespace WebRunner
             }
         }
 
+        void processRunnerJoystick(RunnerJoystickState joystick, Runner runner)
+        {
+            moveRunnerUsingJoystick(joystick.padA, runner);
+            if(joystick.padB.lengthSq() > 0.5 * 0.5)
+                runner.laserDir = joystick.padB.getNormalized();
+
+            if(runner.hasLaser && joystick.buttonStates[GamepadButton.A])
+            {
+                var structureLists = new List<List<Structure>> { state.curLevel.structures };
+                runner.laserPath = Util.traceLaser(structureLists, runner.laserOrigin(), runner.laserDir, database.runnerLaserBlockingStructures, -1, -1);
+                state.curLevel.damageStructure(state, structureLists, runner.laserPath.finalObject.Item1, runner.laserPath.finalObject.Item2, Constants.laserTurretDamage);
+            }
+            else
+            {
+                runner.laserPath = null;
+            }
+        }
+
         void step()
         {
             state.frameCount++;
@@ -158,13 +176,11 @@ namespace WebRunner
 
             if (joystick.joysticks.Count >= 1 && state.activeRunnerA != null)
             {
-                moveRunnerUsingJoystick(joystick.joysticks[0].padA, state.activeRunnerA);
-                state.activeRunnerA.laserDir = joystick.joysticks[0].padB;
+                processRunnerJoystick(joystick.joysticks[0], state.activeRunnerA);
             }
             if (joystick.joysticks.Count >= 2 && state.activeRunnerB != null)
             {
-                moveRunnerUsingJoystick(joystick.joysticks[1].padA, state.activeRunnerB);
-                state.activeRunnerB.laserDir = joystick.joysticks[1].padB;
+                processRunnerJoystick(joystick.joysticks[1], state.activeRunnerB);
             }
         }
 

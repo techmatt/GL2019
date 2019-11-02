@@ -19,6 +19,8 @@ namespace WebRunner
         public double ICESpawnRate = 1000.0;
         public double maxCompletionTime = 1000.0;
 
+        public List<bool> runnersCompleted = new List<bool>() { false, false };
+
         public Dictionary<string, string> makeGlobalsDict()
         {
             var result = new Dictionary<string, string>();
@@ -221,16 +223,6 @@ namespace WebRunner
             }
         }
 
-        public void renderLaserPath(GameScreen screen, LaserPath path, Pen pen)
-        {
-            if (path == null)
-                return;
-            for (int beamIdx = 0; beamIdx < path.beamPoints.Count - 1; beamIdx++)
-            {
-                screen.drawLine(path.beamPoints[beamIdx], path.beamPoints[beamIdx + 1], pen);
-            }
-        }
-
         public void renderStructureHealth(GameScreen screen, GameDatabase database, GameState state, Structure structure)
         {
             double healthRadius = (1.0 - structure.curHealth / structure.entry.maxHealth) * structure.entry.radius;
@@ -285,7 +277,7 @@ namespace WebRunner
                 if (structure.type == StructureType.LaserTurret)
                 {
                     if (structure.disableTimeLeft <= 0.0)
-                        renderLaserPath(screen, structure.laserPath, database.laserTurretRay);
+                        screen.renderLaserPath(structure.laserPath, database.laserTurretRay);
                     screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
                     renderStructureHealth(screen, database, state, structure);
                     screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);

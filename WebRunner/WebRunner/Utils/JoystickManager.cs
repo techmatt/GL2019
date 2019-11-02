@@ -126,8 +126,8 @@ namespace WebRunner
                 JoystickState DXstate = DXJoystick.GetCurrentState();
                 runnerState.padA.x = padClamp((DXstate.X - 32767) / 32767.0);
                 runnerState.padA.y = padClamp((DXstate.Y - 32767) / 32767.0);
-                runnerState.padB.x = padClamp((DXstate.RotationX - 32767) / 32767.0);
-                runnerState.padB.y = padClamp((DXstate.RotationY - 32767) / 32767.0);
+                runnerState.padB.x = ((DXstate.RotationX - 32767) / 32767.0);
+                runnerState.padB.y = ((DXstate.RotationY - 32767) / 32767.0);
             }
         }
     }

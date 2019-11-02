@@ -15,12 +15,19 @@ namespace WebRunner
             curHealth = Constants.runnerMaxHealth;
             laserDir = new Vec2(1.0, 0.0);
         }
+
+        public Vec2 laserOrigin()
+        {
+            return center + laserDir * 30.0;
+        }
         public Vec2 center;
         public Vec2 laserDir;
         public double curHealth;
 
         public bool hasLaser = false;
         public bool hasShoes = false;
+
+        public LaserPath laserPath = null;
     }
 
     class GameState
