@@ -172,7 +172,9 @@ namespace WebRunner
                 }*/
                 if(m.entry.type == ToolType.Mirror)
                 {
-                    state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerMirror, database, m.worldCenter));
+                    Structure mirror = new Structure(StructureType.RunnerMirror, database, m.worldCenter);
+                    mirror.curSweepAngle = Math.Atan2(m.orientation.y, m.orientation.x) * 180.0 / Math.PI;
+                    state.curFrameTemporaryStructures.Add(mirror);
                 }
             }
 
