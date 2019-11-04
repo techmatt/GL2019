@@ -116,13 +116,11 @@ namespace WebRunner
             gViewport.Clear(Color.Black);
 
             gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
-            foreach (GameLevel level in new GameLevel[] { state.curLevel })
-            {
-                ImageEntry backgroundImg = database.images.getBackground(level.tilesetName, false);
-                Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;
-                gViewport.DrawImage(backgroundImg.getBmp(0), (int)bkgStart.x, (int)bkgStart.y);
-                level.render(this, database, state, editor);
-            }
+
+            ImageEntry backgroundImg = database.images.getBackground(state.curLevel.tilesetName, false);
+            Vec2 bkgStart = state.curLevel.worldRect.pMin - state.viewport.pMin;
+            gViewport.DrawImage(backgroundImg.getBmp(0), (int)bkgStart.x, (int)bkgStart.y);
+            state.curLevel.render(this, database, state, editor);
 
             drawRunnerHealthCircle(database, state.activeRunners[0]);
             drawRunnerHealthCircle(database, state.activeRunners[1]);
@@ -162,6 +160,22 @@ namespace WebRunner
                 }
             }
 
+            int totalSecondsElapsed = (int)((DateTime.Now - state.gameStartTime).TotalSeconds);
+            string totalMinutesText = (totalSecondsElapsed / 60).ToString().PadLeft(2, '0');
+            string totalSecondsText = (totalSecondsElapsed % 60).ToString().PadLeft(2, '0');
+
+            int levelSecondsElapsed = (int)((DateTime.Now - state.levelStartTime).TotalSeconds);
+            int levelSecondsRemaining = state.curLevel.maxCompletionTime - levelSecondsElapsed;
+            string levelMinutesText = (levelSecondsRemaining / 60).ToString().PadLeft(2, '0');
+            string levelSecondsText = (levelSecondsRemaining % 60).ToString().PadLeft(2, '0');
+            gViewport.DrawString("Run time: " + totalMinutesText + ":" + totalSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(111, 648));
+            gViewport.DrawString("Time remaining: " + levelMinutesText + ":" + levelSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(15, 680));
+
+            gViewport.DrawString("Sector " + (state.curLevelIndex + 1).ToString() + " of " + state.allLevels.Count.ToString(), Constants.consoleFont, Constants.consoleFontBrush, new Point(883, 648));
+
+            int objectivesRemaining = state.curLevel.objectivesTotal - state.curLevel.objectivesAchieved;
+            gViewport.DrawString(objectivesRemaining.ToString() + " objectives remaining", Constants.consoleFont, Constants.consoleFontBrush, new Point(883, 680));
+            //
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;

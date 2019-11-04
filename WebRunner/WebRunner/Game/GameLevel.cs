@@ -17,11 +17,13 @@ namespace WebRunner
         public string tilesetName;
         public double guardSpawnRate = 1000.0;
         public double ICESpawnRate = 1000.0;
-        public double maxCompletionTime = 1000.0;
+        public int maxCompletionTime = 120;
         public int objectivesAchieved = 0;
         public int objectivesTotal = 0;
 
         public List<bool> runnersCompleted = new List<bool>() { false, false };
+
+        public Dictionary<ToolType, bool> toolsAcquired = new Dictionary<ToolType, bool>();
 
         public Dictionary<string, string> makeGlobalsDict()
         {
@@ -38,7 +40,7 @@ namespace WebRunner
             tilesetName = dict["tilesetName"];
             guardSpawnRate = Convert.ToDouble(dict["guardSpawnRate"]);
             ICESpawnRate = Convert.ToDouble(dict["ICESpawnRate"]);
-            maxCompletionTime = Convert.ToDouble(dict["maxCompletionTime"]);
+            maxCompletionTime = Convert.ToInt32(dict["maxCompletionTime"]);
         }
 
         public GameLevel(string filename, GameDatabase database)
@@ -60,15 +62,19 @@ namespace WebRunner
                 var dict = Util.stringToDict(lines[2 + i]);
                 structures.Add(new Structure(dict, database));
             }
-            updateLevelInfo();
+            updateLevelInfo(database);
         }
 
-        public void updateLevelInfo()
+        public void updateLevelInfo(GameDatabase database)
         {
             foreach(Structure s in structures)
             {
                 if(s.type == StructureType.Objective)
                     objectivesTotal++;
+            }
+            foreach(ToolType t in database.toolList())
+            {
+                toolsAcquired[t] = false;
             }
         }
 
@@ -116,6 +122,13 @@ namespace WebRunner
             }
         }
 
+        public void acquirePickup(GameManager manager, Structure pickupStructure, ToolType tool, string toolName)
+        {
+            manager.sound.playSpeech(toolName + " protocol acquired");
+            pickupStructure.visible = false;
+            toolsAcquired[tool] = true;
+        }
+
         public void updatePermanentStructures(GameManager manager)
         {
             var database = manager.database;
@@ -127,7 +140,7 @@ namespace WebRunner
             for(int structureIdx = 0; structureIdx < structures.Count; structureIdx++)
             {
                 Structure structure = structures[structureIdx];
-                if (structure.type == StructureType.Wall)
+                if (structure.type == StructureType.Wall || !structure.visible)
                     continue;
 
                 if(structure.disableTimeLeft > 0.0)
@@ -233,6 +246,26 @@ namespace WebRunner
                                 runner.hasShoes = true;
                             }
                         }
+                        if (structure.type == StructureType.DistractionPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.Distraction, "distraction");
+                        }
+                        if (structure.type == StructureType.MirrorPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.Mirror, "mirror");
+                        }
+                        if (structure.type == StructureType.BombPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.Bomb, "bomb");
+                        }
+                        if (structure.type == StructureType.BotnetPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.Botnet, "botnet");
+                        }
+                        if (structure.type == StructureType.MedpackPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.Medpack, "medpack");
+                        }
                         if (structure.type == StructureType.LaserGun)
                         {
                             if (!runner.hasLaser)
@@ -280,7 +313,7 @@ namespace WebRunner
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in structures)
             {
-                if (structure.isTopLayer())
+                if (structure.isTopLayer() || !structure.visible)
                     continue;
 
                 if (structure.type == StructureType.StationaryMirror)

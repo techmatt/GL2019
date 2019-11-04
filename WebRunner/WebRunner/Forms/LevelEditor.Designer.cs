@@ -76,6 +76,12 @@
             this.radioButtonLaserTurret = new System.Windows.Forms.RadioButton();
             this.radioButtonBulletTurret = new System.Windows.Forms.RadioButton();
             this.radioButtonMirror = new System.Windows.Forms.RadioButton();
+            this.radioButtonDistractionPickup = new System.Windows.Forms.RadioButton();
+            this.radioButtonMedpack = new System.Windows.Forms.RadioButton();
+            this.radioButtonBotnet = new System.Windows.Forms.RadioButton();
+            this.radioButtonBomb = new System.Windows.Forms.RadioButton();
+            this.radioButtonMirrorPickup = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -549,18 +555,95 @@
             this.radioButtonMirror.AutoSize = true;
             this.radioButtonMirror.Location = new System.Drawing.Point(131, 995);
             this.radioButtonMirror.Name = "radioButtonMirror";
-            this.radioButtonMirror.Size = new System.Drawing.Size(67, 24);
+            this.radioButtonMirror.Size = new System.Drawing.Size(143, 24);
             this.radioButtonMirror.TabIndex = 16;
             this.radioButtonMirror.TabStop = true;
-            this.radioButtonMirror.Text = "Mirror";
+            this.radioButtonMirror.Text = "Stationary Mirror";
             this.radioButtonMirror.UseVisualStyleBackColor = true;
             this.radioButtonMirror.CheckedChanged += new System.EventHandler(this.radioButtonMirror_CheckedChanged);
+            // 
+            // radioButtonDistractionPickup
+            // 
+            this.radioButtonDistractionPickup.AutoSize = true;
+            this.radioButtonDistractionPickup.Location = new System.Drawing.Point(297, 895);
+            this.radioButtonDistractionPickup.Name = "radioButtonDistractionPickup";
+            this.radioButtonDistractionPickup.Size = new System.Drawing.Size(103, 24);
+            this.radioButtonDistractionPickup.TabIndex = 17;
+            this.radioButtonDistractionPickup.TabStop = true;
+            this.radioButtonDistractionPickup.Text = "Distraction";
+            this.radioButtonDistractionPickup.UseVisualStyleBackColor = true;
+            this.radioButtonDistractionPickup.CheckedChanged += new System.EventHandler(this.radioButtonDistractionPickup_CheckedChanged);
+            // 
+            // radioButtonMedpack
+            // 
+            this.radioButtonMedpack.AutoSize = true;
+            this.radioButtonMedpack.Location = new System.Drawing.Point(297, 928);
+            this.radioButtonMedpack.Name = "radioButtonMedpack";
+            this.radioButtonMedpack.Size = new System.Drawing.Size(92, 24);
+            this.radioButtonMedpack.TabIndex = 17;
+            this.radioButtonMedpack.TabStop = true;
+            this.radioButtonMedpack.Text = "Medpack";
+            this.radioButtonMedpack.UseVisualStyleBackColor = true;
+            this.radioButtonMedpack.CheckedChanged += new System.EventHandler(this.radioButtonMedpack_CheckedChanged);
+            // 
+            // radioButtonBotnet
+            // 
+            this.radioButtonBotnet.AutoSize = true;
+            this.radioButtonBotnet.Location = new System.Drawing.Point(297, 962);
+            this.radioButtonBotnet.Name = "radioButtonBotnet";
+            this.radioButtonBotnet.Size = new System.Drawing.Size(75, 24);
+            this.radioButtonBotnet.TabIndex = 17;
+            this.radioButtonBotnet.TabStop = true;
+            this.radioButtonBotnet.Text = "Botnet";
+            this.radioButtonBotnet.UseVisualStyleBackColor = true;
+            this.radioButtonBotnet.CheckedChanged += new System.EventHandler(this.radioButtonBotnet_CheckedChanged);
+            // 
+            // radioButtonBomb
+            // 
+            this.radioButtonBomb.AutoSize = true;
+            this.radioButtonBomb.Location = new System.Drawing.Point(297, 994);
+            this.radioButtonBomb.Name = "radioButtonBomb";
+            this.radioButtonBomb.Size = new System.Drawing.Size(69, 24);
+            this.radioButtonBomb.TabIndex = 17;
+            this.radioButtonBomb.TabStop = true;
+            this.radioButtonBomb.Text = "Bomb";
+            this.radioButtonBomb.UseVisualStyleBackColor = true;
+            this.radioButtonBomb.CheckedChanged += new System.EventHandler(this.radioButtonBomb_CheckedChanged);
+            // 
+            // radioButtonMirrorPickup
+            // 
+            this.radioButtonMirrorPickup.AutoSize = true;
+            this.radioButtonMirrorPickup.Location = new System.Drawing.Point(297, 1024);
+            this.radioButtonMirrorPickup.Name = "radioButtonMirrorPickup";
+            this.radioButtonMirrorPickup.Size = new System.Drawing.Size(118, 24);
+            this.radioButtonMirrorPickup.TabIndex = 17;
+            this.radioButtonMirrorPickup.TabStop = true;
+            this.radioButtonMirrorPickup.Text = "Mirror Pickup";
+            this.radioButtonMirrorPickup.UseVisualStyleBackColor = true;
+            this.radioButtonMirrorPickup.CheckedChanged += new System.EventHandler(this.radioButtonMirrorPickup_CheckedChanged);
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(297, 1054);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(119, 24);
+            this.radioButton5.TabIndex = 17;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "radioButton1";
+            this.radioButton5.UseVisualStyleBackColor = true;
             // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 1116);
+            this.Controls.Add(this.radioButton5);
+            this.Controls.Add(this.radioButtonMirrorPickup);
+            this.Controls.Add(this.radioButtonBomb);
+            this.Controls.Add(this.radioButtonBotnet);
+            this.Controls.Add(this.radioButtonMedpack);
+            this.Controls.Add(this.radioButtonDistractionPickup);
             this.Controls.Add(this.radioButtonMirror);
             this.Controls.Add(this.radioButtonBulletTurret);
             this.Controls.Add(this.radioButtonLaserTurret);
@@ -667,5 +750,11 @@
         private System.Windows.Forms.RadioButton radioButtonLaserTurret;
         private System.Windows.Forms.RadioButton radioButtonBulletTurret;
         private System.Windows.Forms.RadioButton radioButtonMirror;
+        private System.Windows.Forms.RadioButton radioButtonDistractionPickup;
+        private System.Windows.Forms.RadioButton radioButtonMedpack;
+        private System.Windows.Forms.RadioButton radioButtonBotnet;
+        private System.Windows.Forms.RadioButton radioButtonBomb;
+        private System.Windows.Forms.RadioButton radioButtonMirrorPickup;
+        private System.Windows.Forms.RadioButton radioButton5;
     }
 }

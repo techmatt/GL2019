@@ -30,11 +30,17 @@ namespace WebRunner
         LaserTurret,
         BulletTurret,
 
+        DistractionPickup,
+        MirrorPickup,
+        BombPickup,
+        MedpackPickup,
+        BotnetPickup,
+
         // temporary structures
         RunnerA,
         RunnerB,
-        Distraction,
-        RunnerMirror
+        RunnerMirror,
+        DistractionInstance,
     }
 
     enum ToolType
@@ -42,6 +48,9 @@ namespace WebRunner
         //RunA,
         //RunB,
         Mirror,
+        Medpack,
+        Bomb,
+        Botnet,
         Distraction,
         InvalidID
     }
@@ -119,6 +128,7 @@ namespace WebRunner
             registerTool(ToolType.Mirror, "runnerMirror", Color.FromArgb(200, 50, 50));
             //registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.Medpack, "medpack", Color.FromArgb(50, 200, 50));
 
             double dh = 4.0; // default health
 
@@ -137,9 +147,15 @@ namespace WebRunner
             registerStructure(StructureType.LaserGun, "laserGun", 32.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.RunnerMirror, "runnerMirror", Constants.runnerMirrorRadius, ShapeType.Mirror, 0.0, new Vec2(2, 2));
 
+            registerStructure(StructureType.BotnetPickup, "botnetPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.MirrorPickup, "mirrorPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.DistractionPickup, "distractionPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.MedpackPickup, "medpackPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.BombPickup, "bombPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+
             registerStructure(StructureType.RunnerA, "runnerA", Constants.runnerRadius, ShapeType.Circle, 0.0, null);
             registerStructure(StructureType.RunnerB, "runnerB", Constants.runnerRadius, ShapeType.Circle, 0.0, null);
-            registerStructure(StructureType.Distraction, "distraction", 40.0f, ShapeType.Circle, 0.0, null);
+            //registerStructure(StructureType.Distraction, "distraction", 40.0f, ShapeType.Circle, 0.0, null);
         }
         public ToolType getToolType(int id)
         {
@@ -151,6 +167,10 @@ namespace WebRunner
         public ToolEntry getToolData(ToolType type)
         {
             return toolTypeToDataDict[type];
+        }
+        public List<ToolType> toolList()
+        {
+            return new List<ToolType>(toolTypeToDataDict.Keys);
         }
         public StructureEntry getStructureEntry(StructureType type)
         {
@@ -180,7 +200,7 @@ namespace WebRunner
             StructureType.Shielding };
 
         public HashSet<StructureType> cameraBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Distraction,
+            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.DistractionInstance,
             StructureType.StationaryMirror};
 
         public HashSet<StructureType> laserTurretBlockingStructures = new HashSet<StructureType>() {

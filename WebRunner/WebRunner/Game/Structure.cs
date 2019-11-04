@@ -78,6 +78,7 @@ namespace WebRunner
         public double disableTimeLeft = 0.0;
         public LaserPath laserPath = null;
         public bool achieved = false;
+        public bool visible = true;
         public int speechRepeatDelay = 0;
         //public DateTime t;
 

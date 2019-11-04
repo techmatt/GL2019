@@ -14,11 +14,11 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
         public const bool useWebcam = false;
-        public const bool useGameEditor = false;
+        public const bool useGameEditor = true;
         public const int webcamCaptureIndex = 1;
 
-        public const double laserGunDamage = 0.03;
-        public const double laserTurretDamage = 0.22;
+        public const double laserGunDamage = 0.04;
+        public const double laserTurretDamage = 0.1;
         public const double structureDisableTime = 10.0;
         public const double runnerMaxHealth = 1.0;
 
@@ -26,10 +26,9 @@ namespace WebRunner
 
         public const int runnerMirrorRadius = 75;
 
-        //public Font consoleFont = new Font(new FontFamily("Times New Roman"), 32, FontStyle.Regular, GraphicsUnit.Pixel);
-        static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
+        static public Font consoleFont = new Font(new FontFamily("CONSOLAS"), 28, FontStyle.Bold, GraphicsUnit.Pixel);
         static public SolidBrush consoleBackgroundBrush = new SolidBrush(Color.FromArgb(255, 40, 40, 40));
-        static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 24, 190, 24));
+        static public SolidBrush consoleFontBrush = new SolidBrush(Color.FromArgb(255, 37, 192, 84));
 
         public const int renderWidthWindowed = 1280;
         public const int renderHeightWindowed = 720;

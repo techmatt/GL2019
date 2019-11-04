@@ -97,6 +97,31 @@ namespace WebRunner
             setEditorStructure(StructureType.BulletTurret);
         }
 
+        private void radioButtonDistractionPickup_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.DistractionPickup);
+        }
+
+        private void radioButtonMedpack_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.MedpackPickup);
+        }
+
+        private void radioButtonBotnet_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.BotnetPickup);
+        }
+
+        private void radioButtonBomb_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.BombPickup);
+        }
+
+        private void radioButtonMirrorPickup_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.MirrorPickup);
+        }
+
         private void radioButtonSelect_CheckedChanged(object sender, EventArgs e)
         {
             editor.activeTool = EditorTool.Select;
@@ -206,7 +231,7 @@ namespace WebRunner
         {
             editor.level.guardSpawnRate = Convert.ToDouble(labelGuardSpawnRate.Text);
             editor.level.ICESpawnRate = Convert.ToDouble(labelIceSpawnRate.Text);
-            editor.level.maxCompletionTime = Convert.ToDouble(labelMaxTime.Text);
+            editor.level.maxCompletionTime = Convert.ToInt32(labelMaxTime.Text);
 
             Structure selection = editor.getSelectedStructure();
             if (selection == null) return;
