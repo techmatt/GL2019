@@ -16,8 +16,10 @@ namespace WebRunner
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LevelEditor());
-            //Application.Run(new GameWindow());
+            if(Constants.useGameEditor)
+                Application.Run(new LevelEditor());
+            else
+                Application.Run(new GameWindow());
         }
     }
 }

@@ -18,6 +18,8 @@ namespace WebRunner
         public double guardSpawnRate = 1000.0;
         public double ICESpawnRate = 1000.0;
         public double maxCompletionTime = 1000.0;
+        public int objectivesAchieved = 0;
+        public int objectivesTotal = 0;
 
         public List<bool> runnersCompleted = new List<bool>() { false, false };
 
@@ -39,10 +41,10 @@ namespace WebRunner
             maxCompletionTime = Convert.ToDouble(dict["maxCompletionTime"]);
         }
 
-        public GameLevel(string filename, GameDatabase database, double xStart)
+        public GameLevel(string filename, GameDatabase database)
         {
             structures = new List<Structure>();
-            worldRect = Rect2.fromOriginSize(new Vec2(xStart, 0), Constants.viewportSize);
+            worldRect = Rect2.fromOriginSize(new Vec2(0, 0), Constants.viewportSize);
             tilesetName = "hydroponics";
             if (filename == "emptyLevel")
             {
@@ -57,6 +59,16 @@ namespace WebRunner
             {
                 var dict = Util.stringToDict(lines[2 + i]);
                 structures.Add(new Structure(dict, database));
+            }
+            updateLevelInfo();
+        }
+
+        public void updateLevelInfo()
+        {
+            foreach(Structure s in structures)
+            {
+                if(s.type == StructureType.Objective)
+                    objectivesTotal++;
             }
         }
 
@@ -149,19 +161,6 @@ namespace WebRunner
                     }
                 }
 
-                if(structure.type == StructureType.Objective && !structure.achieved)
-                {
-                    for(int runnerIdx = 0; runnerIdx < 2; runnerIdx++)
-                    {
-                        Runner r = state.getActiveRunner(runnerIdx);
-                        if(r != null && Vec2.distSq(r.center, structure.center) < 30.0 * 30.0)
-                        {
-                            structure.achieved = true;
-                            manager.sound.playSpeech("objective acquired");
-                        }
-                    }
-                }
-
                 if (structure.type == StructureType.Camera && structure.inGoodHealth())
                 {
                     //var intersection = findFirstStructureIntersection(structure.center, structure.curSweepDirection(), true);
@@ -186,24 +185,47 @@ namespace WebRunner
                     damageStructure(manager.state, structureLists, laserPath.finalObject.Item1, laserPath.finalObject.Item2, Constants.laserTurretDamage);
                 }
 
-                if (structure.type == StructureType.SpawnPointA && state.activeRunnerA == null)
+                if (structure.type == StructureType.SpawnPointA && state.activeRunners[0] == null && !state.curLevel.runnersCompleted[0])
                 {
-                    state.activeRunnerA = new Runner(structure.center);
+                    state.activeRunners[0] = new Runner(structure.center);
                 }
-                if (structure.type == StructureType.SpawnPointB && state.activeRunnerB == null)
+                if (structure.type == StructureType.SpawnPointB && state.activeRunners[1] == null && !state.curLevel.runnersCompleted[1])
                 {
-                    state.activeRunnerB = new Runner(structure.center);
+                    state.activeRunners[1] = new Runner(structure.center);
                 }
 
                 for(int runnerIndex = 0; runnerIndex < 2; runnerIndex++)
                 {
-                    Runner runner = state.getActiveRunner(runnerIndex);
+                    Runner runner = state.activeRunners[runnerIndex];
                     if (runner == null)
                         continue;
                     double distSq = Vec2.distSq(runner.center, structure.center);
                     if(distSq <= Constants.runnerRadius * Constants.runnerRadius)
                     {
-                        if(structure.type == StructureType.Shoes)
+                        if (structure.type == StructureType.Door)
+                        {
+                            if(objectivesAchieved >= objectivesTotal)
+                            {
+                                sound.playSpeech("runner advancing to next sector");
+                                state.activeRunners[runnerIndex] = null;
+                                runnersCompleted[runnerIndex] = true;
+                            }
+                            else
+                            {
+                                if (structure.speechRepeatDelay == 0)
+                                {
+                                    int objectivesLeft = objectivesTotal - objectivesAchieved;
+                                    sound.playSpeech(objectivesLeft.ToString() + " objectives remaining");
+                                    structure.speechRepeatDelay = 40;
+                                }
+                                else
+                                {
+                                    structure.speechRepeatDelay--;
+                                }
+                            }
+                        }
+
+                        if (structure.type == StructureType.Shoes)
                         {
                             if(!runner.hasShoes)
                             {
@@ -219,9 +241,21 @@ namespace WebRunner
                                 runner.hasLaser = true;
                             }
                         }
+
+                        if (structure.type == StructureType.Objective && !structure.achieved)
+                        {
+                            structure.achieved = true;
+                            objectivesAchieved++;
+                            manager.sound.playSpeech("objective completed");
+                        }
                     }
                 }
             }
+        }
+
+        internal bool completed()
+        {
+            return (runnersCompleted[0] && runnersCompleted[1]);
         }
 
         public void renderStructureHealth(GameScreen screen, GameDatabase database, GameState state, Structure structure)
@@ -235,7 +269,7 @@ namespace WebRunner
             if (structure.disableTimeLeft > 0.0)
             {
                 //double disableRadius = structure.disableTimeLeft / Constants.structureDisableTime * structure.entry.radius;
-                double scaleFactor = structure.disableTimeLeft / Constants.structureDisableTime + 0.01;
+                double scaleFactor = Math.Min(1.0, structure.disableTimeLeft / Constants.structureDisableTime) + 0.01;
                 double theta = state.frameCount * 0.1;
                 screen.drawRotatedImage(structure.center, new Vec2(Math.Cos(theta), Math.Sin(theta)), database.images.disabledStructure.bmp[0], scaleFactor);
             }

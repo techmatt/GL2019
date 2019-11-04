@@ -53,6 +53,7 @@ namespace WebRunner
                 sounds[speech] = newSound;
             }
             SoundPlayer sound = sounds[speech];
+            Console.WriteLine("playing speech: " + speech);
             sound.Play();
             if(updateLastSpeechPlayed)
                 lastSpeechPlayed = DateTime.Now;
@@ -68,6 +69,7 @@ namespace WebRunner
                 sounds[WAVFilename] = newSound;
             }
             SoundPlayer sound = sounds[WAVFilename];
+            Console.WriteLine("playing sound: " + WAVFilename);
             sound.Play();
         }
 

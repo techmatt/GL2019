@@ -30,67 +30,125 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonStartGame = new System.Windows.Forms.Button();
+            this.timerRendering = new System.Windows.Forms.Timer(this.components);
             this.buttonFullScreen = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxMissionName = new System.Windows.Forms.TextBox();
+            this.buttonBrowse = new System.Windows.Forms.Button();
+            this.buttonComplete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxMain
             // 
-            this.pictureBoxMain.Location = new System.Drawing.Point(12, 12);
+            this.pictureBoxMain.Location = new System.Drawing.Point(13, 67);
+            this.pictureBoxMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxMain.Name = "pictureBoxMain";
             this.pictureBoxMain.Size = new System.Drawing.Size(1280, 720);
             this.pictureBoxMain.TabIndex = 0;
             this.pictureBoxMain.TabStop = false;
-            this.pictureBoxMain.Click += new System.EventHandler(this.pictureBoxMain_Click);
             // 
-            // button1
+            // buttonStartGame
             // 
-            this.button1.Location = new System.Drawing.Point(237, 786);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(213, 63);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonStartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStartGame.Location = new System.Drawing.Point(434, 10);
+            this.buttonStartGame.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonStartGame.Name = "buttonStartGame";
+            this.buttonStartGame.Size = new System.Drawing.Size(164, 43);
+            this.buttonStartGame.TabIndex = 1;
+            this.buttonStartGame.Text = "Start Mission";
+            this.buttonStartGame.UseVisualStyleBackColor = true;
+            this.buttonStartGame.Click += new System.EventHandler(this.buttonStartGame_Click);
             // 
-            // timer1
+            // timerRendering
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerRendering.Enabled = true;
+            this.timerRendering.Interval = 1;
+            this.timerRendering.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // buttonFullScreen
             // 
-            this.buttonFullScreen.Location = new System.Drawing.Point(1311, 35);
+            this.buttonFullScreen.Location = new System.Drawing.Point(606, 10);
+            this.buttonFullScreen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonFullScreen.Name = "buttonFullScreen";
-            this.buttonFullScreen.Size = new System.Drawing.Size(180, 64);
+            this.buttonFullScreen.Size = new System.Drawing.Size(198, 43);
             this.buttonFullScreen.TabIndex = 2;
             this.buttonFullScreen.Text = "enter full screen";
             this.buttonFullScreen.UseVisualStyleBackColor = true;
             this.buttonFullScreen.Click += new System.EventHandler(this.buttonFullScreen_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(105, 21);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(125, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Mission Name:";
+            // 
+            // textBoxMissionName
+            // 
+            this.textBoxMissionName.Location = new System.Drawing.Point(229, 18);
+            this.textBoxMissionName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxMissionName.Name = "textBoxMissionName";
+            this.textBoxMissionName.Size = new System.Drawing.Size(197, 26);
+            this.textBoxMissionName.TabIndex = 4;
+            this.textBoxMissionName.Text = "tutorialMission";
+            // 
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Location = new System.Drawing.Point(12, 12);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(86, 38);
+            this.buttonBrowse.TabIndex = 5;
+            this.buttonBrowse.Text = "Load";
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            // 
+            // buttonComplete
+            // 
+            this.buttonComplete.Location = new System.Drawing.Point(811, 12);
+            this.buttonComplete.Name = "buttonComplete";
+            this.buttonComplete.Size = new System.Drawing.Size(135, 36);
+            this.buttonComplete.TabIndex = 6;
+            this.buttonComplete.Text = "Complete Level";
+            this.buttonComplete.UseVisualStyleBackColor = true;
+            this.buttonComplete.Click += new System.EventHandler(this.buttonComplete_Click);
+            // 
             // GameWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1700, 983);
+            this.ClientSize = new System.Drawing.Size(1384, 861);
+            this.Controls.Add(this.buttonComplete);
+            this.Controls.Add(this.buttonBrowse);
+            this.Controls.Add(this.textBoxMissionName);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonFullScreen);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonStartGame);
             this.Controls.Add(this.pictureBoxMain);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "GameWindow";
             this.Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxMain;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonStartGame;
+        private System.Windows.Forms.Timer timerRendering;
         private System.Windows.Forms.Button buttonFullScreen;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxMissionName;
+        private System.Windows.Forms.Button buttonBrowse;
+        private System.Windows.Forms.Button buttonComplete;
     }
 }

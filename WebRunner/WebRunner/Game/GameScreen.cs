@@ -124,11 +124,11 @@ namespace WebRunner
                 level.render(this, database, state, editor);
             }
 
-            drawRunnerHealthCircle(database, state.activeRunnerA);
-            drawRunnerHealthCircle(database, state.activeRunnerB);
+            drawRunnerHealthCircle(database, state.activeRunners[0]);
+            drawRunnerHealthCircle(database, state.activeRunners[1]);
 
-            drawRunnerLaser(database, state.activeRunnerA);
-            drawRunnerLaser(database, state.activeRunnerB);
+            drawRunnerLaser(database, state.activeRunners[0]);
+            drawRunnerLaser(database, state.activeRunners[1]);
 
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in state.curFrameTemporaryStructures)

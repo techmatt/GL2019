@@ -22,17 +22,11 @@ namespace WebRunner
 
         GameManager manager = null;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            manager.vision.saveMarkerImages();
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if(manager == null)
             {
-                manager = new GameManager(pictureBoxMain, null);
-                manager.startMission("defaultMission", "emptyLevel");
+                return;
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
         }
@@ -48,13 +42,54 @@ namespace WebRunner
             pictureBoxMain.Left = 0;
             pictureBoxMain.Width = Constants.renderWidthFull;
             pictureBoxMain.Height = Constants.renderHeightFull;
-            button1.Visible = false;
+            buttonStartGame.Visible = false;
             buttonFullScreen.Visible = false;
         }
 
-        private void pictureBoxMain_Click(object sender, EventArgs e)
+        private void buttonBrowse_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Constants.dataDir + "missions";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = false;
 
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filename = openFileDialog.FileName;
+                    string[] parts = filename.Split('\\');
+                    textBoxMissionName.Text = parts[parts.Length - 2];
+                }
+            }
+        }
+
+        private void buttonStartGame_Click(object sender, EventArgs e)
+        {
+            manager = new GameManager(pictureBoxMain, null);
+            manager.startMission(textBoxMissionName.Text, null);
+
+            //manager.startMission("defaultMission", "emptyLevel");
+            //manager.vision.saveMarkerImages();
+            //levelUpdate();
+        }
+
+        private void buttonComplete_Click(object sender, EventArgs e)
+        {
+            GameLevel level = manager.state.curLevel;
+            foreach(Structure s in level.structures)
+            {
+                if(s.type == StructureType.Objective)
+                {
+                    s.achieved = true;
+                }
+                if(s.type == StructureType.Camera || s.type == StructureType.LaserTurret)
+                {
+                    s.disableTimeLeft = 10000.0;
+                    s.curHealth = 0.0;
+                }
+            }
+            level.objectivesAchieved = level.objectivesTotal;
         }
     }
 }

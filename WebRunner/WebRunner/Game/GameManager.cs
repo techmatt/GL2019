@@ -153,23 +153,15 @@ namespace WebRunner
             joystick.poll();
 
             state.curFrameTemporaryStructures = state.nextFrameTemporaryStructures;
-            if (state.activeRunnerA != null)
-                state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerA, database, state.activeRunnerA.center));
-            if (state.activeRunnerB != null)
-                state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerB, database, state.activeRunnerB.center));
+            if (state.activeRunners[0] != null)
+                state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerA, database, state.activeRunners[0].center));
+            if (state.activeRunners[1] != null)
+                state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerB, database, state.activeRunners[1].center));
 
             state.nextFrameTemporaryStructures = new List<Structure>();
 
             foreach (Marker m in state.markers)
             {
-                /*if (m.entry.type == ToolType.RunA && state.activeRunnerA != null)
-                {
-                    moveRunnerUsingMarker(m, state.activeRunnerA);
-                }
-                if (m.entry.type == ToolType.RunB && state.activeRunnerB != null)
-                {
-                    moveRunnerUsingMarker(m, state.activeRunnerB);
-                }*/
                 if(m.entry.type == ToolType.Mirror)
                 {
                     Structure mirror = new Structure(StructureType.RunnerMirror, database, m.worldCenter);
@@ -180,13 +172,21 @@ namespace WebRunner
 
             state.curLevel.updatePermanentStructures(this);
 
-            if (joystick.joysticks.Count >= 1 && state.activeRunnerA != null)
+            if (joystick.joysticks.Count >= 1 && state.activeRunners[0] != null)
             {
-                processRunnerJoystick(joystick.joysticks[0], state.activeRunnerA);
+                processRunnerJoystick(joystick.joysticks[0], state.activeRunners[0]);
             }
-            if (joystick.joysticks.Count >= 2 && state.activeRunnerB != null)
+            if (joystick.joysticks.Count >= 2 && state.activeRunners[1] != null)
             {
-                processRunnerJoystick(joystick.joysticks[1], state.activeRunnerB);
+                processRunnerJoystick(joystick.joysticks[1], state.activeRunners[1]);
+            }
+
+            if(state.curLevel.completed())
+            {
+                if(editor == null)
+                {
+                    state.advanceToNextLevel();
+                }
             }
         }
 

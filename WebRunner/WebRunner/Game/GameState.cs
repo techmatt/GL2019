@@ -50,20 +50,19 @@ namespace WebRunner
 
         //public List<Beam> activeBeams;
 
-        public Runner activeRunnerA = null;
-        public Runner activeRunnerB = null;
+        public List<Runner> activeRunners = new List<Runner>() { null, null };
         //public int activeRunnerImageHash = 0;
 
-        public Runner getActiveRunner(int index)
+        /*public Runner getActiveRunner(int index)
         {
             if (index == 0) return activeRunnerA;
             return activeRunnerB;
-        }
+        }*/
 
         public Runner getActiveRunner(StructureType s)
         {
-            if (s == StructureType.RunnerA) return activeRunnerA;
-            if (s == StructureType.RunnerB) return activeRunnerB;
+            if (s == StructureType.RunnerA) return activeRunners[0];
+            if (s == StructureType.RunnerB) return activeRunners[1];
             throw new Exception("invalid runner");
         }
 
@@ -73,37 +72,60 @@ namespace WebRunner
             manager = _manager;
             //database = manager.database;
             string missionDir = Constants.missionBaseDir + missionName + '/';
-            var levelList = new List<string>(Directory.EnumerateFiles(missionDir, "*.txt"));
-            if (levelNameOverride != null)
+            List<string> levelList = new List<string>();
+            if (levelNameOverride == null)
             {
-                levelList = new List<string>();
+                var levelFullPathList = new List<string>(Directory.EnumerateFiles(missionDir, "*.txt"));
+                foreach(string s in levelFullPathList)
+                {
+                    levelList.Add(Path.GetFileName(s).Split('.')[0]);
+                }
+            }
+            else
+            {
                 levelList.Add(levelNameOverride);
             }
 
             allLevels = new List<GameLevel>();
-            double xStart = 0.0;
             foreach (string levelName in levelList)
             {
                 string levelFilename = missionDir + levelName + ".txt";
                 if (levelNameOverride == "emptyLevel")
                     levelFilename = "emptyLevel";
-                GameLevel curLevel = new GameLevel(levelFilename, manager.database, xStart);
-                xStart += curLevel.worldRect.size().x;
+                GameLevel curLevel = new GameLevel(levelFilename, manager.database);
                 allLevels.Add(curLevel);
             }
+
             curLevelIndex = 0;
-            curLevel = allLevels[curLevelIndex];
+            curLevel = allLevels[0];
+            levelStartTime = DateTime.Now;
+
             viewport = Rect2.fromOriginSize(new Vec2(), Constants.viewportSize);
             nextFrameTemporaryStructures = new List<Structure>();
+        }
+
+        public void advanceToNextLevel()
+        {
+            levelCompletionTimes.Add((DateTime.Now - levelStartTime).TotalSeconds);
+            levelStartTime = DateTime.Now;
+            if (curLevelIndex + 1 == allLevels.Count)
+            {
+                manager.sound.playSpeech("all sectors completed. runners return to headquarters immediately.");
+                return;
+            }
+
+            curLevelIndex++;
+            curLevel = allLevels[curLevelIndex];
+            manager.sound.playSpeech("starting sector " + (curLevelIndex + 1).ToString());
         }
 
         public void killRunner(StructureType whichRunner, string deathSpeech)
         {
             manager.sound.playSpeech(deathSpeech);
             if(whichRunner == StructureType.RunnerA)
-                activeRunnerA = null;
+                activeRunners[0] = null;
             else if (whichRunner == StructureType.RunnerB)
-                activeRunnerB = null;
+                activeRunners[1] = null;
             else
             {
                 throw new Exception("unknown runner");

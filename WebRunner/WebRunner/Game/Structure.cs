@@ -78,6 +78,8 @@ namespace WebRunner
         public double disableTimeLeft = 0.0;
         public LaserPath laserPath = null;
         public bool achieved = false;
+        public int speechRepeatDelay = 0;
+        //public DateTime t;
 
         public Dictionary<string, string> toDict()
         {
