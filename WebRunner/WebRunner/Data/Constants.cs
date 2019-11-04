@@ -13,7 +13,7 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=RlVTb3g-COY
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
-        public const bool useWebcam = true;
+        public const bool useWebcam = false;
         public const int webcamCaptureIndex = 1;
 
         public const double laserGunDamage = 0.03;

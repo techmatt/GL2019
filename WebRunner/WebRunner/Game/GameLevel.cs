@@ -14,7 +14,7 @@ namespace WebRunner
         public Rect2 worldRect;
         public List<Structure> structures;
 
-        public string backgroundName;
+        public string tilesetName;
         public double guardSpawnRate = 1000.0;
         public double ICESpawnRate = 1000.0;
         public double maxCompletionTime = 1000.0;
@@ -24,7 +24,7 @@ namespace WebRunner
         public Dictionary<string, string> makeGlobalsDict()
         {
             var result = new Dictionary<string, string>();
-            result["backgroundName"] = backgroundName;
+            result["tilesetName"] = tilesetName;
             result["guardSpawnRate"] = guardSpawnRate.ToString();
             result["ICESpawnRate"] = ICESpawnRate.ToString();
             result["maxCompletionTime"] = maxCompletionTime.ToString();
@@ -33,7 +33,7 @@ namespace WebRunner
 
         void loadGlobalsFromDict(Dictionary<string, string> dict)
         {
-            backgroundName = dict["backgroundName"];
+            tilesetName = dict["tilesetName"];
             guardSpawnRate = Convert.ToDouble(dict["guardSpawnRate"]);
             ICESpawnRate = Convert.ToDouble(dict["ICESpawnRate"]);
             maxCompletionTime = Convert.ToDouble(dict["maxCompletionTime"]);
@@ -43,7 +43,7 @@ namespace WebRunner
         {
             structures = new List<Structure>();
             worldRect = Rect2.fromOriginSize(new Vec2(xStart, 0), Constants.viewportSize);
-            backgroundName = "brushedMetal";
+            tilesetName = "hydroponics";
             if (filename == "emptyLevel")
             {
                 return;
@@ -256,10 +256,10 @@ namespace WebRunner
                         screen.drawCircle(structure.center, (int)(structure.entry.radius), database.cameraBrushInterior, database.cameraPenThin);
                         screen.drawArc(structure.center, (int)(structure.entry.radius), database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
                     }
-                    screen.drawRotatedImage(structure.center, structure.curSweepDirection(), database.images.structures[StructureType.StationaryMirror].getBmp(0));
+                    screen.drawRotatedImage(structure.center, structure.curSweepDirection(), database.images.getStructureImage(StructureType.StationaryMirror).getBmp(0));
                     continue;
                 }
-                screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+                screen.drawImage(database.images.getStructureImage(structure.type, tilesetName), structure.curImgInstanceHash, structure.center - viewportOrigin);
                 if (structure.type == StructureType.Objective && structure.achieved)
                 {
                     screen.drawImage(database.images.acquired, 0, structure.center);
@@ -277,17 +277,17 @@ namespace WebRunner
                     renderStructureHealth(screen, database, state, structure);
                     screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
                     if(structure.inGoodHealth())
-                        screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRay);
+                        screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRayA, database.cameraRayB);
                 }
                 if (structure.type == StructureType.LaserTurret)
                 {
                     if (structure.inGoodHealth())
-                        screen.renderLaserPath(structure.laserPath, database.laserTurretRay);
+                        screen.renderLaserPath(structure.laserPath, database.laserTurretRayA, database.laserTurretRayB);
                     screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
                     renderStructureHealth(screen, database, state, structure);
                     screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
                 }
-                screen.drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+                screen.drawImage(database.images.getStructureImage(structure.type), structure.curImgInstanceHash, structure.center - viewportOrigin);
                 if (structure.type == StructureType.Camera || structure.type == StructureType.LaserTurret)
                 {
                     renderStructureDisabled(screen, database, state, structure);

@@ -44,9 +44,10 @@ namespace WebRunner
                 gViewport.DrawEllipse(edgePen, (int)center.x - radius, (int)center.y - radius, radius * 2, radius * 2);
         }
 
-        public void drawLine(Vec2 p0, Vec2 p1, Pen pen)
+        public void drawLine(Vec2 p0, Vec2 p1, Pen penA, Pen penB)
         {
-            gViewport.DrawLine(pen, (int)p0.x, (int)p0.y, (int)p1.x, (int)p1.y);
+            gViewport.DrawLine(penA, (int)p0.x, (int)p0.y, (int)p1.x, (int)p1.y);
+            gViewport.DrawLine(penB, (int)p0.x, (int)p0.y, (int)p1.x, (int)p1.y);
         }
 
         public void drawArc(Vec2 center, int radius, Pen pen, double startAngle, double endAngle)
@@ -91,13 +92,13 @@ namespace WebRunner
             drawCircle(r.center, (int)radius, database.runnerHealthInterior, null);
         }
 
-        public void renderLaserPath(LaserPath path, Pen pen)
+        public void renderLaserPath(LaserPath path, Pen penA, Pen penB)
         {
             if (path == null)
                 return;
             for (int beamIdx = 0; beamIdx < path.beamPoints.Count - 1; beamIdx++)
             {
-                drawLine(path.beamPoints[beamIdx], path.beamPoints[beamIdx + 1], pen);
+                drawLine(path.beamPoints[beamIdx], path.beamPoints[beamIdx + 1], penA, penB);
             }
         }
 
@@ -107,7 +108,7 @@ namespace WebRunner
                 return;
 
             drawCircle(r.laserOrigin(), 7, database.laserIndicatorInterior, database.cameraPenThin);
-            renderLaserPath(r.laserPath, database.laserGunRay);
+            renderLaserPath(r.laserPath, database.laserGunRayA, database.laserGunRayB);
         }
 
         public void render(Bitmap webcamImage, GameState state, EditorManager editor, int renderWidth, int renderHeight)
@@ -117,7 +118,7 @@ namespace WebRunner
             gViewport.DrawImage(webcamImage, new Rectangle(0, 0, (int)Constants.viewportSize.x, (int)Constants.viewportSize.y));
             foreach (GameLevel level in new GameLevel[] { state.curLevel })
             {
-                ImageEntry backgroundImg = database.images.getBackground(level.backgroundName, false);
+                ImageEntry backgroundImg = database.images.getBackground(level.tilesetName, false);
                 Vec2 bkgStart = level.worldRect.pMin - state.viewport.pMin;
                 gViewport.DrawImage(backgroundImg.getBmp(0), (int)bkgStart.x, (int)bkgStart.y);
                 level.render(this, database, state, editor);
@@ -132,7 +133,7 @@ namespace WebRunner
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in state.curFrameTemporaryStructures)
             {
-                drawImage(database.images.structures[structure.type], structure.curImgInstanceHash, structure.center - viewportOrigin);
+                drawImage(database.images.getStructureImage(structure.type, null), structure.curImgInstanceHash, structure.center - viewportOrigin);
             }
 
             foreach (Marker m in state.markers)
@@ -146,7 +147,7 @@ namespace WebRunner
             {
                 if (editor.activeTool == EditorTool.Structure)
                 {
-                    drawImage(database.images.structures[editor.activeStructureType], 0, editor.hoverPos);
+                    drawImage(database.images.getStructureImage(editor.activeStructureType, editor.level.tilesetName), 0, editor.hoverPos);
                     StructureEntry entry = database.getStructureEntry(editor.activeStructureType);
                     Color hoverColor = Color.FromArgb(128, 160, 240, 160);
                     if (!editor.hoverPosValidForPlacement)

@@ -65,7 +65,7 @@ namespace WebRunner
             structures[StructureType.BulletTurret] = new ImageEntry("bulletTurret", new Vec2(64, 64), 255);
             structures[StructureType.StationaryMirror] = new ImageEntry("stationaryMirror", new Vec2(72, 16), 255);
             structures[StructureType.RunnerMirror] = new ImageEntry("empty", new Vec2(4, 4), 255);
-            structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
+            //structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
             structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
             structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
             structures[StructureType.Door] = new ImageEntry("door", new Vec2(64, 64), 255);
@@ -83,19 +83,39 @@ namespace WebRunner
             tools[ToolType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
         }
 
-        public ImageEntry getBackground(string backgroundName, bool solid)
+        public ImageEntry getWall(string tilesetName)
         {
+            string wallName = tilesetName + "Wall";
+            if (!walls.ContainsKey(wallName))
+            {
+                walls.Add(wallName, new ImageEntry(wallName, new Vec2(40, 40), 255));
+            }
+            return walls[wallName];
+        }
+
+        public ImageEntry getBackground(string tilesetName, bool solid)
+        {
+            string bkgName = tilesetName + "Background";
             string suffix = solid ? "s"  : "t";
-            string name = backgroundName + suffix;
+            string name = bkgName + suffix;
             if (!backgrounds.ContainsKey(name))
             {
                 int alpha = solid ? 255 : Constants.backgroundAlpha;
-                backgrounds.Add(name, new ImageEntry(backgroundName, Constants.viewportSize, alpha));
+                backgrounds.Add(name, new ImageEntry(bkgName, Constants.viewportSize, alpha));
             }
             return backgrounds[name];
         }
         public Dictionary<string, ImageEntry> backgrounds = new Dictionary<string, ImageEntry>();
-        public Dictionary<StructureType, ImageEntry> structures = new Dictionary<StructureType, ImageEntry>();
+        public Dictionary<string, ImageEntry> walls = new Dictionary<string, ImageEntry>();
+
+        public ImageEntry getStructureImage(StructureType type, string tilesetName = null)
+        {
+            if (type == StructureType.Wall)
+                return getWall(tilesetName);
+            return structures[type];
+        }
+        private Dictionary<StructureType, ImageEntry> structures = new Dictionary<StructureType, ImageEntry>();
+
         public Dictionary<ToolType, ImageEntry> tools = new Dictionary<ToolType, ImageEntry>();
 
         //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);

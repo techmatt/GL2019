@@ -96,7 +96,10 @@ namespace WebRunner
         }
         void registerStructure(StructureType _type, string _name, double _radius, ShapeType _shape, double _health, Vec2 _gridSize)
         {
-            structureTypeToDataDict[_type] = new StructureEntry(_type, _name, _radius, _shape, _health, _gridSize, images.structures[_type]);
+            ImageEntry image = null;
+            if (_type != StructureType.Wall)
+                image = images.getStructureImage(_type);
+            structureTypeToDataDict[_type] = new StructureEntry(_type, _name, _radius, _shape, _health, _gridSize, image);
         }
         public GameDatabase()
         {
@@ -107,7 +110,11 @@ namespace WebRunner
             IDToToolDict[2] = ToolType.Mirror;
             IDToToolDict[3] = ToolType.Mirror;
             IDToToolDict[4] = ToolType.Mirror;
-            IDToToolDict[5] = ToolType.Distraction;
+            IDToToolDict[5] = ToolType.Mirror;
+            IDToToolDict[6] = ToolType.Mirror;
+            IDToToolDict[7] = ToolType.Mirror;
+            IDToToolDict[8] = ToolType.Mirror;
+            IDToToolDict[9] = ToolType.Distraction;
 
             registerTool(ToolType.Mirror, "runnerMirror", Color.FromArgb(200, 50, 50));
             //registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
@@ -159,10 +166,14 @@ namespace WebRunner
         public Brush structureHealth = new SolidBrush(Color.FromArgb(200, 137, 143, 224));
         public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
         public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
-        public Pen cameraRay = new Pen(Color.FromArgb(210, 240, 240, 140), 6.0f);
-        
-        public Pen laserTurretRay = new Pen(Color.FromArgb(210, 163, 73, 164), 4.0f);
-        public Pen laserGunRay = new Pen(Color.FromArgb(210, 63, 73, 204), 4.0f);
+
+        public Pen cameraRayA = new Pen(Color.FromArgb(100, 240, 240, 140), 7.0f);
+        public Pen cameraRayB = new Pen(Color.FromArgb(150, 240, 240, 140), 3.5f);
+
+        public Pen laserTurretRayA = new Pen(Color.FromArgb(100, 200, 120, 200), 7.0f);
+        public Pen laserTurretRayB = new Pen(Color.FromArgb(150, 200, 120, 200), 3.5f);
+        public Pen laserGunRayA = new Pen(Color.FromArgb(100, 100, 100, 240), 7.0f);
+        public Pen laserGunRayB = new Pen(Color.FromArgb(150, 100, 100, 240), 3.5f);
 
         public HashSet<StructureType> runnerBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.Firewall, StructureType.Camera,
