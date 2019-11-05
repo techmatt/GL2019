@@ -409,9 +409,14 @@ namespace WebRunner
 
                 if (structure.type == StructureType.Camera)
                 {
-                    screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                    if (editor != null || structure.curHealth < structure.entry.maxHealth)
+                        screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+
                     renderStructureHealth(screen, database, state, structure);
-                    screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+
+                    if (editor != null)
+                        screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+
                     if(structure.inGoodHealth())
                         screen.drawLine(structure.center, structure.center + structure.curSweepDirection() * structure.curCameraViewDist, database.cameraRayA, database.cameraRayB);
                 }
@@ -419,9 +424,14 @@ namespace WebRunner
                 {
                     if (structure.inGoodHealth())
                         screen.renderLaserPath(structure.laserPath, database.laserTurretRayA, database.laserTurretRayB);
-                    screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+
+                    if (editor != null || structure.curHealth < structure.entry.maxHealth)
+                        screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+
                     renderStructureHealth(screen, database, state, structure);
-                    screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
+
+                    if (editor != null)
+                        screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
                 }
                 screen.drawImage(database.images.getStructureImage(structure.type), structure.curImgInstanceHash, structure.center - viewportOrigin);
                 if (structure.type == StructureType.Camera || structure.type == StructureType.LaserTurret)

@@ -35,7 +35,7 @@ namespace WebRunner
             if(editor != null)
                 editor.level = state.allLevels[0];
 
-            sound.playSpeech("mission start. dyson protocol acquired.");
+            sound.playSpeech("mission start. miasma detected. dyson protocol activated.");
         }
 
         Vec2 moveTowardsPoint(Vec2 runnerCenter, Vec2 targetPoint, double speed)
@@ -135,7 +135,7 @@ namespace WebRunner
             if (joystick.padB.lengthSq() > 0.4 * 0.4)
             {
                 Vec2 newDir = joystick.padB.getNormalized();
-                runner.laserDir = (runner.laserDir * 0.8 + newDir * 0.2).getNormalized();
+                runner.laserDir = (runner.laserDir * 0.7 + newDir * 0.3).getNormalized();
 
             }
 
@@ -205,7 +205,7 @@ namespace WebRunner
                     { 
                         if (Vec2.distSq(miasma.center, m.screenCenter) < Constants.dysonRadius * Constants.dysonRadius)
                         {
-                            miasma.radius = miasma.radius * 0.95 - Constants.dysonDamageRate;
+                            miasma.radius = miasma.radius * 0.97 - Constants.dysonDamageRate;
                         }
                         if (miasma.radius > 1.0)
                             newMiasma.Add(miasma);

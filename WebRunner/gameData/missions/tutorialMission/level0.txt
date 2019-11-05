@@ -1,4 +1,4 @@
-tilesetName=hydroponics guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
+tilesetName=sandrune guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
 147
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
