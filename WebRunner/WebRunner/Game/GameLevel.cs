@@ -158,21 +158,27 @@ namespace WebRunner
                     if (miasmaAnchor == null)
                         miasmaAnchor = m;
                 }
+                Runner runnerToKill = null;
                 foreach(Runner r in manager.state.activeRunners)
                 {
                     if (r == null)
                         continue;
-                    if(Vec2.distSq(r.center, m.center) <= (m.radius + Constants.runnerRadius))
+                    double maxRadius = (m.radius + Constants.runnerRadius);
+                    if (Vec2.distSq(r.center, m.center) <= maxRadius * maxRadius)
                     {
                         r.curHealth -= Constants.misamaDamage;
                         if (r.curHealth < 0.0)
                         {
-                            manager.state.killRunner(r.whichRunner, "runner unconscious");
+                            runnerToKill = r;
                         }
                     }
                 }
+                if(runnerToKill != null)
+                {
+                    manager.state.killRunner(runnerToKill.whichRunner, "please do not stand in the miasma");
+                }
             }
-            if(shouldSpawnMiasma && (DateTime.Now - manager.state.lastMiasmaSpawn).TotalSeconds >= 5.0)
+            if(shouldSpawnMiasma && (DateTime.Now - manager.state.lastMiasmaSpawn).TotalSeconds >= 4.0)
             {
                 manager.state.lastMiasmaSpawn = DateTime.Now;
                 double border = 200.0;

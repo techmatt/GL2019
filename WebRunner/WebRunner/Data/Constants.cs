@@ -20,9 +20,9 @@ namespace WebRunner
         public const int medPackRadius = 100;
         public const int kusanagiRadius = 150;
         public const int dysonRadius = 100;
-        public const double dysonDamageRate = miasmaGrowthRate * 5.0;
+        public const double dysonDamageRate = miasmaGrowthRate * 7.0;
 
-        public const double misamaDamage = 0.04;
+        public const double misamaDamage = 0.01;
         public const double miasmaGrowth = 0.5;
         public const int maxMiasma = 40;
 

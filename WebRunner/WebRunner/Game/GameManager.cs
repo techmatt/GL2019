@@ -205,7 +205,7 @@ namespace WebRunner
                     { 
                         if (Vec2.distSq(miasma.center, m.screenCenter) < Constants.dysonRadius * Constants.dysonRadius)
                         {
-                            miasma.radius -= Constants.dysonDamageRate;
+                            miasma.radius = miasma.radius * 0.95 - Constants.dysonDamageRate;
                         }
                         if (miasma.radius > 1.0)
                             newMiasma.Add(miasma);
