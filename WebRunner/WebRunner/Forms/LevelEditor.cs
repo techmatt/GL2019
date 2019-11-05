@@ -122,6 +122,11 @@ namespace WebRunner
             setEditorStructure(StructureType.MirrorPickup);
         }
 
+        private void radioButtonKusanagi_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.KusanagiPickup);
+        }
+
         private void radioButtonSelect_CheckedChanged(object sender, EventArgs e)
         {
             editor.activeTool = EditorTool.Select;

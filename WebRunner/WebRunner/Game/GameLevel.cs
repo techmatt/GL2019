@@ -21,6 +21,8 @@ namespace WebRunner
         public int objectivesAchieved = 0;
         public int objectivesTotal = 0;
 
+        public List<Miasma> allMiasma = new List<Miasma>();
+
         public List<bool> runnersCompleted = new List<bool>() { false, false };
 
         public Dictionary<ToolType, bool> toolsAcquired = new Dictionary<ToolType, bool>();
@@ -77,6 +79,7 @@ namespace WebRunner
             {
                 toolsAcquired[t] = false;
             }
+            toolsAcquired[ToolType.Dyson] = true;
         }
 
         public void saveToFile(string filenameOut)
@@ -95,7 +98,7 @@ namespace WebRunner
             File.WriteAllLines(filenameOut, linesOut);
         }
 
-        public void damageStructure(GameState state, List<List<Structure>>  structureLists, int idx0, int idx1, double damage)
+        public void damageStructure(GameState state, List<List<Structure>>  structureLists, int idx0, int idx1, double damage, bool isKusanagi)
         {
             if (idx0 == -1)
                 return;
@@ -117,8 +120,16 @@ namespace WebRunner
                 structure.curHealth -= damage;
                 if(structure.curHealth < 0.0)
                 {
-                    state.manager.sound.playSpeech(structure.entry.name + " disabled");
-                    structure.disableTimeLeft = Constants.structureDisableTime;
+                    if (isKusanagi)
+                    {
+                        state.manager.sound.playSpeech(structure.entry.name + " destroyed");
+                        structure.disableTimeLeft = Constants.structureDisableTime * 100.0;
+                    }
+                    else
+                    {
+                        state.manager.sound.playSpeech(structure.entry.name + " disabled");
+                        structure.disableTimeLeft = Constants.structureDisableTime;
+                    }
                 }
             }
         }
@@ -128,6 +139,53 @@ namespace WebRunner
             manager.sound.playSpeech(toolName + " protocol acquired");
             pickupStructure.visible = false;
             toolsAcquired[tool] = true;
+        }
+
+        public void updateMiasma(GameManager manager)
+        {
+            bool shouldSpawnMiasma = false;
+            Miasma miasmaAnchor = null;
+            if (allMiasma.Count < 4)
+            {
+                shouldSpawnMiasma = true;
+            }
+            foreach(Miasma m in allMiasma)
+            {
+                m.radius = Math.Min(m.radius + Constants.miasmaGrowthRate, m.maxRadius);
+                if(m.radius >= m.maxRadius)
+                {
+                    shouldSpawnMiasma = true;
+                    if (miasmaAnchor == null)
+                        miasmaAnchor = m;
+                }
+                foreach(Runner r in manager.state.activeRunners)
+                {
+                    if (r == null)
+                        continue;
+                    if(Vec2.distSq(r.center, m.center) <= (m.radius + Constants.runnerRadius))
+                    {
+                        r.curHealth -= Constants.misamaDamage;
+                        if (r.curHealth < 0.0)
+                        {
+                            manager.state.killRunner(r.whichRunner, "runner unconscious");
+                        }
+                    }
+                }
+            }
+            if(shouldSpawnMiasma && (DateTime.Now - manager.state.lastMiasmaSpawn).TotalSeconds >= 5.0)
+            {
+                manager.state.lastMiasmaSpawn = DateTime.Now;
+                double border = 200.0;
+                Vec2 newMiasmaCenter = new Vec2(Util.uniform(border, Constants.viewportSize.x - border), Util.uniform(border, Constants.viewportSize.y - border));
+                if (miasmaAnchor != null)
+                {
+                    miasmaAnchor.radius *= 0.5;
+
+                    Vec2 randomDirection = new Vec2(Util.uniform(-1.0, 1.0), Util.uniform(-1.0, 1.0)).getNormalized();
+                    newMiasmaCenter = miasmaAnchor.center + Util.uniform(50.0, 100.0) * randomDirection;
+                }
+                allMiasma.Add(new Miasma(newMiasmaCenter));
+            }
         }
 
         public void updatePermanentStructures(GameManager manager)
@@ -196,16 +254,16 @@ namespace WebRunner
                     var laserPath = Util.traceLaser(structureLists, structure.center, structure.curSweepDirection(), database.laserTurretBlockingStructures, 0, structureIdx);
                     structure.laserPath = laserPath;
 
-                    damageStructure(manager.state, structureLists, laserPath.finalObject.Item1, laserPath.finalObject.Item2, Constants.laserTurretDamage);
+                    damageStructure(manager.state, structureLists, laserPath.finalObject.Item1, laserPath.finalObject.Item2, Constants.laserTurretDamage, false);
                 }
 
                 if (structure.type == StructureType.SpawnPointA && state.activeRunners[0] == null && !state.curLevel.runnersCompleted[0])
                 {
-                    state.activeRunners[0] = new Runner(structure.center);
+                    state.activeRunners[0] = new Runner(structure.center, StructureType.RunnerA);
                 }
                 if (structure.type == StructureType.SpawnPointB && state.activeRunners[1] == null && !state.curLevel.runnersCompleted[1])
                 {
-                    state.activeRunners[1] = new Runner(structure.center);
+                    state.activeRunners[1] = new Runner(structure.center, StructureType.RunnerB);
                 }
 
                 for(int runnerIndex = 0; runnerIndex < 2; runnerIndex++)
@@ -254,6 +312,10 @@ namespace WebRunner
                         if (structure.type == StructureType.MirrorPickup)
                         {
                             acquirePickup(manager, structure, ToolType.Mirror, "mirror");
+                        }
+                        if (structure.type == StructureType.KusanagiPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.Kusanagi, "kusanagi");
                         }
                         if (structure.type == StructureType.BombPickup)
                         {
@@ -360,6 +422,11 @@ namespace WebRunner
                 {
                     renderStructureDisabled(screen, database, state, structure);
                 }
+            }
+
+            foreach(Miasma m in allMiasma)
+            {
+                screen.drawCircle(m.center, (int)m.radius, new SolidBrush(m.color), null);
             }
         }
 

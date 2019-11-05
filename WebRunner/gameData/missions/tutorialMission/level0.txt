@@ -1,5 +1,5 @@
 tilesetName=hydroponics guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-145
+147
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -111,12 +111,10 @@ type=Wall centerX=540 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Wall centerX=540 centerY=100 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=540 centerY=60 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Objective centerX=480 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Objective centerX=440 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=LaserTurret centerX=400 centerY=120 sweepAngleStart=86 sweepAngleSpan=5 sweepAngleSpeed=0.1 
 type=StationaryMirror centerX=440 centerY=440 sweepAngleStart=134 sweepAngleSpan=5 sweepAngleSpeed=0.62 
 type=Objective centerX=600 centerY=80 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Camera centerX=600 centerY=280 sweepAngleStart=0 sweepAngleSpan=126 sweepAngleSpeed=0.62 
-type=Shoes centerX=600 centerY=200 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=820 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=820 centerY=540 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=820 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -145,3 +143,7 @@ type=Objective centerX=1200 centerY=520 sweepAngleStart=60 sweepAngleSpan=150 sw
 type=Camera centerX=1200 centerY=80 sweepAngleStart=60 sweepAngleSpan=144 sweepAngleSpeed=1.22 
 type=Door centerX=1160 centerY=360 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=StationaryMirror centerX=240 centerY=80 sweepAngleStart=0 sweepAngleSpan=5 sweepAngleSpeed=0.1 
+type=MedpackPickup centerX=280 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Objective centerX=880 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Shoes centerX=600 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=MirrorPickup centerX=440 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

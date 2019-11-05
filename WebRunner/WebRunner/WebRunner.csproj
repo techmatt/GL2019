@@ -87,6 +87,7 @@
     <Compile Include="Game\GameScreen.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Data\ImageDatabase.cs" />
+    <Compile Include="Game\Miasma.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Structure.cs" />

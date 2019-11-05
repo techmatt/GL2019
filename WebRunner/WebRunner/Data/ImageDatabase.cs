@@ -91,13 +91,16 @@ namespace WebRunner
             structures[StructureType.MirrorPickup] = new ImageEntry("mirrorPickup", new Vec2(64, 64), 255);
             structures[StructureType.MedpackPickup] = new ImageEntry("medpackPickup", new Vec2(64, 64), 255);
             structures[StructureType.BotnetPickup] = new ImageEntry("botnetPickup", new Vec2(64, 64), 255);
+            structures[StructureType.KusanagiPickup] = new ImageEntry("kusanagiPickup", new Vec2(64, 64), 255);
 
             tools[ToolType.Mirror] = new ImageEntry("runnerMirrorCenter", new Vec2(17, 17), 255);
             //tools[ToolType.RunB] = new ImageEntry("runB", new Vec2(60, 60), 255);
             tools[ToolType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
             tools[ToolType.Medpack] = new ImageEntry("medpack", new Vec2(80, 80), 255);
+            tools[ToolType.Dyson] = new ImageEntry("dyson", new Vec2(80, 80), 255);
             tools[ToolType.Bomb] = new ImageEntry("bomb", new Vec2(80, 80), 255);
             tools[ToolType.Botnet] = new ImageEntry("botnet", new Vec2(80, 80), 255);
+            tools[ToolType.Kusanagi] = new ImageEntry("kusanagi", new Vec2(80, 80), 255);
         }
 
         public ImageEntry getWall(string tilesetName)
@@ -142,6 +145,7 @@ namespace WebRunner
         public ImageEntry mirrorIcon = new ImageEntry("mirrorIcon", new Vec2(65, 65), 255);
         public ImageEntry bombIcon = new ImageEntry("bombIcon", new Vec2(65, 65), 255);
         public ImageEntry medpackIcon = new ImageEntry("medpackIcon", new Vec2(65, 65), 255);
+        public ImageEntry kusanagiIcon = new ImageEntry("kusanagiIcon", new Vec2(65, 65), 255);
         public ImageEntry distractionIcon = new ImageEntry("distractionIcon", new Vec2(65, 65), 255);
         public ImageEntry botnetIcon = new ImageEntry("botnetIcon", new Vec2(65, 65), 255);
 

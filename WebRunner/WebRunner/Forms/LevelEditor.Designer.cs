@@ -81,7 +81,7 @@
             this.radioButtonBotnet = new System.Windows.Forms.RadioButton();
             this.radioButtonBomb = new System.Windows.Forms.RadioButton();
             this.radioButtonMirrorPickup = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButtonKusanagi = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -622,23 +622,24 @@
             this.radioButtonMirrorPickup.UseVisualStyleBackColor = true;
             this.radioButtonMirrorPickup.CheckedChanged += new System.EventHandler(this.radioButtonMirrorPickup_CheckedChanged);
             // 
-            // radioButton5
+            // radioButtonKusanagi
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(297, 1054);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(119, 24);
-            this.radioButton5.TabIndex = 17;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "radioButton1";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButtonKusanagi.AutoSize = true;
+            this.radioButtonKusanagi.Location = new System.Drawing.Point(297, 1054);
+            this.radioButtonKusanagi.Name = "radioButtonKusanagi";
+            this.radioButtonKusanagi.Size = new System.Drawing.Size(93, 24);
+            this.radioButtonKusanagi.TabIndex = 17;
+            this.radioButtonKusanagi.TabStop = true;
+            this.radioButtonKusanagi.Text = "Kusanagi";
+            this.radioButtonKusanagi.UseVisualStyleBackColor = true;
+            this.radioButtonKusanagi.CheckedChanged += new System.EventHandler(this.radioButtonKusanagi_CheckedChanged);
             // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 1116);
-            this.Controls.Add(this.radioButton5);
+            this.Controls.Add(this.radioButtonKusanagi);
             this.Controls.Add(this.radioButtonMirrorPickup);
             this.Controls.Add(this.radioButtonBomb);
             this.Controls.Add(this.radioButtonBotnet);
@@ -755,6 +756,6 @@
         private System.Windows.Forms.RadioButton radioButtonBotnet;
         private System.Windows.Forms.RadioButton radioButtonBomb;
         private System.Windows.Forms.RadioButton radioButtonMirrorPickup;
-        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButtonKusanagi;
     }
 }

@@ -35,7 +35,7 @@ namespace WebRunner
             if(editor != null)
                 editor.level = state.allLevels[0];
 
-            sound.playSpeech("mission start");
+            sound.playSpeech("mission start. dyson protocol acquired.");
         }
 
         Vec2 moveTowardsPoint(Vec2 runnerCenter, Vec2 targetPoint, double speed)
@@ -141,13 +141,9 @@ namespace WebRunner
 
             if(runner.hasLaser && (joystick.buttonStates[GamepadButton.LB] || joystick.buttonStates[GamepadButton.RB]))
             {
-                var structureLists = new List<List<Structure>> { state.curLevel.structures };
+                var structureLists = new List<List<Structure>> { state.curLevel.structures, state.curFrameTemporaryStructures };
                 runner.laserPath = Util.traceLaser(structureLists, runner.laserOrigin(), runner.laserDir, database.runnerLaserBlockingStructures, -1, -1);
-                state.curLevel.damageStructure(state, structureLists, runner.laserPath.finalObject.Item1, runner.laserPath.finalObject.Item2, Constants.laserTurretDamage);
-            }
-            else
-            {
-                runner.laserPath = null;
+                state.curLevel.damageStructure(state, structureLists, runner.laserPath.finalObject.Item1, runner.laserPath.finalObject.Item2, Constants.laserGunDamage, false);
             }
         }
 
@@ -163,6 +159,13 @@ namespace WebRunner
                 state.curFrameTemporaryStructures.Add(new Structure(StructureType.RunnerB, database, state.activeRunners[1].center));
 
             state.nextFrameTemporaryStructures = new List<Structure>();
+
+            foreach(Runner r in state.activeRunners)
+            {
+                if (r == null)
+                    continue;
+                r.laserPath = null;
+            }
 
             foreach (Marker m in state.markers)
             {
@@ -183,9 +186,47 @@ namespace WebRunner
                     mirror.curSweepAngle = Math.Atan2(m.orientation.y, m.orientation.x) * 180.0 / Math.PI;
                     state.curFrameTemporaryStructures.Add(mirror);
                 }
+                if(m.entry.type == ToolType.Medpack)
+                {
+                    foreach(Runner r in state.activeRunners)
+                    {
+                        if (r == null)
+                            continue;
+                        if(Vec2.distSq(r.center, m.screenCenter) < Constants.medPackRadius * Constants.medPackRadius)
+                        {
+                            r.curHealth = Math.Min(Constants.runnerMaxHealth, r.curHealth + 0.02);
+                        }
+                    }
+                }
+                if (m.entry.type == ToolType.Dyson)
+                {
+                    List<Miasma> newMiasma = new List<Miasma>();
+                    foreach(Miasma miasma in state.curLevel.allMiasma)
+                    { 
+                        if (Vec2.distSq(miasma.center, m.screenCenter) < Constants.dysonRadius * Constants.dysonRadius)
+                        {
+                            miasma.radius -= Constants.dysonDamageRate;
+                        }
+                        if (miasma.radius > 1.0)
+                            newMiasma.Add(miasma);
+                    }
+                    state.curLevel.allMiasma = newMiasma;
+                }
+                if (m.entry.type == ToolType.Kusanagi)
+                {
+                    foreach (Runner r in state.activeRunners)
+                    {
+                        if (r == null)
+                            continue;
+                        if (Vec2.distSq(r.center, m.screenCenter) < Constants.kusanagiRadius * Constants.kusanagiRadius)
+                        {
+                            var structureLists = new List<List<Structure>> { state.curLevel.structures };
+                            r.laserPath = Util.traceLaser(structureLists, r.center, m.screenCenter - r.center, database.runnerLaserBlockingStructures, -1, -1);
+                            state.curLevel.damageStructure(state, structureLists, r.laserPath.finalObject.Item1, r.laserPath.finalObject.Item2, Constants.kusanagiGunDamage, true);
+                        }
+                    }
+                }
             }
-
-            state.curLevel.updatePermanentStructures(this);
 
             if (joystick.joysticks.Count >= 1 && state.activeRunners[0] != null)
             {
@@ -196,7 +237,10 @@ namespace WebRunner
                 processRunnerJoystick(joystick.joysticks[1], state.activeRunners[1]);
             }
 
-            if(state.curLevel.completed())
+            state.curLevel.updatePermanentStructures(this);
+            state.curLevel.updateMiasma(this);
+
+            if (state.curLevel.completed())
             {
                 if(editor == null)
                 {
