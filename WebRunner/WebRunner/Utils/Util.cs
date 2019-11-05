@@ -242,5 +242,6 @@ namespace WebRunner
         public Vec2 worldCenter;
         public Vec2 screenCenter;
         public Vec2 orientation;
+        public bool available = true;
     }
 }

@@ -137,6 +137,14 @@ namespace WebRunner
 
         //public ImageEntry shield = new ImageEntry("shield", new Vec2(256, 32), 255);
         //public ImageEntry orientationViewer = new ImageEntry("shield", new Vec2(200, 24), 128);
+        public ImageEntry laserGunIcon = new ImageEntry("laserGunIcon", new Vec2(110, 65), 255);
+
+        public ImageEntry mirrorIcon = new ImageEntry("mirrorIcon", new Vec2(65, 65), 255);
+        public ImageEntry bombIcon = new ImageEntry("bombIcon", new Vec2(65, 65), 255);
+        public ImageEntry medpackIcon = new ImageEntry("medpackIcon", new Vec2(65, 65), 255);
+        public ImageEntry distractionIcon = new ImageEntry("distractionIcon", new Vec2(65, 65), 255);
+        public ImageEntry botnetIcon = new ImageEntry("botnetIcon", new Vec2(65, 65), 255);
+
         public ImageEntry mirrorOrientation = new ImageEntry("mirrorOrientation", new Vec2(Constants.runnerMirrorRadius * 2, 20), 128);
         public ImageEntry disabledStructure = new ImageEntry("ChargeTextureOrange", new Vec2(90, 90), 180);
         public ImageEntry acquired = new ImageEntry("acquired", new Vec2(80, 80), 200);

@@ -136,7 +136,12 @@ namespace WebRunner
 
             foreach (Marker m in state.markers)
             {
-                drawRotatedImage(m.screenCenter, m.orientation, database.images.mirrorOrientation.getBmp(0));
+                if (!m.available)
+                    continue;
+
+                if(m.entry.type == ToolType.Mirror)
+                    drawRotatedImage(m.screenCenter, m.orientation, database.images.mirrorOrientation.getBmp(0));
+
                 //drawCircle(m.center, 15, m.toolData.brush, null);
                 drawImage(m.entry.image, 0, m.screenCenter);
             }
@@ -171,11 +176,39 @@ namespace WebRunner
             gViewport.DrawString("Run time: " + totalMinutesText + ":" + totalSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(111, 648));
             gViewport.DrawString("Time remaining: " + levelMinutesText + ":" + levelSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(15, 680));
 
-            gViewport.DrawString("Sector " + (state.curLevelIndex + 1).ToString() + " of " + state.allLevels.Count.ToString(), Constants.consoleFont, Constants.consoleFontBrush, new Point(883, 648));
+            gViewport.DrawString("Sector " + (state.curLevelIndex + 1).ToString() + " of " + state.allLevels.Count.ToString(), Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 648));
 
             int objectivesRemaining = state.curLevel.objectivesTotal - state.curLevel.objectivesAchieved;
-            gViewport.DrawString(objectivesRemaining.ToString() + " objectives remaining", Constants.consoleFont, Constants.consoleFontBrush, new Point(883, 680));
-            //
+            gViewport.DrawString(objectivesRemaining.ToString() + " objectives remaining", Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 680));
+
+            const int iconSpacing = 75;
+            if(state.curLevel.toolsAcquired[ToolType.Mirror])
+            {
+                gViewport.DrawImage(database.images.mirrorIcon.bmp[0], 370 + iconSpacing * 0, 648);
+            }
+            if (state.curLevel.toolsAcquired[ToolType.Botnet])
+            {
+                gViewport.DrawImage(database.images.botnetIcon.bmp[0], 370 + iconSpacing * 1, 648);
+            }
+            if (state.curLevel.toolsAcquired[ToolType.Bomb])
+            {
+                gViewport.DrawImage(database.images.bombIcon.bmp[0], 370 + iconSpacing * 2, 648);
+            }
+            if (state.curLevel.toolsAcquired[ToolType.Distraction])
+            {
+                gViewport.DrawImage(database.images.distractionIcon.bmp[0], 370 + iconSpacing * 3, 648);
+            }
+            if (state.curLevel.toolsAcquired[ToolType.Medpack])
+            {
+                gViewport.DrawImage(database.images.medpackIcon.bmp[0], 370 + iconSpacing * 4, 648);
+            }
+
+            if ((state.activeRunners[0] != null && state.activeRunners[0].hasLaser) ||
+               (state.activeRunners[1] != null && state.activeRunners[1].hasLaser))
+            {
+                gViewport.DrawImage(database.images.laserGunIcon.bmp[0], 777, 648);
+            }
+
             resizeScreen(renderWidth, renderHeight);
             gScreen.DrawImage(bmpViewport, new Rectangle(0, 0, renderWidth, renderHeight));
             targetBox.Image = bmpScreen;

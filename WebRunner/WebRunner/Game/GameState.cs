@@ -48,6 +48,8 @@ namespace WebRunner
         public List<Structure> curFrameTemporaryStructures;
         public List<Structure> nextFrameTemporaryStructures;
 
+        public DateTime lastInstruction = DateTime.Now;
+
         //public List<Beam> activeBeams;
 
         public List<Runner> activeRunners = new List<Runner>() { null, null };

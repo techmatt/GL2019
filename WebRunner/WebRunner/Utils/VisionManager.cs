@@ -70,6 +70,7 @@ namespace WebRunner
                 for(int markerIdx = 0; markerIdx < ids.Size; markerIdx++)
                 {
                     int id = ids[markerIdx];
+                    //Console.WriteLine("id: " + id.ToString());
                     ToolType type = database.getToolType(id);
                     if (type == ToolType.InvalidID)
                         continue;

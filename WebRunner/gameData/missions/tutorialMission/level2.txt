@@ -1,5 +1,5 @@
 tilesetName=orange guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=120 
-103
+104
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -103,3 +103,4 @@ type=BotnetPickup centerX=360 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 
 type=BombPickup centerX=360 centerY=400 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=MirrorPickup centerX=360 centerY=520 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=DistractionPickup centerX=240 centerY=320 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=LaserGun centerX=600 centerY=360 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

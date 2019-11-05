@@ -114,21 +114,22 @@ namespace WebRunner
         {
             images = new ImageDatabase();
 
-            IDToToolDict[0] = ToolType.Mirror;
-            IDToToolDict[1] = ToolType.Mirror;
-            IDToToolDict[2] = ToolType.Mirror;
-            IDToToolDict[3] = ToolType.Mirror;
-            IDToToolDict[4] = ToolType.Mirror;
-            IDToToolDict[5] = ToolType.Mirror;
-            IDToToolDict[6] = ToolType.Mirror;
-            IDToToolDict[7] = ToolType.Mirror;
-            IDToToolDict[8] = ToolType.Mirror;
-            IDToToolDict[9] = ToolType.Distraction;
-
+            IDToToolDict[0] = ToolType.Mirror; //cyan
+            IDToToolDict[1] = ToolType.Medpack; //green
+            IDToToolDict[2] = ToolType.Bomb; //red
+            //IDToToolDict[3] = ToolType.; //missing
+            IDToToolDict[4] = ToolType.Mirror; //cyan
+            IDToToolDict[5] = ToolType.Distraction; //yellow
+            IDToToolDict[6] = ToolType.Botnet; // violet
+            IDToToolDict[7] = ToolType.Mirror; //cyan
+            //IDToToolDict[8] = ToolType.InvalidID; // blue
+            
             registerTool(ToolType.Mirror, "runnerMirror", Color.FromArgb(200, 50, 50));
             //registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Medpack, "medpack", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.Botnet, "botnet", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.Bomb, "bomb", Color.FromArgb(50, 200, 50));
 
             double dh = 4.0; // default health
 

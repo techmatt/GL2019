@@ -132,8 +132,12 @@ namespace WebRunner
         void processRunnerJoystick(RunnerJoystickState joystick, Runner runner)
         {
             moveRunnerUsingJoystick(joystick.padA, runner);
-            if(joystick.padB.lengthSq() > 0.5 * 0.5)
-                runner.laserDir = joystick.padB.getNormalized();
+            if (joystick.padB.lengthSq() > 0.4 * 0.4)
+            {
+                Vec2 newDir = joystick.padB.getNormalized();
+                runner.laserDir = (runner.laserDir * 0.8 + newDir * 0.2).getNormalized();
+
+            }
 
             if(runner.hasLaser && (joystick.buttonStates[GamepadButton.LB] || joystick.buttonStates[GamepadButton.RB]))
             {
@@ -162,6 +166,17 @@ namespace WebRunner
 
             foreach (Marker m in state.markers)
             {
+                bool hasTool = state.curLevel.toolsAcquired[m.entry.type];
+                if (!hasTool)
+                {
+                    m.available = false;
+                    if ((DateTime.Now - state.lastInstruction).TotalSeconds > 3.0)
+                    {
+                        sound.playSpeech(m.entry.name + " protocol not available");
+                        state.lastInstruction = DateTime.Now;
+                    }
+                    continue;
+                }
                 if(m.entry.type == ToolType.Mirror)
                 {
                     Structure mirror = new Structure(StructureType.RunnerMirror, database, m.worldCenter);

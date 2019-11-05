@@ -17,9 +17,9 @@ namespace WebRunner
         public const bool useGameEditor = true;
         public const int webcamCaptureIndex = 1;
 
-        public const double laserGunDamage = 0.04;
-        public const double laserTurretDamage = 0.1;
-        public const double structureDisableTime = 10.0;
+        public const double laserGunDamage = 0.06;
+        public const double laserTurretDamage = 0.06;
+        public const double structureDisableTime = 15.0;
         public const double runnerMaxHealth = 1.0;
 
         public const double structureHealRate = 0.02;

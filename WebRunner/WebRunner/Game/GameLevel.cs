@@ -50,6 +50,7 @@ namespace WebRunner
             tilesetName = "hydroponics";
             if (filename == "emptyLevel")
             {
+                updateLevelInfo(database);
                 return;
             }
             var lines = File.ReadAllLines(filename);
