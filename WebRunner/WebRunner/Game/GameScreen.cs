@@ -102,13 +102,23 @@ namespace WebRunner
             }
         }
 
-        public void drawRunnerLaser(GameDatabase database, Runner r)
+        public void drawRunnerLaser(GameState state, GameDatabase database, Runner r)
         {
-            if (r == null || !r.hasLaser)
+            if (r == null)
                 return;
 
-            drawCircle(r.laserOrigin(), 7, database.laserIndicatorInterior, database.cameraPenThin);
-            renderLaserPath(r.laserPath, database.laserGunRayA, database.laserGunRayB);
+            if(state.curLevel.toolsAcquired[ToolType.Kusanagi])
+            {
+                Color c0 = Color.FromArgb(Util.randInt(50, 200), Util.randInt(50, 200), Util.randInt(50, 200), Util.randInt(50, 200));
+                Color c1 = Color.FromArgb(Util.randInt(50, 200), Util.randInt(50, 200), Util.randInt(50, 200), Util.randInt(50, 200));
+                renderLaserPath(r.laserPath, new Pen(c0, (float)Util.uniform(6.0, 12.0)), new Pen(c1, (float)Util.uniform(6.0, 12.0)));
+            }
+            else if (r.hasLaser)
+            {
+                drawCircle(r.laserOrigin(), 7, database.laserIndicatorInterior, database.cameraPenThin);
+                renderLaserPath(r.laserPath, database.laserGunRayA, database.laserGunRayB);
+            }
+            
         }
 
         public void render(Bitmap webcamImage, GameState state, EditorManager editor, int renderWidth, int renderHeight)
@@ -125,8 +135,8 @@ namespace WebRunner
             drawRunnerHealthCircle(database, state.activeRunners[0]);
             drawRunnerHealthCircle(database, state.activeRunners[1]);
 
-            drawRunnerLaser(database, state.activeRunners[0]);
-            drawRunnerLaser(database, state.activeRunners[1]);
+            drawRunnerLaser(state, database, state.activeRunners[0]);
+            drawRunnerLaser(state, database, state.activeRunners[1]);
 
             Vec2 viewportOrigin = state.viewport.pMin;
             foreach (Structure structure in state.curFrameTemporaryStructures)
@@ -141,6 +151,25 @@ namespace WebRunner
 
                 if(m.entry.type == ToolType.Mirror)
                     drawRotatedImage(m.screenCenter, m.orientation, database.images.mirrorOrientation.getBmp(0));
+
+                if(m.entry.type == ToolType.Medpack)
+                {
+                    Rectangle rect = new Rectangle((int)(m.screenCenter.x - Constants.medPackRadius),
+                                                   (int)(m.screenCenter.y - Constants.medPackRadius), Constants.medPackRadius * 2, Constants.medPackRadius * 2);
+                    gViewport.FillEllipse(new SolidBrush(Color.FromArgb(40, 50, 200, 50)), rect);
+                }
+                if (m.entry.type == ToolType.Dyson)
+                {
+                    Rectangle rect = new Rectangle((int)(m.screenCenter.x - Constants.dysonRadius),
+                                                   (int)(m.screenCenter.y - Constants.dysonRadius), Constants.dysonRadius * 2, Constants.dysonRadius * 2);
+                    gViewport.FillEllipse(new SolidBrush(Color.FromArgb(40, 200, 200, 200)), rect);
+                }
+                if (m.entry.type == ToolType.Kusanagi)
+                {
+                    Rectangle rect = new Rectangle((int)(m.screenCenter.x - Constants.kusanagiRadius),
+                                                   (int)(m.screenCenter.y - Constants.kusanagiRadius), Constants.kusanagiRadius * 2, Constants.kusanagiRadius * 2);
+                    gViewport.FillEllipse(new SolidBrush(Color.FromArgb(40, 200, 50, 50)), rect);
+                }
 
                 //drawCircle(m.center, 15, m.toolData.brush, null);
                 drawImage(m.entry.image, 0, m.screenCenter);
@@ -201,6 +230,10 @@ namespace WebRunner
             if (state.curLevel.toolsAcquired[ToolType.Medpack])
             {
                 gViewport.DrawImage(database.images.medpackIcon.bmp[0], 370 + iconSpacing * 4, 648);
+            }
+            if (state.curLevel.toolsAcquired[ToolType.Kusanagi])
+            {
+                gViewport.DrawImage(database.images.kusanagiIcon.bmp[0], 370 + iconSpacing * 5, 648);
             }
 
             if ((state.activeRunners[0] != null && state.activeRunners[0].hasLaser) ||

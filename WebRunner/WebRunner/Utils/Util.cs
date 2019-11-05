@@ -85,7 +85,7 @@ namespace WebRunner
             LaserPath result = new LaserPath();
             result.beamPoints.Add(rOrigin);
             Vec2 curOrigin = rOrigin;
-            Vec2 curDir = rDirection;
+            Vec2 curDir = rDirection.getNormalized();
             for (int beamIndex = 0; beamIndex < Constants.maxBeamBounces; beamIndex++)
             {
                 Tuple<double, int, int> isect = findFirstRayStructureIntersection(structureLists, curOrigin, curDir, validStructureTypes, excludeIdx0, excludeIdx1);

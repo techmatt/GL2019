@@ -9,8 +9,9 @@ namespace WebRunner
 {
     class Runner
     {
-        public Runner(Vec2 _center)
+        public Runner(Vec2 _center, StructureType _whichRunner)
         {
+            whichRunner = _whichRunner;
             center = _center;
             curHealth = Constants.runnerMaxHealth;
             laserDir = new Vec2(1.0, 0.0);
@@ -27,6 +28,8 @@ namespace WebRunner
         public bool hasLaser = false;
         public bool hasShoes = false;
 
+        public StructureType whichRunner;
+
         public LaserPath laserPath = null;
     }
 
@@ -35,7 +38,7 @@ namespace WebRunner
         public GameManager manager;
         public List<Marker> markers;
         public List<GameLevel> allLevels;
-
+        
         public GameLevel curLevel;
         public int curLevelIndex;
         public int frameCount = 0;
@@ -49,6 +52,7 @@ namespace WebRunner
         public List<Structure> nextFrameTemporaryStructures;
 
         public DateTime lastInstruction = DateTime.Now;
+        public DateTime lastMiasmaSpawn = DateTime.Now;
 
         //public List<Beam> activeBeams;
 

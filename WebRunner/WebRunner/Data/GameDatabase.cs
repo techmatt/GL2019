@@ -35,6 +35,7 @@ namespace WebRunner
         BombPickup,
         MedpackPickup,
         BotnetPickup,
+        KusanagiPickup,
 
         // temporary structures
         RunnerA,
@@ -52,6 +53,8 @@ namespace WebRunner
         Bomb,
         Botnet,
         Distraction,
+        Kusanagi,
+        Dyson,
         InvalidID
     }
 
@@ -120,9 +123,9 @@ namespace WebRunner
             //IDToToolDict[3] = ToolType.; //missing
             IDToToolDict[4] = ToolType.Mirror; //cyan
             IDToToolDict[5] = ToolType.Distraction; //yellow
-            IDToToolDict[6] = ToolType.Botnet; // violet
+            IDToToolDict[6] = ToolType.Kusanagi; // violet
             IDToToolDict[7] = ToolType.Mirror; //cyan
-            //IDToToolDict[8] = ToolType.InvalidID; // blue
+            IDToToolDict[8] = ToolType.Dyson; //blue
             
             registerTool(ToolType.Mirror, "runnerMirror", Color.FromArgb(200, 50, 50));
             //registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
@@ -130,6 +133,8 @@ namespace WebRunner
             registerTool(ToolType.Medpack, "medpack", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Botnet, "botnet", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Bomb, "bomb", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.Kusanagi, "kusanagi", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.Dyson, "dyson", Color.FromArgb(50, 200, 50));
 
             double dh = 4.0; // default health
 
@@ -153,6 +158,7 @@ namespace WebRunner
             registerStructure(StructureType.DistractionPickup, "distractionPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.MedpackPickup, "medpackPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.BombPickup, "bombPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.KusanagiPickup, "kusanagiPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
 
             registerStructure(StructureType.RunnerA, "runnerA", Constants.runnerRadius, ShapeType.Circle, 0.0, null);
             registerStructure(StructureType.RunnerB, "runnerB", Constants.runnerRadius, ShapeType.Circle, 0.0, null);
@@ -206,7 +212,7 @@ namespace WebRunner
 
         public HashSet<StructureType> laserTurretBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.Camera, StructureType.LaserTurret,
-            StructureType.StationaryMirror, StructureType.RunnerMirror};
+            StructureType.StationaryMirror, StructureType.RunnerMirror };
 
         public HashSet<StructureType> runnerLaserBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.RunnerMirror, StructureType.Camera, StructureType.LaserTurret,
