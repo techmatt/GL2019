@@ -24,7 +24,7 @@ namespace WebRunner
 
         public const double misamaDamage = 0.015;
         public const double miasmaGrowth = 0.5;
-        public const int maxMiasma = 25;
+        public const int maxMiasma = 2;
 
         public const double miasmaGrowthRate = 0.1;
 

@@ -200,13 +200,13 @@ namespace WebRunner
         public Pen cameraPenThin = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
         public Pen cameraPenThick = new Pen(Color.FromArgb(255, 0, 0, 0), 5.0f);
 
-        public Pen cameraRayA = new Pen(Color.FromArgb(100, 240, 240, 140), 7.0f);
-        public Pen cameraRayB = new Pen(Color.FromArgb(150, 240, 240, 140), 3.5f);
+        public Pen cameraRayA = new Pen(Color.FromArgb(100, 240, 240, 140), 8.0f);
+        public Pen cameraRayB = new Pen(Color.FromArgb(150, 240, 240, 140), 4.0f);
 
-        public Pen laserTurretRayA = new Pen(Color.FromArgb(100, 200, 120, 200), 7.0f);
-        public Pen laserTurretRayB = new Pen(Color.FromArgb(150, 200, 120, 200), 3.5f);
-        public Pen laserGunRayA = new Pen(Color.FromArgb(100, 100, 100, 240), 7.0f);
-        public Pen laserGunRayB = new Pen(Color.FromArgb(150, 100, 100, 240), 3.5f);
+        public Pen laserTurretRayA = new Pen(Color.FromArgb(100, 200, 120, 200), 8.0f);
+        public Pen laserTurretRayB = new Pen(Color.FromArgb(150, 137, 61, 137), 4.0f);
+        public Pen laserGunRayA = new Pen(Color.FromArgb(100, 100, 100, 240), 8.0f);
+        public Pen laserGunRayB = new Pen(Color.FromArgb(150, 100, 100, 240), 4.0f);
 
         public HashSet<StructureType> runnerBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.Firewall, StructureType.Camera,
