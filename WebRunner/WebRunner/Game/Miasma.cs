@@ -18,10 +18,12 @@ namespace WebRunner
                                    Util.randInt(100, 255),
                                    Util.randInt(0, 80));
             maxRadius = Util.uniform(35.0, 50.0);
+            angleOffset = Util.uniform(0.0, 360.0);
         }
         public Vec2 center;
         public double radius;
         public double maxRadius;
+        public double angleOffset;
         public Color color;
     }
 }

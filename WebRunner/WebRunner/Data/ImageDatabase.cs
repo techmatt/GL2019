@@ -70,42 +70,45 @@ namespace WebRunner
         {
             structures[StructureType.Camera] = new ImageEntry("camera", new Vec2(64, 64), 255);
             structures[StructureType.LaserTurret] = new ImageEntry("laserTurret", new Vec2(64, 64), 255);
-            structures[StructureType.BulletTurret] = new ImageEntry("bulletTurret", new Vec2(64, 64), 255);
+            //structures[StructureType.BulletTurret] = new ImageEntry("bulletTurret", new Vec2(64, 64), 255);
             structures[StructureType.StationaryMirror] = new ImageEntry("stationaryMirror", new Vec2(72, 16), 255);
             structures[StructureType.RunnerMirror] = new ImageEntry("empty", new Vec2(4, 4), 255);
             //structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
-            structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
-            structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
+            //structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
+            //structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
             structures[StructureType.Door] = new ImageEntry("door", new Vec2(64, 64), 255);
             structures[StructureType.SpawnPointA] = new ImageEntry("spawnpointA", new Vec2(70, 70), 255);
             structures[StructureType.SpawnPointB] = new ImageEntry("spawnpointB", new Vec2(70, 70), 255);
-            structures[StructureType.Objective] = new ImageEntry("objective", 2, new Vec2(60, 60), 255);
+            structures[StructureType.Objective] = new ImageEntry("objective", 4, new Vec2(60, 60), 255);
             structures[StructureType.RunnerA] = new ImageEntry("runnerA", new Vec2(60, 60), 255);
             structures[StructureType.RunnerB] = new ImageEntry("runnerB", new Vec2(60, 60), 255);
             //structures[StructureType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
             structures[StructureType.Shoes] = new ImageEntry("shoes", new Vec2(60, 60), 255);
             structures[StructureType.LaserGun] = new ImageEntry("laserGun", new Vec2(60, 60), 255);
 
-            structures[StructureType.DistractionPickup] = new ImageEntry("distractionPickup", new Vec2(64, 64), 255);
-            structures[StructureType.BombPickup] = new ImageEntry("bombPickup", new Vec2(64, 64), 255);
+            //structures[StructureType.DistractionPickup] = new ImageEntry("distractionPickup", new Vec2(64, 64), 255);
+            //structures[StructureType.BombPickup] = new ImageEntry("bombPickup", new Vec2(64, 64), 255);
             structures[StructureType.MirrorPickup] = new ImageEntry("mirrorPickup", new Vec2(64, 64), 255);
             structures[StructureType.MedpackPickup] = new ImageEntry("medpackPickup", new Vec2(64, 64), 255);
-            structures[StructureType.BotnetPickup] = new ImageEntry("botnetPickup", new Vec2(64, 64), 255);
+            //structures[StructureType.BotnetPickup] = new ImageEntry("botnetPickup", new Vec2(64, 64), 255);
+            structures[StructureType.DysonPickup] = new ImageEntry("dysonPickup", new Vec2(64, 64), 255);
+            structures[StructureType.CloakingFieldPickup] = new ImageEntry("cloakingFieldPickup", new Vec2(64, 64), 255);
             structures[StructureType.KusanagiPickup] = new ImageEntry("kusanagiPickup", new Vec2(64, 64), 255);
 
             tools[ToolType.Mirror] = new ImageEntry("runnerMirrorCenter", new Vec2(17, 17), 255);
             //tools[ToolType.RunB] = new ImageEntry("runB", new Vec2(60, 60), 255);
-            tools[ToolType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
+            //tools[ToolType.Distraction] = new ImageEntry("distraction", new Vec2(80, 80), 255);
             tools[ToolType.Medpack] = new ImageEntry("medpack", new Vec2(80, 80), 255);
             tools[ToolType.Dyson] = new ImageEntry("dyson", new Vec2(80, 80), 255);
-            tools[ToolType.Bomb] = new ImageEntry("bomb", new Vec2(80, 80), 255);
-            tools[ToolType.Botnet] = new ImageEntry("botnet", new Vec2(80, 80), 255);
+            //tools[ToolType.Bomb] = new ImageEntry("bomb", new Vec2(80, 80), 255);
+            //tools[ToolType.Botnet] = new ImageEntry("botnet", new Vec2(80, 80), 255);
+            tools[ToolType.CloakingField] = new ImageEntry("cloakingField", new Vec2(80, 80), 255);
             tools[ToolType.Kusanagi] = new ImageEntry("kusanagi", new Vec2(80, 80), 255);
         }
 
         public ImageEntry getWall(string tilesetName)
         {
-            string wallName = tilesetName + "Wall";
+            string wallName = "Tilesets/" + tilesetName + "Wall";
             if (!walls.ContainsKey(wallName))
             {
                 walls.Add(wallName, new ImageEntry(wallName, new Vec2(40, 40), 255));
@@ -113,9 +116,19 @@ namespace WebRunner
             return walls[wallName];
         }
 
+        public ImageEntry getDoor(string tilesetName)
+        {
+            string doorName = "Tilesets/" + tilesetName + "Door";
+            if (!doors.ContainsKey(doorName))
+            {
+                doors.Add(doorName, new ImageEntry(doorName, new Vec2(64, 64), 255));
+            }
+            return doors[doorName];
+        }
+
         public ImageEntry getBackground(string tilesetName, bool solid)
         {
-            string bkgName = tilesetName + "Background";
+            string bkgName = "Tilesets/" + tilesetName + "Background";
             string suffix = solid ? "s"  : "t";
             string name = bkgName + suffix;
             if (!backgrounds.ContainsKey(name))
@@ -127,11 +140,14 @@ namespace WebRunner
         }
         public Dictionary<string, ImageEntry> backgrounds = new Dictionary<string, ImageEntry>();
         public Dictionary<string, ImageEntry> walls = new Dictionary<string, ImageEntry>();
+        public Dictionary<string, ImageEntry> doors = new Dictionary<string, ImageEntry>();
 
         public ImageEntry getStructureImage(StructureType type, string tilesetName = null)
         {
             if (type == StructureType.Wall)
                 return getWall(tilesetName);
+            if (type == StructureType.Door)
+                return getDoor(tilesetName);
             return structures[type];
         }
         private Dictionary<StructureType, ImageEntry> structures = new Dictionary<StructureType, ImageEntry>();
@@ -142,12 +158,18 @@ namespace WebRunner
         //public ImageEntry orientationViewer = new ImageEntry("shield", new Vec2(200, 24), 128);
         public ImageEntry laserGunIcon = new ImageEntry("laserGunIcon", new Vec2(110, 65), 255);
 
+        public ImageEntry dysonIcon = new ImageEntry("dysonIcon", new Vec2(65, 65), 255);
         public ImageEntry mirrorIcon = new ImageEntry("mirrorIcon", new Vec2(65, 65), 255);
-        public ImageEntry bombIcon = new ImageEntry("bombIcon", new Vec2(65, 65), 255);
         public ImageEntry medpackIcon = new ImageEntry("medpackIcon", new Vec2(65, 65), 255);
         public ImageEntry kusanagiIcon = new ImageEntry("kusanagiIcon", new Vec2(65, 65), 255);
-        public ImageEntry distractionIcon = new ImageEntry("distractionIcon", new Vec2(65, 65), 255);
-        public ImageEntry botnetIcon = new ImageEntry("botnetIcon", new Vec2(65, 65), 255);
+        public ImageEntry cloakingFieldIcon = new ImageEntry("cloakingFieldIcon", new Vec2(65, 65), 255);
+        //public ImageEntry distractionIcon = new ImageEntry("distractionIcon", new Vec2(65, 65), 255);
+        //public ImageEntry botnetIcon = new ImageEntry("botnetIcon", new Vec2(65, 65), 255);
+        //public ImageEntry bombIcon = new ImageEntry("bombIcon", new Vec2(65, 65), 255);
+
+
+        public ImageEntry miasma = new ImageEntry("miasma", new Vec2(160, 160), 255);
+        public ImageEntry reticle = new ImageEntry("Reticle", new Vec2(36 * 2, 36 * 2), 255);
 
         public ImageEntry mirrorOrientation = new ImageEntry("mirrorOrientation", new Vec2(Constants.runnerMirrorRadius * 2, 20), 128);
         public ImageEntry disabledStructure = new ImageEntry("ChargeTextureOrange", new Vec2(90, 90), 180);

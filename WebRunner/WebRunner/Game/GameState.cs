@@ -54,6 +54,8 @@ namespace WebRunner
         public DateTime lastInstruction = DateTime.Now;
         public DateTime lastMiasmaSpawn = DateTime.Now;
 
+        public Vec2 cloakingFieldMarker = null;
+
         //public List<Beam> activeBeams;
 
         public List<Runner> activeRunners = new List<Runner>() { null, null };

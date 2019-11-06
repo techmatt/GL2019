@@ -76,9 +76,9 @@
             this.radioButtonLaserTurret = new System.Windows.Forms.RadioButton();
             this.radioButtonBulletTurret = new System.Windows.Forms.RadioButton();
             this.radioButtonMirror = new System.Windows.Forms.RadioButton();
-            this.radioButtonDistractionPickup = new System.Windows.Forms.RadioButton();
+            this.radioButtonCloakingFieldPickup = new System.Windows.Forms.RadioButton();
             this.radioButtonMedpack = new System.Windows.Forms.RadioButton();
-            this.radioButtonBotnet = new System.Windows.Forms.RadioButton();
+            this.radioButtonDyson = new System.Windows.Forms.RadioButton();
             this.radioButtonBomb = new System.Windows.Forms.RadioButton();
             this.radioButtonMirrorPickup = new System.Windows.Forms.RadioButton();
             this.radioButtonKusanagi = new System.Windows.Forms.RadioButton();
@@ -562,17 +562,17 @@
             this.radioButtonMirror.UseVisualStyleBackColor = true;
             this.radioButtonMirror.CheckedChanged += new System.EventHandler(this.radioButtonMirror_CheckedChanged);
             // 
-            // radioButtonDistractionPickup
+            // radioButtonCloakingFieldPickup
             // 
-            this.radioButtonDistractionPickup.AutoSize = true;
-            this.radioButtonDistractionPickup.Location = new System.Drawing.Point(297, 895);
-            this.radioButtonDistractionPickup.Name = "radioButtonDistractionPickup";
-            this.radioButtonDistractionPickup.Size = new System.Drawing.Size(103, 24);
-            this.radioButtonDistractionPickup.TabIndex = 17;
-            this.radioButtonDistractionPickup.TabStop = true;
-            this.radioButtonDistractionPickup.Text = "Distraction";
-            this.radioButtonDistractionPickup.UseVisualStyleBackColor = true;
-            this.radioButtonDistractionPickup.CheckedChanged += new System.EventHandler(this.radioButtonDistractionPickup_CheckedChanged);
+            this.radioButtonCloakingFieldPickup.AutoSize = true;
+            this.radioButtonCloakingFieldPickup.Location = new System.Drawing.Point(297, 895);
+            this.radioButtonCloakingFieldPickup.Name = "radioButtonCloakingFieldPickup";
+            this.radioButtonCloakingFieldPickup.Size = new System.Drawing.Size(126, 24);
+            this.radioButtonCloakingFieldPickup.TabIndex = 17;
+            this.radioButtonCloakingFieldPickup.TabStop = true;
+            this.radioButtonCloakingFieldPickup.Text = "Cloaking Field";
+            this.radioButtonCloakingFieldPickup.UseVisualStyleBackColor = true;
+            this.radioButtonCloakingFieldPickup.CheckedChanged += new System.EventHandler(this.radioButtonCloakingFieldPickup_CheckedChanged);
             // 
             // radioButtonMedpack
             // 
@@ -586,17 +586,17 @@
             this.radioButtonMedpack.UseVisualStyleBackColor = true;
             this.radioButtonMedpack.CheckedChanged += new System.EventHandler(this.radioButtonMedpack_CheckedChanged);
             // 
-            // radioButtonBotnet
+            // radioButtonDyson
             // 
-            this.radioButtonBotnet.AutoSize = true;
-            this.radioButtonBotnet.Location = new System.Drawing.Point(297, 962);
-            this.radioButtonBotnet.Name = "radioButtonBotnet";
-            this.radioButtonBotnet.Size = new System.Drawing.Size(75, 24);
-            this.radioButtonBotnet.TabIndex = 17;
-            this.radioButtonBotnet.TabStop = true;
-            this.radioButtonBotnet.Text = "Botnet";
-            this.radioButtonBotnet.UseVisualStyleBackColor = true;
-            this.radioButtonBotnet.CheckedChanged += new System.EventHandler(this.radioButtonBotnet_CheckedChanged);
+            this.radioButtonDyson.AutoSize = true;
+            this.radioButtonDyson.Location = new System.Drawing.Point(297, 962);
+            this.radioButtonDyson.Name = "radioButtonDyson";
+            this.radioButtonDyson.Size = new System.Drawing.Size(72, 24);
+            this.radioButtonDyson.TabIndex = 17;
+            this.radioButtonDyson.TabStop = true;
+            this.radioButtonDyson.Text = "Dyson";
+            this.radioButtonDyson.UseVisualStyleBackColor = true;
+            this.radioButtonDyson.CheckedChanged += new System.EventHandler(this.radioButtonBotnet_CheckedChanged_1);
             // 
             // radioButtonBomb
             // 
@@ -642,9 +642,9 @@
             this.Controls.Add(this.radioButtonKusanagi);
             this.Controls.Add(this.radioButtonMirrorPickup);
             this.Controls.Add(this.radioButtonBomb);
-            this.Controls.Add(this.radioButtonBotnet);
+            this.Controls.Add(this.radioButtonDyson);
             this.Controls.Add(this.radioButtonMedpack);
-            this.Controls.Add(this.radioButtonDistractionPickup);
+            this.Controls.Add(this.radioButtonCloakingFieldPickup);
             this.Controls.Add(this.radioButtonMirror);
             this.Controls.Add(this.radioButtonBulletTurret);
             this.Controls.Add(this.radioButtonLaserTurret);
@@ -751,9 +751,9 @@
         private System.Windows.Forms.RadioButton radioButtonLaserTurret;
         private System.Windows.Forms.RadioButton radioButtonBulletTurret;
         private System.Windows.Forms.RadioButton radioButtonMirror;
-        private System.Windows.Forms.RadioButton radioButtonDistractionPickup;
+        private System.Windows.Forms.RadioButton radioButtonCloakingFieldPickup;
         private System.Windows.Forms.RadioButton radioButtonMedpack;
-        private System.Windows.Forms.RadioButton radioButtonBotnet;
+        private System.Windows.Forms.RadioButton radioButtonDyson;
         private System.Windows.Forms.RadioButton radioButtonBomb;
         private System.Windows.Forms.RadioButton radioButtonMirrorPickup;
         private System.Windows.Forms.RadioButton radioButtonKusanagi;

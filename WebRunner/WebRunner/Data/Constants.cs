@@ -14,7 +14,7 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
         public const bool useWebcam = true;
-        public const bool useGameEditor = false;
+        public const bool useGameEditor = true;
         public const int webcamCaptureIndex = 1;
 
         public const int medPackRadius = 100;
@@ -22,9 +22,9 @@ namespace WebRunner
         public const int dysonRadius = 100;
         public const double dysonDamageRate = miasmaGrowthRate * 7.0;
 
-        public const double misamaDamage = 0.01;
+        public const double misamaDamage = 0.015;
         public const double miasmaGrowth = 0.5;
-        public const int maxMiasma = 40;
+        public const int maxMiasma = 25;
 
         public const double miasmaGrowthRate = 0.1;
 
@@ -70,6 +70,7 @@ namespace WebRunner
         public const String dataDir = @"C:\Code\GL2019\WebRunner\gameData\";
         public const String soundEffectsDir = dataDir + "sounds/";
         public const String imageOriginalDir = dataDir + "imagesOriginal/";
+        public const String tilesetDir = imageOriginalDir + "tilesets/";
         public const String missionBaseDir = dataDir + "missions/";
 
         static public List<String> randomPhrases = new List<String>()

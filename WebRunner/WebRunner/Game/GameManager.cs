@@ -35,7 +35,7 @@ namespace WebRunner
             if(editor != null)
                 editor.level = state.allLevels[0];
 
-            sound.playSpeech("mission start. miasma detected. dyson protocol activated.");
+            sound.playSpeech("mission start. miasma detected.");
         }
 
         Vec2 moveTowardsPoint(Vec2 runnerCenter, Vec2 targetPoint, double speed)
@@ -135,16 +135,41 @@ namespace WebRunner
             if (joystick.padB.lengthSq() > 0.4 * 0.4)
             {
                 Vec2 newDir = joystick.padB.getNormalized();
-                runner.laserDir = (runner.laserDir * 0.7 + newDir * 0.3).getNormalized();
+                runner.laserDir = (runner.laserDir * 0.8 + newDir * 0.2).getNormalized();
+            }
 
+            if(joystick.buttonStates[GamepadButton.A])
+            {
+                if(state.cloakingFieldMarker != null && state.curLevel.cloakingField == null)
+                {
+                    sound.playSpeech("deploying cloaking field");
+                    state.curLevel.cloakingField = new CloakingField(state.cloakingFieldMarker);
+                }
             }
 
             if(runner.hasLaser && (joystick.buttonStates[GamepadButton.LB] || joystick.buttonStates[GamepadButton.RB]))
             {
                 var structureLists = new List<List<Structure>> { state.curLevel.structures, state.curFrameTemporaryStructures };
                 runner.laserPath = Util.traceLaser(structureLists, runner.laserOrigin(), runner.laserDir, database.runnerLaserBlockingStructures, -1, -1);
-                state.curLevel.damageStructure(state, structureLists, runner.laserPath.finalObject.Item1, runner.laserPath.finalObject.Item2, Constants.laserGunDamage, false);
+                if(runner.laserPath.finalObject != null)
+                    state.curLevel.damageStructure(state, structureLists, runner.laserPath.finalObject.Item1, runner.laserPath.finalObject.Item2, Constants.laserGunDamage, false);
             }
+        }
+
+        bool checkIfToolReady(Marker m)
+        {
+            bool hasTool = state.curLevel.toolsAcquired[m.entry.type];
+            if (!hasTool)
+            {
+                m.available = false;
+                if ((DateTime.Now - state.lastInstruction).TotalSeconds > 3.0)
+                {
+                    sound.playSpeech(m.entry.name + " protocol not available");
+                    state.lastInstruction = DateTime.Now;
+                }
+                return false;
+            }
+            return true;
         }
 
         void step()
@@ -167,26 +192,25 @@ namespace WebRunner
                 r.laserPath = null;
             }
 
+            // mirrors have to be loaded first so they can reflect for kusanagi
             foreach (Marker m in state.markers)
             {
-                bool hasTool = state.curLevel.toolsAcquired[m.entry.type];
-                if (!hasTool)
-                {
-                    m.available = false;
-                    if ((DateTime.Now - state.lastInstruction).TotalSeconds > 3.0)
-                    {
-                        sound.playSpeech(m.entry.name + " protocol not available");
-                        state.lastInstruction = DateTime.Now;
-                    }
+                if (!checkIfToolReady(m))
                     continue;
-                }
-                if(m.entry.type == ToolType.Mirror)
+                if (m.entry.type == ToolType.Mirror)
                 {
                     Structure mirror = new Structure(StructureType.RunnerMirror, database, m.worldCenter);
                     mirror.curSweepAngle = Math.Atan2(m.orientation.y, m.orientation.x) * 180.0 / Math.PI;
                     state.curFrameTemporaryStructures.Add(mirror);
                 }
-                if(m.entry.type == ToolType.Medpack)
+            }
+
+            state.cloakingFieldMarker = null;
+            foreach (Marker m in state.markers)
+            {
+                if (!checkIfToolReady(m))
+                    continue;
+                if (m.entry.type == ToolType.Medpack)
                 {
                     foreach(Runner r in state.activeRunners)
                     {
@@ -197,6 +221,10 @@ namespace WebRunner
                             r.curHealth = Math.Min(Constants.runnerMaxHealth, r.curHealth + 0.02);
                         }
                     }
+                }
+                if (m.entry.type == ToolType.CloakingField)
+                {
+                    state.cloakingFieldMarker = m.screenCenter;
                 }
                 if (m.entry.type == ToolType.Dyson)
                 {
@@ -220,9 +248,10 @@ namespace WebRunner
                             continue;
                         if (Vec2.distSq(r.center, m.screenCenter) < Constants.kusanagiRadius * Constants.kusanagiRadius)
                         {
-                            var structureLists = new List<List<Structure>> { state.curLevel.structures };
+                            var structureLists = new List<List<Structure>> { state.curLevel.structures, state.curFrameTemporaryStructures };
                             r.laserPath = Util.traceLaser(structureLists, r.center, m.screenCenter - r.center, database.runnerLaserBlockingStructures, -1, -1);
-                            state.curLevel.damageStructure(state, structureLists, r.laserPath.finalObject.Item1, r.laserPath.finalObject.Item2, Constants.kusanagiGunDamage, true);
+                            if(r.laserPath.finalObject != null)
+                                state.curLevel.damageStructure(state, structureLists, r.laserPath.finalObject.Item1, r.laserPath.finalObject.Item2, Constants.kusanagiGunDamage, true);
                         }
                     }
                 }

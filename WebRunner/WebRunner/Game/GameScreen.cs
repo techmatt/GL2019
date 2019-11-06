@@ -69,14 +69,19 @@ namespace WebRunner
 
         public void drawRotatedImage(Vec2 center, Vec2 orientation, Bitmap bmp, double scale = 1.0)
         {
+            drawRotatedImage(center, (float)orientation.angle(), bmp, scale);
+        }
+
+        public void drawRotatedImage(Vec2 center, float angle, Bitmap bmp, double scale = 1.0)
+        {
             double hw = bmp.Width * 0.5;
             double hh = bmp.Height * 0.5;
             gViewport.TranslateTransform((float)center.x, (float)center.y);
-            if(scale != 1.0)
+            if (scale != 1.0)
                 gViewport.ScaleTransform((float)scale, (float)scale);
-            gViewport.RotateTransform((float)orientation.angle());
+            gViewport.RotateTransform(angle);
             gViewport.TranslateTransform((float)-hw, (float)-hh);
-            
+
             gViewport.DrawImage(bmp, 0, 0);
             gViewport.ResetTransform();
         }
@@ -211,29 +216,25 @@ namespace WebRunner
             gViewport.DrawString(objectivesRemaining.ToString() + " objectives remaining", Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 680));
 
             const int iconSpacing = 75;
-            if(state.curLevel.toolsAcquired[ToolType.Mirror])
+            if (state.curLevel.toolsAcquired[ToolType.Dyson])
             {
-                gViewport.DrawImage(database.images.mirrorIcon.bmp[0], 370 + iconSpacing * 0, 648);
+                gViewport.DrawImage(database.images.dysonIcon.bmp[0], 370 + iconSpacing * 0, 648);
             }
-            if (state.curLevel.toolsAcquired[ToolType.Botnet])
+            if (state.curLevel.toolsAcquired[ToolType.Mirror])
             {
-                gViewport.DrawImage(database.images.botnetIcon.bmp[0], 370 + iconSpacing * 1, 648);
-            }
-            if (state.curLevel.toolsAcquired[ToolType.Bomb])
-            {
-                gViewport.DrawImage(database.images.bombIcon.bmp[0], 370 + iconSpacing * 2, 648);
-            }
-            if (state.curLevel.toolsAcquired[ToolType.Distraction])
-            {
-                gViewport.DrawImage(database.images.distractionIcon.bmp[0], 370 + iconSpacing * 3, 648);
+                gViewport.DrawImage(database.images.mirrorIcon.bmp[0], 370 + iconSpacing * 1, 648);
             }
             if (state.curLevel.toolsAcquired[ToolType.Medpack])
             {
-                gViewport.DrawImage(database.images.medpackIcon.bmp[0], 370 + iconSpacing * 4, 648);
+                gViewport.DrawImage(database.images.medpackIcon.bmp[0], 370 + iconSpacing * 2, 648);
+            }
+            if (state.curLevel.toolsAcquired[ToolType.CloakingField])
+            {
+                gViewport.DrawImage(database.images.cloakingFieldIcon.bmp[0], 370 + iconSpacing * 3, 648);
             }
             if (state.curLevel.toolsAcquired[ToolType.Kusanagi])
             {
-                gViewport.DrawImage(database.images.kusanagiIcon.bmp[0], 370 + iconSpacing * 5, 648);
+                gViewport.DrawImage(database.images.kusanagiIcon.bmp[0], 370 + iconSpacing * 4, 648);
             }
 
             if ((state.activeRunners[0] != null && state.activeRunners[0].hasLaser) ||

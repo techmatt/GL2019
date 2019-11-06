@@ -1,5 +1,5 @@
-tilesetName=sandrune guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-147
+tilesetName=purplecircuit guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
+149
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -99,7 +99,6 @@ type=Wall centerX=100 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Wall centerX=140 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=180 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=220 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=LaserGun centerX=120 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Camera centerX=360 centerY=560 sweepAngleStart=248 sweepAngleSpan=42 sweepAngleSpeed=1.58 
 type=Wall centerX=500 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=540 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -147,3 +146,6 @@ type=MedpackPickup centerX=280 centerY=560 sweepAngleStart=60 sweepAngleSpan=150
 type=Objective centerX=880 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Shoes centerX=600 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=MirrorPickup centerX=440 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=CloakingFieldPickup centerX=200 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=LaserGun centerX=160 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=DysonPickup centerX=80 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

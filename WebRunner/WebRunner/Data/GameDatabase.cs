@@ -30,11 +30,13 @@ namespace WebRunner
         LaserTurret,
         BulletTurret,
 
-        DistractionPickup,
+        //DistractionPickup,
         MirrorPickup,
-        BombPickup,
+        //BombPickup,
         MedpackPickup,
-        BotnetPickup,
+        //BotnetPickup,
+        DysonPickup,
+        CloakingFieldPickup,
         KusanagiPickup,
 
         // temporary structures
@@ -50,9 +52,10 @@ namespace WebRunner
         //RunB,
         Mirror,
         Medpack,
-        Bomb,
-        Botnet,
-        Distraction,
+        //Bomb,
+        //Botnet,
+        //Distraction,
+        CloakingField,
         Kusanagi,
         Dyson,
         InvalidID
@@ -109,7 +112,7 @@ namespace WebRunner
         void registerStructure(StructureType _type, string _name, double _radius, ShapeType _shape, double _health, Vec2 _gridSize)
         {
             ImageEntry image = null;
-            if (_type != StructureType.Wall)
+            if (_type != StructureType.Wall && _type != StructureType.Door)
                 image = images.getStructureImage(_type);
             structureTypeToDataDict[_type] = new StructureEntry(_type, _name, _radius, _shape, _health, _gridSize, image);
         }
@@ -119,32 +122,33 @@ namespace WebRunner
 
             IDToToolDict[0] = ToolType.Mirror; //cyan
             IDToToolDict[1] = ToolType.Medpack; //green
-            IDToToolDict[2] = ToolType.Bomb; //red
+            IDToToolDict[2] = ToolType.Dyson; //red
             //IDToToolDict[3] = ToolType.; //missing
             IDToToolDict[4] = ToolType.Mirror; //cyan
-            IDToToolDict[5] = ToolType.Distraction; //yellow
+            IDToToolDict[5] = ToolType.CloakingField; //yellow
             IDToToolDict[6] = ToolType.Kusanagi; // violet
             IDToToolDict[7] = ToolType.Mirror; //cyan
-            IDToToolDict[8] = ToolType.Dyson; //blue
+            //IDToToolDict[8] = ToolType.Bomb; //blue
             
             registerTool(ToolType.Mirror, "runnerMirror", Color.FromArgb(200, 50, 50));
             //registerTool(ToolType.RunB, "runB", Color.FromArgb(50, 200, 50));
-            registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
+            //registerTool(ToolType.Distraction, "distraction", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Medpack, "medpack", Color.FromArgb(50, 200, 50));
-            registerTool(ToolType.Botnet, "botnet", Color.FromArgb(50, 200, 50));
-            registerTool(ToolType.Bomb, "bomb", Color.FromArgb(50, 200, 50));
+            //registerTool(ToolType.Botnet, "botnet", Color.FromArgb(50, 200, 50));
+            //registerTool(ToolType.Bomb, "bomb", Color.FromArgb(50, 200, 50));
+            registerTool(ToolType.CloakingField, "cloakingField", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Kusanagi, "kusanagi", Color.FromArgb(50, 200, 50));
             registerTool(ToolType.Dyson, "dyson", Color.FromArgb(50, 200, 50));
 
             double dh = 4.0; // default health
 
             registerStructure(StructureType.Camera, "camera", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
-            registerStructure(StructureType.BulletTurret, "bulletTurret", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
+            //registerStructure(StructureType.BulletTurret, "bulletTurret", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
             registerStructure(StructureType.LaserTurret, "laserTurret", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
             registerStructure(StructureType.StationaryMirror, "stationaryMirror", 36.0, ShapeType.Mirror, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, 0.0, new Vec2(1, 1));
-            registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
-            registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
+            //registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
+            //registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
             registerStructure(StructureType.SpawnPointA, "spawnpointA", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.SpawnPointB, "spawnpointB", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.Door, "door", 36.0, ShapeType.Square, 0.0, new Vec2(2, 2));
@@ -153,11 +157,13 @@ namespace WebRunner
             registerStructure(StructureType.LaserGun, "laserGun", 32.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.RunnerMirror, "runnerMirror", Constants.runnerMirrorRadius, ShapeType.Mirror, 0.0, new Vec2(2, 2));
 
-            registerStructure(StructureType.BotnetPickup, "botnetPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            //registerStructure(StructureType.BotnetPickup, "botnetPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.MirrorPickup, "mirrorPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
-            registerStructure(StructureType.DistractionPickup, "distractionPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            //registerStructure(StructureType.DistractionPickup, "distractionPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.MedpackPickup, "medpackPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
-            registerStructure(StructureType.BombPickup, "bombPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            //registerStructure(StructureType.BombPickup, "bombPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.CloakingFieldPickup, "cloakingFieldPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
+            registerStructure(StructureType.DysonPickup, "dysonPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.KusanagiPickup, "kusanagiPickup", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
 
             registerStructure(StructureType.RunnerA, "runnerA", Constants.runnerRadius, ShapeType.Circle, 0.0, null);

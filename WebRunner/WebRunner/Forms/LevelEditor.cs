@@ -99,7 +99,7 @@ namespace WebRunner
 
         private void radioButtonDistractionPickup_CheckedChanged(object sender, EventArgs e)
         {
-            setEditorStructure(StructureType.DistractionPickup);
+
         }
 
         private void radioButtonMedpack_CheckedChanged(object sender, EventArgs e)
@@ -109,19 +109,27 @@ namespace WebRunner
 
         private void radioButtonBotnet_CheckedChanged(object sender, EventArgs e)
         {
-            setEditorStructure(StructureType.BotnetPickup);
+            //setEditorStructure(StructureType.BotnetPickup);
         }
 
         private void radioButtonBomb_CheckedChanged(object sender, EventArgs e)
         {
-            setEditorStructure(StructureType.BombPickup);
+            //setEditorStructure(StructureType.BombPickup);
+        }
+
+        private void radioButtonCloakingFieldPickup_CheckedChanged(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.CloakingFieldPickup);
         }
 
         private void radioButtonMirrorPickup_CheckedChanged(object sender, EventArgs e)
         {
             setEditorStructure(StructureType.MirrorPickup);
         }
-
+        private void radioButtonBotnet_CheckedChanged_1(object sender, EventArgs e)
+        {
+            setEditorStructure(StructureType.DysonPickup);
+        }
         private void radioButtonKusanagi_CheckedChanged(object sender, EventArgs e)
         {
             setEditorStructure(StructureType.KusanagiPickup);

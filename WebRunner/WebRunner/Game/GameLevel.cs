@@ -20,6 +20,7 @@ namespace WebRunner
         public int maxCompletionTime = 120;
         public int objectivesAchieved = 0;
         public int objectivesTotal = 0;
+        public CloakingField cloakingField = null;
 
         public List<Miasma> allMiasma = new List<Miasma>();
 
@@ -79,7 +80,7 @@ namespace WebRunner
             {
                 toolsAcquired[t] = false;
             }
-            toolsAcquired[ToolType.Dyson] = true;
+            //toolsAcquired[ToolType.Dyson] = true;
         }
 
         public void saveToFile(string filenameOut)
@@ -108,6 +109,8 @@ namespace WebRunner
             if (structure.type == StructureType.RunnerA || structure.type == StructureType.RunnerB)
             {
                 Runner runner = state.getActiveRunner(structure.type);
+                if (runner == null)
+                    return;
                 runner.curHealth -= damage;
                 if(runner.curHealth < 0.0)
                 {
@@ -175,7 +178,7 @@ namespace WebRunner
                 }
                 if(runnerToKill != null)
                 {
-                    manager.state.killRunner(runnerToKill.whichRunner, "please do not stand in the miasma");
+                    manager.state.killRunner(runnerToKill.whichRunner, "emergency miasma evacuation");
                 }
             }
             if(shouldSpawnMiasma && (DateTime.Now - manager.state.lastMiasmaSpawn).TotalSeconds >= 4.0)
@@ -199,6 +202,15 @@ namespace WebRunner
             var database = manager.database;
             var state = manager.state;
             var sound = manager.sound;
+
+            if(cloakingField != null)
+            {
+                cloakingField.radius -= 0.5;
+                if(cloakingField.radius < 35.0)
+                {
+                    cloakingField = null;
+                }
+            }
 
             var structureLists = new List<List<Structure>> { structures, state.curFrameTemporaryStructures };
 
@@ -250,7 +262,17 @@ namespace WebRunner
                         Structure hitStructure = structureLists[intersection.Item2][intersection.Item3];
                         if(hitStructure.type == StructureType.RunnerA || hitStructure.type == StructureType.RunnerB)
                         {
-                            state.killRunner(hitStructure.type, "runner compromised");
+                            bool killRunner = true;
+                            if (cloakingField != null)
+                            {
+                                double distToField = Vec2.dist(hitStructure.center, cloakingField.center);
+                                if (distToField <= cloakingField.radius + Constants.runnerRadius)
+                                {
+                                    killRunner = false;
+                                }
+                            }
+                            if(killRunner)
+                                state.killRunner(hitStructure.type, "runner compromised");
                         }
                     }
                 }
@@ -260,7 +282,8 @@ namespace WebRunner
                     var laserPath = Util.traceLaser(structureLists, structure.center, structure.curSweepDirection(), database.laserTurretBlockingStructures, 0, structureIdx);
                     structure.laserPath = laserPath;
 
-                    damageStructure(manager.state, structureLists, laserPath.finalObject.Item1, laserPath.finalObject.Item2, Constants.laserTurretDamage, false);
+                    if(laserPath.finalObject != null)
+                        damageStructure(manager.state, structureLists, laserPath.finalObject.Item1, laserPath.finalObject.Item2, Constants.laserTurretDamage, false);
                 }
 
                 if (structure.type == StructureType.SpawnPointA && state.activeRunners[0] == null && !state.curLevel.runnersCompleted[0])
@@ -311,9 +334,13 @@ namespace WebRunner
                                 runner.hasShoes = true;
                             }
                         }
-                        if (structure.type == StructureType.DistractionPickup)
+                        if (structure.type == StructureType.DysonPickup)
                         {
-                            acquirePickup(manager, structure, ToolType.Distraction, "distraction");
+                            acquirePickup(manager, structure, ToolType.Dyson, "dyson");
+                        }
+                        if (structure.type == StructureType.CloakingFieldPickup)
+                        {
+                            acquirePickup(manager, structure, ToolType.CloakingField, "cloakingField");
                         }
                         if (structure.type == StructureType.MirrorPickup)
                         {
@@ -322,14 +349,6 @@ namespace WebRunner
                         if (structure.type == StructureType.KusanagiPickup)
                         {
                             acquirePickup(manager, structure, ToolType.Kusanagi, "kusanagi");
-                        }
-                        if (structure.type == StructureType.BombPickup)
-                        {
-                            acquirePickup(manager, structure, ToolType.Bomb, "bomb");
-                        }
-                        if (structure.type == StructureType.BotnetPickup)
-                        {
-                            acquirePickup(manager, structure, ToolType.Botnet, "botnet");
                         }
                         if (structure.type == StructureType.MedpackPickup)
                         {
@@ -412,8 +431,6 @@ namespace WebRunner
                     if (editor != null || structure.curHealth < structure.entry.maxHealth)
                         screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
 
-                    renderStructureHealth(screen, database, state, structure);
-
                     if (editor != null)
                         screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
 
@@ -426,9 +443,13 @@ namespace WebRunner
                         screen.renderLaserPath(structure.laserPath, database.laserTurretRayA, database.laserTurretRayB);
 
                     if (editor != null || structure.curHealth < structure.entry.maxHealth)
+                    {
                         screen.drawCircle(structure.center, (int)structure.entry.radius, database.cameraBrushInterior, database.cameraPenThin);
+                        //screen.gViewport.DrawImage(database.images.reticle.bmp[0], new Rectangle());
+                        //screen.drawImage(database.images.reticle, 0, structure.center);
+                    }
 
-                    renderStructureHealth(screen, database, state, structure);
+                    //renderStructureHealth(screen, database, state, structure);
 
                     if (editor != null)
                         screen.drawArc(structure.center, (int)structure.entry.radius, database.cameraPenThick, structure.sweepAngleStart, structure.sweepAngleSpan);
@@ -436,13 +457,25 @@ namespace WebRunner
                 screen.drawImage(database.images.getStructureImage(structure.type), structure.curImgInstanceHash, structure.center - viewportOrigin);
                 if (structure.type == StructureType.Camera || structure.type == StructureType.LaserTurret)
                 {
+                    renderStructureHealth(screen, database, state, structure);
                     renderStructureDisabled(screen, database, state, structure);
                 }
             }
 
-            foreach(Miasma m in allMiasma)
+            Bitmap miasmaBmp = database.images.miasma.bmp[0];
+            foreach (Miasma m in allMiasma)
             {
-                screen.drawCircle(m.center, (int)m.radius, new SolidBrush(m.color), null);
+                //screen.drawCircle(m.center, (int)m.radius, new SolidBrush(m.color), null);
+                //screen.drawCircle(m.center, (int)m.radius, new SolidBrush(Color.White), null);
+
+                screen.drawRotatedImage(m.center, (float)m.angleOffset, miasmaBmp, (m.radius / (double)miasmaBmp.Width) * 2.0 + 0.0001);
+            }
+
+            if(cloakingField != null)
+            {
+                screen.drawCircle(cloakingField.center, (int)cloakingField.radius, new SolidBrush(Color.FromArgb(100, 255, 255, 255)), null);
+                var cloakingFieldImg = database.getToolData(ToolType.CloakingField).image;
+                screen.drawImage(cloakingFieldImg, 0, cloakingField.center);
             }
         }
 
