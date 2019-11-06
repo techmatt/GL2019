@@ -13,8 +13,8 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=RlVTb3g-COY
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
-        public const bool useWebcam = true;
-        public const bool useGameEditor = false;
+        public const bool useWebcam = false;
+        public const bool useGameEditor = true;
         public const int webcamCaptureIndex = 1;
 
         public const int medPackRadius = 100;
