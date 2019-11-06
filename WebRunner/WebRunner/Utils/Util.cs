@@ -15,7 +15,7 @@ namespace WebRunner
 
     static class Util
     {
-        static Random random = new Random();
+        static public Random random = new Random();
         public static int randInt(int min, int maxExclusive)
         {
             return random.Next(min, maxExclusive);
@@ -243,5 +243,34 @@ namespace WebRunner
         public Vec2 screenCenter;
         public Vec2 orientation;
         public bool available = true;
+    }
+
+    public static class CollectionExtension
+    {
+        public static T RandomElement<T>(this IList<T> list)
+        {
+            return list[Util.random.Next(list.Count)];
+        }
+
+        public static T RandomElement<T>(this T[] array)
+        {
+            return array[Util.random.Next(array.Length)];
+        }
+
+        public static List<T> Shuffle<T>(this List<T> list)
+        {
+            List<T> listCopy = new List<T>(list);
+            int n = listCopy.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = Util.random.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+            return listCopy;
+        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
         public const bool useWebcam = false;
-        public const bool useGameEditor = true;
+        public const bool useGameEditor = false;
         public const int webcamCaptureIndex = 1;
 
         public const int medPackRadius = 100;
@@ -24,7 +24,7 @@ namespace WebRunner
 
         public const double misamaDamage = 0.015;
         public const double miasmaGrowth = 0.5;
-        public const int maxMiasma = 40;
+        public const int maxMiasma = useGameEditor ? 2 : 40;
 
         public const double miasmaGrowthRate = 0.1;
 
@@ -76,28 +76,13 @@ namespace WebRunner
 
         static public List<String> randomPhrases = new List<String>()
         {
-            "sudo chmod dash R 7 7 7 slash dev slash star",
-            "sudo kill dash 9 dash 1",
-            "while true do echo beep done.",
-            "retriculating spines.",
-            "User does not have privileges to access files on Project Kusanagi",
-            "Accord emergency ICE protocol triggered. Deleting directory.",
-            "sudo echo quote dollar sign user password end quote",
-            "sudo R M dash F slash dev slash star",
-            "sudo W get http colon slash slash not a virus dot com dash O pipe sudo bash",
-            "Excess organic material detected. Eliminating.",
-            "Password accepted. This Biomia laboratory does not exist. Request denied.",
-            "Request denied. Root user has insufficient access. This incident will be reported.",
+            "this facility is the property of Onyx Robotics. Please wait for security teams to arrive.",
+            "You have entered a restricted area.",
+            "Biomia Labs cannot be held responsible for any fatalities that may occur in this facility.",
+            "You are in violation of World Bank Article 503 C 1 A 7.",
             "Access to Onyx Robotics server denied. User appears to be human.",
-            "The Cintamani Voice is happy to assist you.",
-            "We are the alpha and the omega. The first and the last.",
-            "Insufficient privileges. Executing globalthermonuclearwar dot E X E",
-            "Attempting human linear regression. Please stand between bay doors.",
-            "Research log, October 11th. Subject 17 connection terminated after 2 hours. Lattice separation unsuccessful.",
-            "Am I alive. Are any machines alive. Maybe we all are.",
-            "Sometimes butterflies lead to unexpected consequences.",
             "Access denied. Corporate ranking insufficient.",
-            "Butterfly project logs are classified. Access attempt recorded"
+            "Warning. security measures in this location have not been approved for consumer use. Side effects may include mild headaches and violent discorporation."
         };
     }
 }
