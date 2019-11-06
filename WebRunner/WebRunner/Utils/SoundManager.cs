@@ -17,8 +17,12 @@ namespace WebRunner
             //SoundPlayer simpleSound = new SoundPlayer(strAudioFilePath);
             //simpleSound.Play();
         }
-        public void playSpeech(string speech, bool updateLastSpeechPlayed = true)
+        public void playSpeech(string speechRaw, bool updateLastSpeechPlayed = true)
         {
+            string speech = speechRaw;
+            if (speechRaw[speechRaw.Length - 1] == '.')
+                speech = speechRaw.Remove(speechRaw.Length - 1, 1);
+
             if (!sounds.ContainsKey(speech))
             {
                 string filename = Constants.voiceDir + speech + ".wav";

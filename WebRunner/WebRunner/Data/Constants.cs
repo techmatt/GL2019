@@ -82,7 +82,11 @@ namespace WebRunner
             "You are in violation of World Bank Article 503 C 1 A 7.",
             "Access to Onyx Robotics server denied. User appears to be human.",
             "Access denied. Corporate ranking insufficient.",
-            "Warning. security measures in this location have not been approved for consumer use. Side effects may include mild headaches and violent discorporation."
+            "Warning. security measures in this location have not been approved for consumer use. Side effects may include mild headaches and violent discorporation.",
+            "Intruders detected. Please wait while assassination squad is dispatched.",
+            "Miasma contamination detected at unsafe levels.  Please contact your nearest emergency response team.",
+            "Visiting hours are no longer in effect. All visitors have been automatically promoted to intruder status.",
+            "Congratulations! It has been ERROR: INTEGER UNDERFLOW seconds since the last fatal incident in this facility."
         };
     }
 }
