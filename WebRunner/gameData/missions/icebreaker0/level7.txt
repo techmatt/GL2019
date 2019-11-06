@@ -107,7 +107,7 @@ type=Wall centerX=660 centerY=100 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Wall centerX=660 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=660 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=660 centerY=260 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=StationaryMirror centerX=600 centerY=80 sweepAngleStart=45 sweepAngleSpan=5 sweepAngleSpeed=0.94 
+type=StationaryMirror centerX=600 centerY=80 sweepAngleStart=45 sweepAngleSpan=5 sweepAngleSpeed=0.1 
 type=StationaryMirror centerX=600 centerY=240 sweepAngleStart=315 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=Wall centerX=660 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=660 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -175,7 +175,6 @@ type=Wall centerX=820 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Wall centerX=780 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Objective centerX=1000 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Objective centerX=1080 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Objective centerX=1160 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Door centerX=920 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=900 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=940 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -189,3 +188,4 @@ type=Wall centerX=860 centerY=260 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Wall centerX=860 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=860 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=LaserTurret centerX=1200 centerY=200 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=Objective centerX=800 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

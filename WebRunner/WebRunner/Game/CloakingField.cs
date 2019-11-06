@@ -12,7 +12,7 @@ namespace WebRunner
         public CloakingField(Vec2 _center)
         {
             center = _center;
-            radius = 70.0;
+            radius = 85.0;
         }
         
         public Vec2 center;

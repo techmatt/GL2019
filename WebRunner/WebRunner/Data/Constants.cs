@@ -24,7 +24,7 @@ namespace WebRunner
 
         public const double misamaDamage = 0.015;
         public const double miasmaGrowth = 0.5;
-        public const int maxMiasma = 2;
+        public const int maxMiasma = 40;
 
         public const double miasmaGrowthRate = 0.1;
 
@@ -72,6 +72,7 @@ namespace WebRunner
         public const String imageOriginalDir = dataDir + "imagesOriginal/";
         public const String tilesetDir = imageOriginalDir + "tilesets/";
         public const String missionBaseDir = dataDir + "missions/";
+        public const String resultsDir = @"C:\Code\GL2019\gameResults\ICEBreaker\";
 
         static public List<String> randomPhrases = new List<String>()
         {

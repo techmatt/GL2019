@@ -67,7 +67,7 @@ namespace WebRunner
         private void buttonStartGame_Click(object sender, EventArgs e)
         {
             manager = new GameManager(pictureBoxMain, null);
-            manager.startMission(textBoxMissionName.Text, null);
+            manager.startMission(textBoxMissionName.Text, textBoxTeam.Text, null);
 
             //manager.startMission("defaultMission", "emptyLevel");
             //manager.vision.saveMarkerImages();
@@ -76,20 +76,14 @@ namespace WebRunner
 
         private void buttonComplete_Click(object sender, EventArgs e)
         {
+            manager.state.curLevel.completeLevel();
+        }
+
+        private void buttonAdvanceLevel_Click(object sender, EventArgs e)
+        {
             GameLevel level = manager.state.curLevel;
-            foreach(Structure s in level.structures)
-            {
-                if(s.type == StructureType.Objective)
-                {
-                    s.achieved = true;
-                }
-                if(s.type == StructureType.Camera || s.type == StructureType.LaserTurret)
-                {
-                    s.disableTimeLeft = 10000.0;
-                    s.curHealth = 0.0;
-                }
-            }
-            level.objectivesAchieved = level.objectivesTotal;
+            level.runnersCompleted[0] = true;
+            level.runnersCompleted[1] = true;
         }
     }
 }

@@ -146,7 +146,7 @@ namespace WebRunner
             {
                 editor = new EditorManager();
                 manager = new GameManager(pictureBoxMain, editor);
-                manager.startMission("defaultMission", "emptyLevel");
+                manager.startMission("defaultMission", "noTeamName", "emptyLevel");
                 levelUpdate();
             }
             manager.stepAndRender(pictureBoxMain.Width, pictureBoxMain.Height);
@@ -216,7 +216,7 @@ namespace WebRunner
                     textBoxLevelName.Text   = parts[parts.Length - 1].Replace(".txt", "");
                     if(File.Exists(filename))
                     {
-                        manager.startMission(textBoxMissionName.Text, textBoxLevelName.Text);
+                        manager.startMission(textBoxMissionName.Text, "NoTeamName", textBoxLevelName.Text);
                         levelUpdate();
                         radioButtonSelect.Checked = true;
                     }

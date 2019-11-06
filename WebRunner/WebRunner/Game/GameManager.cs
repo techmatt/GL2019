@@ -29,9 +29,9 @@ namespace WebRunner
         public JoystickManager joystick = new JoystickManager();
         public SoundManager sound = new SoundManager();
 
-        public void startMission(string missionName, string levelName)
+        public void startMission(string missionName, string teamName, string levelName)
         {
-            state = new GameState(this, missionName, levelName);
+            state = new GameState(this, missionName, teamName, levelName);
             if(editor != null)
                 editor.level = state.allLevels[0];
 

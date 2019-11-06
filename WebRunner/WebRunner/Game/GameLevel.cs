@@ -20,6 +20,7 @@ namespace WebRunner
         public int maxCompletionTime = 120;
         public int objectivesAchieved = 0;
         public int objectivesTotal = 0;
+        public int levelCasualties = 0;
         public CloakingField cloakingField = null;
 
         public List<Miasma> allMiasma = new List<Miasma>();
@@ -197,6 +198,23 @@ namespace WebRunner
             }
         }
 
+        public void completeLevel()
+        {
+            foreach (Structure s in structures)
+            {
+                if (s.type == StructureType.Objective)
+                {
+                    s.achieved = true;
+                }
+                if (s.type == StructureType.Camera || s.type == StructureType.LaserTurret)
+                {
+                    s.disableTimeLeft = 10000.0;
+                    s.curHealth = 0.0;
+                }
+            }
+            objectivesAchieved = objectivesTotal;
+        }
+
         public void updatePermanentStructures(GameManager manager)
         {
             var database = manager.database;
@@ -206,7 +224,7 @@ namespace WebRunner
             if(cloakingField != null)
             {
                 cloakingField.radius -= 0.5;
-                if(cloakingField.radius < 35.0)
+                if(cloakingField.radius < 40.0)
                 {
                     cloakingField = null;
                 }
@@ -310,6 +328,7 @@ namespace WebRunner
                                 sound.playSpeech("runner advancing to next sector");
                                 state.activeRunners[runnerIndex] = null;
                                 runnersCompleted[runnerIndex] = true;
+                                completeLevel();
                             }
                             else
                             {

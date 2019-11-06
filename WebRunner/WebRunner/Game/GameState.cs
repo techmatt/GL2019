@@ -46,7 +46,9 @@ namespace WebRunner
 
         public DateTime gameStartTime;
         public DateTime levelStartTime;
+        public int totalCasualties = 0;
         public List<double> levelCompletionTimes = new List<double>();
+        public List<int> levelCasualties = new List<int>();
 
         public List<Structure> curFrameTemporaryStructures;
         public List<Structure> nextFrameTemporaryStructures;
@@ -55,6 +57,8 @@ namespace WebRunner
         public DateTime lastMiasmaSpawn = DateTime.Now;
 
         public Vec2 cloakingFieldMarker = null;
+
+        public string missionName, teamName;
 
         //public List<Beam> activeBeams;
 
@@ -74,8 +78,10 @@ namespace WebRunner
             throw new Exception("invalid runner");
         }
 
-        public GameState(GameManager _manager, string missionName, string levelNameOverride)
+        public GameState(GameManager _manager, string _missionName, string _teamName, string levelNameOverride)
         {
+            missionName = _missionName;
+            teamName = _teamName;
             gameStartTime = DateTime.Now;
             manager = _manager;
             //database = manager.database;
@@ -115,9 +121,22 @@ namespace WebRunner
         public void advanceToNextLevel()
         {
             levelCompletionTimes.Add((DateTime.Now - levelStartTime).TotalSeconds);
+            levelCasualties.Add(curLevel.levelCasualties);
             levelStartTime = DateTime.Now;
             if (curLevelIndex + 1 == allLevels.Count)
             {
+                List<string> allLines = new List<string>();
+                allLines.Add("Mission " + missionName);
+                allLines.Add("Runner team " + teamName);
+                double totalGameTime = (DateTime.Now - gameStartTime).TotalSeconds;
+                allLines.Add("total: " + totalGameTime.ToString() + "s, " + totalCasualties.ToString() + " casualties");
+                for (int i = 0; i < levelCompletionTimes.Count; i++)
+                {
+                    allLines.Add("level " + i.ToString() + ": " + levelCompletionTimes[i].ToString() + "s, " + levelCasualties[i].ToString() + " casualties");
+                }
+
+                string runFilename = Constants.resultsDir + "icebreaker-" + string.Format("{0:MM-dd_hh-mm-ss}", DateTime.Now) + ".txt";
+                File.WriteAllLines(runFilename, allLines);
                 manager.sound.playSpeech("all sectors completed. runners return to headquarters immediately.");
                 return;
             }
@@ -129,6 +148,8 @@ namespace WebRunner
 
         public void killRunner(StructureType whichRunner, string deathSpeech)
         {
+            totalCasualties++;
+            curLevel.levelCasualties++;
             manager.sound.playSpeech(deathSpeech);
             if(whichRunner == StructureType.RunnerA)
                 activeRunners[0] = null;

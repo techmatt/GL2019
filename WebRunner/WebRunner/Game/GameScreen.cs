@@ -191,7 +191,7 @@ namespace WebRunner
                         hoverColor = Color.FromArgb(128, 240, 160, 160);
                     drawRectangle(editor.hoverPos, (int)entry.radius, hoverColor);
                 }
-                if(editor.activeTool == EditorTool.Select && editor.selectedStructureIndex != -1)
+                if(editor.activeTool == EditorTool.Select && editor.selectedStructureIndex != -1 && editor.selectedStructureIndex < editor.level.structures.Count)
                 {
                     Structure seletedStructure = editor.level.structures[editor.selectedStructureIndex];
                     Color selectedColor = Color.FromArgb(128, 150, 150, 250);
@@ -213,7 +213,10 @@ namespace WebRunner
             gViewport.DrawString("Sector " + (state.curLevelIndex + 1).ToString() + " of " + state.allLevels.Count.ToString(), Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 648));
 
             int objectivesRemaining = state.curLevel.objectivesTotal - state.curLevel.objectivesAchieved;
-            gViewport.DrawString(objectivesRemaining.ToString() + " objectives remaining", Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 680));
+            if(totalSecondsElapsed / 4 % 2 == 0)
+                gViewport.DrawString(objectivesRemaining.ToString() + " objectives remaining", Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 680));
+            else
+                gViewport.DrawString(state.totalCasualties + " casualties", Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 680));
 
             const int iconSpacing = 75;
             if (state.curLevel.toolsAcquired[ToolType.Dyson])

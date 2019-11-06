@@ -101,7 +101,7 @@
             // 
             this.radioButtonCamera.AutoSize = true;
             this.radioButtonCamera.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonCamera.Location = new System.Drawing.Point(12, 771);
+            this.radioButtonCamera.Location = new System.Drawing.Point(12, 769);
             this.radioButtonCamera.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonCamera.Name = "radioButtonCamera";
             this.radioButtonCamera.Size = new System.Drawing.Size(83, 24);
@@ -115,7 +115,7 @@
             // 
             this.radioButtonShielding.AutoSize = true;
             this.radioButtonShielding.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonShielding.Location = new System.Drawing.Point(12, 801);
+            this.radioButtonShielding.Location = new System.Drawing.Point(574, 995);
             this.radioButtonShielding.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonShielding.Name = "radioButtonShielding";
             this.radioButtonShielding.Size = new System.Drawing.Size(92, 24);
@@ -129,7 +129,7 @@
             // 
             this.radioButtonFirewall.AutoSize = true;
             this.radioButtonFirewall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonFirewall.Location = new System.Drawing.Point(12, 831);
+            this.radioButtonFirewall.Location = new System.Drawing.Point(574, 961);
             this.radioButtonFirewall.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonFirewall.Name = "radioButtonFirewall";
             this.radioButtonFirewall.Size = new System.Drawing.Size(80, 24);
@@ -541,7 +541,7 @@
             // radioButtonBulletTurret
             // 
             this.radioButtonBulletTurret.AutoSize = true;
-            this.radioButtonBulletTurret.Location = new System.Drawing.Point(12, 1025);
+            this.radioButtonBulletTurret.Location = new System.Drawing.Point(574, 929);
             this.radioButtonBulletTurret.Name = "radioButtonBulletTurret";
             this.radioButtonBulletTurret.Size = new System.Drawing.Size(113, 24);
             this.radioButtonBulletTurret.TabIndex = 16;
@@ -565,7 +565,7 @@
             // radioButtonCloakingFieldPickup
             // 
             this.radioButtonCloakingFieldPickup.AutoSize = true;
-            this.radioButtonCloakingFieldPickup.Location = new System.Drawing.Point(297, 895);
+            this.radioButtonCloakingFieldPickup.Location = new System.Drawing.Point(295, 876);
             this.radioButtonCloakingFieldPickup.Name = "radioButtonCloakingFieldPickup";
             this.radioButtonCloakingFieldPickup.Size = new System.Drawing.Size(126, 24);
             this.radioButtonCloakingFieldPickup.TabIndex = 17;
@@ -577,7 +577,7 @@
             // radioButtonMedpack
             // 
             this.radioButtonMedpack.AutoSize = true;
-            this.radioButtonMedpack.Location = new System.Drawing.Point(297, 928);
+            this.radioButtonMedpack.Location = new System.Drawing.Point(295, 909);
             this.radioButtonMedpack.Name = "radioButtonMedpack";
             this.radioButtonMedpack.Size = new System.Drawing.Size(92, 24);
             this.radioButtonMedpack.TabIndex = 17;
@@ -589,7 +589,7 @@
             // radioButtonDyson
             // 
             this.radioButtonDyson.AutoSize = true;
-            this.radioButtonDyson.Location = new System.Drawing.Point(297, 962);
+            this.radioButtonDyson.Location = new System.Drawing.Point(295, 943);
             this.radioButtonDyson.Name = "radioButtonDyson";
             this.radioButtonDyson.Size = new System.Drawing.Size(72, 24);
             this.radioButtonDyson.TabIndex = 17;
@@ -601,7 +601,7 @@
             // radioButtonBomb
             // 
             this.radioButtonBomb.AutoSize = true;
-            this.radioButtonBomb.Location = new System.Drawing.Point(297, 994);
+            this.radioButtonBomb.Location = new System.Drawing.Point(295, 975);
             this.radioButtonBomb.Name = "radioButtonBomb";
             this.radioButtonBomb.Size = new System.Drawing.Size(69, 24);
             this.radioButtonBomb.TabIndex = 17;
@@ -613,7 +613,7 @@
             // radioButtonMirrorPickup
             // 
             this.radioButtonMirrorPickup.AutoSize = true;
-            this.radioButtonMirrorPickup.Location = new System.Drawing.Point(297, 1024);
+            this.radioButtonMirrorPickup.Location = new System.Drawing.Point(295, 1005);
             this.radioButtonMirrorPickup.Name = "radioButtonMirrorPickup";
             this.radioButtonMirrorPickup.Size = new System.Drawing.Size(118, 24);
             this.radioButtonMirrorPickup.TabIndex = 17;
@@ -625,7 +625,7 @@
             // radioButtonKusanagi
             // 
             this.radioButtonKusanagi.AutoSize = true;
-            this.radioButtonKusanagi.Location = new System.Drawing.Point(297, 1054);
+            this.radioButtonKusanagi.Location = new System.Drawing.Point(295, 1035);
             this.radioButtonKusanagi.Name = "radioButtonKusanagi";
             this.radioButtonKusanagi.Size = new System.Drawing.Size(93, 24);
             this.radioButtonKusanagi.TabIndex = 17;
