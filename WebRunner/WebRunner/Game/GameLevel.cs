@@ -181,7 +181,7 @@ namespace WebRunner
                     manager.state.killRunner(runnerToKill.whichRunner, "emergency miasma evacuation");
                 }
             }
-            if(shouldSpawnMiasma && (DateTime.Now - manager.state.lastMiasmaSpawn).TotalSeconds >= 4.0)
+            if(shouldSpawnMiasma && (DateTime.Now - manager.state.lastMiasmaSpawn).TotalSeconds >= 4.0 && allMiasma.Count < Constants.maxMiasma)
             {
                 manager.state.lastMiasmaSpawn = DateTime.Now;
                 double border = 200.0;
@@ -266,7 +266,7 @@ namespace WebRunner
                             if (cloakingField != null)
                             {
                                 double distToField = Vec2.dist(hitStructure.center, cloakingField.center);
-                                if (distToField <= cloakingField.radius + Constants.runnerRadius)
+                                if (distToField <= cloakingField.radius + Constants.runnerRadius * 0.5)
                                 {
                                     killRunner = false;
                                 }
@@ -330,7 +330,7 @@ namespace WebRunner
                         {
                             if(!runner.hasShoes)
                             {
-                                sound.playSpeech("Biomia footware acquired");
+                                sound.playSpeech("Biomia stimpack injected");
                                 runner.hasShoes = true;
                             }
                         }
@@ -415,9 +415,12 @@ namespace WebRunner
                     continue;
                 }
                 screen.drawImage(database.images.getStructureImage(structure.type, tilesetName), structure.curImgInstanceHash, structure.center - viewportOrigin);
-                if (structure.type == StructureType.Objective && structure.achieved)
+                if (structure.type == StructureType.Objective)
                 {
-                    screen.drawImage(database.images.acquired, 0, structure.center);
+                    if(structure.achieved)
+                        screen.drawImage(database.images.acquired, 0, structure.center);
+                    else
+                        screen.drawImage(database.images.unacquired, 0, structure.center);
                 }
             }
 
