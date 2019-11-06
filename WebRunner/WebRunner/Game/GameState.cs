@@ -120,6 +120,8 @@ namespace WebRunner
 
         public void advanceToNextLevel()
         {
+            activeRunners[0] = null;
+            activeRunners[1] = null;
             levelCompletionTimes.Add((DateTime.Now - levelStartTime).TotalSeconds);
             levelCasualties.Add(curLevel.levelCasualties);
             levelStartTime = DateTime.Now;
@@ -136,8 +138,11 @@ namespace WebRunner
                 }
 
                 string runFilename = Constants.resultsDir + "icebreaker-" + string.Format("{0:MM-dd_hh-mm-ss}", DateTime.Now) + ".txt";
+                Directory.CreateDirectory(Constants.resultsDir);
                 File.WriteAllLines(runFilename, allLines);
                 manager.sound.playSpeech("all sectors completed. runners return to headquarters immediately.");
+                curLevel.runnersCompleted[0] = false;
+                curLevel.runnersCompleted[1] = false;
                 return;
             }
 

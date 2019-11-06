@@ -33,17 +33,26 @@ namespace WebRunner
 
         private void buttonFullScreen_Click(object sender, EventArgs e)
         {
+            var screen = Screen.AllScreens[0];
             this.FormBorderStyle = FormBorderStyle.None;
             this.Top = 0;
             this.Left = 0;
-            this.Width = Constants.renderWidthFull;
-            this.Height = Constants.renderHeightFull;
+            this.Width = screen.Bounds.Width;
+            this.Height = screen.Bounds.Height;
             pictureBoxMain.Top = 0;
             pictureBoxMain.Left = 0;
-            pictureBoxMain.Width = Constants.renderWidthFull;
-            pictureBoxMain.Height = Constants.renderHeightFull;
+            pictureBoxMain.Width = screen.Bounds.Width;
+            pictureBoxMain.Height = screen.Bounds.Height;
             buttonStartGame.Visible = false;
             buttonFullScreen.Visible = false;
+            buttonAdvanceLevel.Visible = false;
+            buttonComplete.Visible = false;
+            buttonBrowse.Visible = false;
+            
+            label1.Visible = false;
+            label2.Visible = false;
+            textBoxMissionName.Visible = false;
+            textBoxTeam.Visible = false;
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e)
