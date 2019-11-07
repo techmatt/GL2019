@@ -16,6 +16,7 @@ namespace Pulse
         ColorGrid,
         TextureGroup0,
         TextureGroup1,
+        TextureGroup2,
         //FixedColorShapeOnRandomBkg, // make background color rotate randomly, so they have to memorize the shapes
         //RandomColorShapeOnRandomBkg, // make background color rotate randomly, so they have to memorize the shapes
     }
@@ -75,6 +76,7 @@ namespace Pulse
         {
             if (t == TextureType.TextureGroup0) return 0;
             if (t == TextureType.TextureGroup1) return 1;
+            if (t == TextureType.TextureGroup2) return 2;
             return -1;
         }
 
