@@ -39,7 +39,7 @@ namespace WebRunner
 
         private void radioButtonFirewall_CheckedChanged(object sender, EventArgs e)
         {
-            setEditorStructure(StructureType.Firewall);
+            //setEditorStructure(StructureType.Firewall);
         }
 
         private void radioButtonWall_CheckedChanged(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace WebRunner
 
         private void radioButtonShielding_CheckedChanged(object sender, EventArgs e)
         {
-            setEditorStructure(StructureType.Shielding);
+            setEditorStructure(StructureType.GlassWall);
         }
 
         private void radioButtonSpawnA_CheckedChanged(object sender, EventArgs e)
@@ -94,7 +94,7 @@ namespace WebRunner
 
         private void radioButtonBulletTurret_CheckedChanged(object sender, EventArgs e)
         {
-            setEditorStructure(StructureType.BulletTurret);
+            //setEditorStructure(StructureType.BulletTurret);
         }
 
         private void radioButtonDistractionPickup_CheckedChanged(object sender, EventArgs e)

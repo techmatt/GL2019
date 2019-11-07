@@ -115,13 +115,13 @@
             // 
             this.radioButtonShielding.AutoSize = true;
             this.radioButtonShielding.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonShielding.Location = new System.Drawing.Point(574, 995);
+            this.radioButtonShielding.Location = new System.Drawing.Point(13, 1035);
             this.radioButtonShielding.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioButtonShielding.Name = "radioButtonShielding";
-            this.radioButtonShielding.Size = new System.Drawing.Size(92, 24);
+            this.radioButtonShielding.Size = new System.Drawing.Size(102, 24);
             this.radioButtonShielding.TabIndex = 1;
             this.radioButtonShielding.TabStop = true;
-            this.radioButtonShielding.Text = "Shielding";
+            this.radioButtonShielding.Text = "Glass Wall";
             this.radioButtonShielding.UseVisualStyleBackColor = true;
             this.radioButtonShielding.CheckedChanged += new System.EventHandler(this.radioButtonShielding_CheckedChanged);
             // 

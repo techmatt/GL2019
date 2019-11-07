@@ -28,6 +28,7 @@ namespace WebRunner
             sweepAngleStart = Convert.ToDouble(dict["sweepAngleStart"]);
             sweepAngleSpan = Convert.ToDouble(dict["sweepAngleSpan"]);
             sweepAngleSpeed = Convert.ToDouble(dict["sweepAngleSpeed"]);
+            curSweepAngle = sweepAngleStart;
         }
 
         public Vec2 curSweepDirection()
