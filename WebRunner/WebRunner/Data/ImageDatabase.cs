@@ -74,7 +74,7 @@ namespace WebRunner
             structures[StructureType.StationaryMirror] = new ImageEntry("stationaryMirror", new Vec2(72, 16), 255);
             structures[StructureType.RunnerMirror] = new ImageEntry("empty", new Vec2(4, 4), 255);
             //structures[StructureType.Wall] = new ImageEntry("wall", new Vec2(40, 40), 255);
-            //structures[StructureType.Shielding] = new ImageEntry("shielding", new Vec2(40, 40), 255);
+            structures[StructureType.GlassWall] = new ImageEntry("glassWall", new Vec2(40, 40), 255);
             //structures[StructureType.Firewall] = new ImageEntry("firewall", new Vec2(40, 40), 255);
             structures[StructureType.Door] = new ImageEntry("door", new Vec2(64, 64), 255);
             structures[StructureType.SpawnPointA] = new ImageEntry("spawnpointA", new Vec2(70, 70), 255);

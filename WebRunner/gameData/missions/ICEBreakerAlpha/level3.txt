@@ -1,5 +1,5 @@
 tilesetName=metal guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-156
+157
 type=Wall centerX=340 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=380 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=420 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -156,3 +156,4 @@ type=Door centerX=880 centerY=480 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Camera centerX=760 centerY=560 sweepAngleStart=270 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=1000 centerY=440 sweepAngleStart=0 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=Camera centerX=880 centerY=200 sweepAngleStart=229 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=DysonPickup centerX=400 centerY=480 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

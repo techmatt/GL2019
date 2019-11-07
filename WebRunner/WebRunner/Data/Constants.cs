@@ -13,8 +13,8 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=RlVTb3g-COY
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
-        public const bool useWebcam = false;
-        public const bool useGameEditor = false;
+        public const bool useWebcam = true;
+        public const bool useGameEditor = true;
         public const int webcamCaptureIndex = 1;
 
         public const int medPackRadius = 100;
@@ -79,14 +79,14 @@ namespace WebRunner
             "this facility is the property of Onyx Robotics. Please wait for security teams to arrive.",
             "You have entered a restricted area.",
             "Biomia Labs cannot be held responsible for any fatalities that may occur in this facility.",
-            "You are in violation of World Bank Article 503 C 1 A 7.",
+            "You are in violation of World Bank Article 503 C 1 A 7 subsection B.",
             "Access to Onyx Robotics server denied. User appears to be human.",
             "Access denied. Corporate ranking insufficient.",
             "Warning. security measures in this location have not been approved for consumer use. Side effects may include mild headaches and violent discorporation.",
             "Intruders detected. Please wait while assassination squad is dispatched.",
             "Miasma contamination detected at unsafe levels.  Please contact your nearest emergency response team.",
             "Visiting hours are no longer in effect. All visitors have been automatically promoted to intruder status.",
-            "Congratulations! It has been ERROR: INTEGER UNDERFLOW seconds since the last fatal incident in this facility."
+            "Congratulations! It has been ERROR INTEGER UNDERFLOW seconds since the last fatal incident in this facility."
         };
     }
 }

@@ -17,7 +17,7 @@ namespace WebRunner
     {
         // permanent structures
         Camera,
-        Shielding,
+        GlassWall,
         Firewall,
         Wall,
         SpawnPointA,
@@ -147,7 +147,7 @@ namespace WebRunner
             registerStructure(StructureType.LaserTurret, "laserTurret", 36.0, ShapeType.Circle, dh, new Vec2(2, 2));
             registerStructure(StructureType.StationaryMirror, "stationaryMirror", 36.0, ShapeType.Mirror, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.Wall, "wall", 20.0, ShapeType.Square, 0.0, new Vec2(1, 1));
-            //registerStructure(StructureType.Shielding, "shielding", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
+            registerStructure(StructureType.GlassWall, "glassWall", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
             //registerStructure(StructureType.Firewall, "firewall", 20.0, ShapeType.Square, dh, new Vec2(1, 1));
             registerStructure(StructureType.SpawnPointA, "spawnpointA", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
             registerStructure(StructureType.SpawnPointB, "spawnpointB", 36.0, ShapeType.Circle, 0.0, new Vec2(2, 2));
@@ -210,10 +210,10 @@ namespace WebRunner
 
         public HashSet<StructureType> runnerBlockingStructures = new HashSet<StructureType>() {
             StructureType.Wall, StructureType.Firewall, StructureType.Camera,
-            StructureType.Shielding };
+            StructureType.GlassWall };
 
         public HashSet<StructureType> cameraBlockingStructures = new HashSet<StructureType>() {
-            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB, StructureType.DistractionInstance,
+            StructureType.Wall, StructureType.RunnerA, StructureType.RunnerB,
             StructureType.StationaryMirror};
 
         public HashSet<StructureType> laserTurretBlockingStructures = new HashSet<StructureType>() {

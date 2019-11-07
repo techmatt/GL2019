@@ -259,12 +259,12 @@ namespace WebRunner
                     }
                     if (structure.curSweepAngle >= structure.sweepAngleEnd())
                     {
-                        structure.curSweepAngle = structure.sweepAngleEnd() - 0.001;
+                        structure.curSweepAngle = structure.sweepAngleEnd() - 1e-6;
                         structure.curSweepAngleSign = -1;
                     }
                     if (structure.curSweepAngle <= structure.sweepAngleStart)
                     {
-                        structure.curSweepAngle = structure.sweepAngleStart + 0.001;
+                        structure.curSweepAngle = structure.sweepAngleStart + 1e-6;
                         structure.curSweepAngleSign = 1;
                     }
                 }
