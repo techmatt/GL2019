@@ -36,10 +36,10 @@ namespace Pulse
             colors = colors.GetRange(0, colorCount);
 
             TextureType[] textureTypeByDifficulty = { TextureType.ColorGrid, TextureType.ColorGrid,
-                                                      TextureType.TextureGroup0, TextureType.TextureGroup1,
-                                                      TextureType.ColorGrid, TextureType.TextureGroup0,
-                                                      TextureType.TextureGroup1, TextureType.ColorGrid,
-                                                      TextureType.TextureGroup0, TextureType.TextureGroup1,
+                                                      TextureType.TextureGroup1, TextureType.TextureGroup2,
+                                                      TextureType.TextureGroup0, TextureType.ColorGrid, TextureType.TextureGroup1,
+                                                      TextureType.TextureGroup2, TextureType.ColorGrid,
+                                                      TextureType.TextureGroup1, TextureType.ColorGrid ,
                                                       TextureType.ColorGrid, TextureType.ColorGrid };
             textureType = textureTypeByDifficulty[difficulty];
             //validTextureTypes = new List<TextureType>() { TextureType.ColorGrid };

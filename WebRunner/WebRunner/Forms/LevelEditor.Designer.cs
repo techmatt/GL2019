@@ -82,6 +82,7 @@
             this.radioButtonBomb = new System.Windows.Forms.RadioButton();
             this.radioButtonMirrorPickup = new System.Windows.Forms.RadioButton();
             this.radioButtonKusanagi = new System.Windows.Forms.RadioButton();
+            this.buttonReload = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -634,11 +635,22 @@
             this.radioButtonKusanagi.UseVisualStyleBackColor = true;
             this.radioButtonKusanagi.CheckedChanged += new System.EventHandler(this.radioButtonKusanagi_CheckedChanged);
             // 
+            // buttonReload
+            // 
+            this.buttonReload.Location = new System.Drawing.Point(1209, 790);
+            this.buttonReload.Name = "buttonReload";
+            this.buttonReload.Size = new System.Drawing.Size(90, 30);
+            this.buttonReload.TabIndex = 18;
+            this.buttonReload.Text = "Reload";
+            this.buttonReload.UseVisualStyleBackColor = true;
+            this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 1116);
+            this.Controls.Add(this.buttonReload);
             this.Controls.Add(this.radioButtonKusanagi);
             this.Controls.Add(this.radioButtonMirrorPickup);
             this.Controls.Add(this.radioButtonBomb);
@@ -757,5 +769,6 @@
         private System.Windows.Forms.RadioButton radioButtonBomb;
         private System.Windows.Forms.RadioButton radioButtonMirrorPickup;
         private System.Windows.Forms.RadioButton radioButtonKusanagi;
+        private System.Windows.Forms.Button buttonReload;
     }
 }

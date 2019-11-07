@@ -288,5 +288,12 @@ namespace WebRunner
             labelGuardSpawnRate.Text = (scrollGuardSpawnRate.Value / 100.0 * 20.0 + 2.0).ToString();
             scrollUpdate();
         }
+
+        private void buttonReload_Click(object sender, EventArgs e)
+        {
+            manager.startMission(textBoxMissionName.Text, "NoTeamName", textBoxLevelName.Text);
+            levelUpdate();
+            radioButtonSelect.Checked = true;
+        }
     }
 }

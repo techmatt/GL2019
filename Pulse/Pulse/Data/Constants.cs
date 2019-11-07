@@ -9,7 +9,7 @@ namespace Pulse
 {
     class Constants
     {
-        public const bool useSerialPort = true;
+        public const bool useSerialPort = false;
 
         public const int totalGlyphCount = 15;
         //public const int totalGlyphCount = 4;
