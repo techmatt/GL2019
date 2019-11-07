@@ -1,4 +1,4 @@
-tilesetName=purplecircuit guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
+tilesetName=hydroponics guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
 213
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -101,12 +101,21 @@ type=Wall centerX=1140 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAn
 type=Wall centerX=1140 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=1100 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=MedpackPickup centerX=640 centerY=480 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=1060 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=1020 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=980 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=940 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=900 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=860 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=820 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=820 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=820 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=700 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=700 centerY=540 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=700 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=700 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=820 centerY=380 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=820 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=780 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=740 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=700 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -120,6 +129,8 @@ type=GlassWall centerX=580 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 swe
 type=GlassWall centerX=540 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=500 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=460 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=420 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=380 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=340 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=300 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=260 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -156,9 +167,14 @@ type=GlassWall centerX=220 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 swe
 type=GlassWall centerX=260 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=300 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=340 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=380 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=420 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=460 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=500 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=540 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=580 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=580 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=580 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=620 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=660 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=700 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -172,6 +188,8 @@ type=GlassWall centerX=820 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 swe
 type=Objective centerX=760 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=820 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=820 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=860 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=900 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=940 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=980 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=1020 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -195,21 +213,3 @@ type=GlassWall centerX=1100 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sw
 type=Objective centerX=560 centerY=80 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=DysonPickup centerX=1040 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=CloakingFieldPickup centerX=1120 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=860 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=900 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=1060 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=1020 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=580 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=580 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=580 centerY=220 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=700 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=700 centerY=540 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=700 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=700 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=380 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=420 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=380 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=420 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=820 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=820 centerY=380 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Wall centerX=820 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
