@@ -228,7 +228,7 @@ namespace WebRunner
         {
             labelGuardSpawnRate.Text = editor.level.guardSpawnRate.ToString();
             labelIceSpawnRate.Text = editor.level.ICESpawnRate.ToString();
-            labelMaxTime.Text = editor.level.maxCompletionTime.ToString();
+            labelMaxTime.Text = editor.level.storedMaxCompletionTime.ToString();
         }
 
         private void selectionUpdate()
@@ -244,7 +244,7 @@ namespace WebRunner
         {
             editor.level.guardSpawnRate = Convert.ToDouble(labelGuardSpawnRate.Text);
             editor.level.ICESpawnRate = Convert.ToDouble(labelIceSpawnRate.Text);
-            editor.level.maxCompletionTime = Convert.ToInt32(labelMaxTime.Text);
+            editor.level.storedMaxCompletionTime = Convert.ToInt32(labelMaxTime.Text);
 
             Structure selection = editor.getSelectedStructure();
             if (selection == null) return;

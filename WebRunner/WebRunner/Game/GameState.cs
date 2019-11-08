@@ -43,6 +43,7 @@ namespace WebRunner
         public GameLevel curLevel;
         public int curLevelIndex;
         public int frameCount = 0;
+        public double maxSecondsAllowed = 0;
         public Rect2 viewport;
 
         public DateTime gameStartTime;
@@ -114,6 +115,7 @@ namespace WebRunner
             curLevelIndex = 0;
             curLevel = allLevels[0];
             levelStartTime = DateTime.Now;
+            maxSecondsAllowed = allLevels.Count * Constants.defaultSecondsPerLevel;
 
             viewport = Rect2.fromOriginSize(new Vec2(), Constants.viewportSize);
             nextFrameTemporaryStructures = new List<Structure>();
@@ -138,7 +140,7 @@ namespace WebRunner
                     allLines.Add("level " + i.ToString() + ": " + levelCompletionTimes[i].ToString() + "s, " + levelCasualties[i].ToString() + " casualties");
                 }
 
-                string runFilename = Constants.resultsDir + "icebreaker-" + string.Format("{0:MM-dd_hh-mm-ss}", DateTime.Now) + ".txt";
+                string runFilename = Constants.resultsDir + teamName[0] + "-" + missionName + "-" + string.Format("{0:MM-dd_hh-mm-ss}", DateTime.Now) + ".txt";
                 Directory.CreateDirectory(Constants.resultsDir);
                 File.WriteAllLines(runFilename, allLines);
                 manager.sound.playSpeech("all sectors completed. runners return to headquarters immediately.");

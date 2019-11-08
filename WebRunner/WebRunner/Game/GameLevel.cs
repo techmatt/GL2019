@@ -17,7 +17,8 @@ namespace WebRunner
         public string tilesetName;
         public double guardSpawnRate = 1000.0;
         public double ICESpawnRate = 1000.0;
-        public int maxCompletionTime = 120;
+        public int defaultMaxCompletionTime = 120;
+        public int storedMaxCompletionTime = 0;
         public int objectivesAchieved = 0;
         public int objectivesTotal = 0;
         public int levelCasualties = 0;
@@ -35,7 +36,7 @@ namespace WebRunner
             result["tilesetName"] = tilesetName;
             result["guardSpawnRate"] = guardSpawnRate.ToString();
             result["ICESpawnRate"] = ICESpawnRate.ToString();
-            result["maxCompletionTime"] = maxCompletionTime.ToString();
+            result["maxCompletionTime"] = storedMaxCompletionTime.ToString();
             return result;
         }
 
@@ -44,7 +45,7 @@ namespace WebRunner
             tilesetName = dict["tilesetName"];
             guardSpawnRate = Convert.ToDouble(dict["guardSpawnRate"]);
             ICESpawnRate = Convert.ToDouble(dict["ICESpawnRate"]);
-            maxCompletionTime = Convert.ToInt32(dict["maxCompletionTime"]);
+            storedMaxCompletionTime = Convert.ToInt32(dict["maxCompletionTime"]);
         }
 
         public GameLevel(string filename, GameDatabase database)
@@ -412,6 +413,15 @@ namespace WebRunner
                 double scaleFactor = Math.Min(1.0, structure.disableTimeLeft / Constants.structureDisableTime) + 0.01;
                 double theta = state.frameCount * 0.1;
                 screen.drawRotatedImage(structure.center, new Vec2(Math.Cos(theta), Math.Sin(theta)), database.images.disabledStructure.bmp[0], scaleFactor);
+            }
+            if (structure.disableTimeLeft > 500.0)
+            {
+                //double disableRadius = structure.disableTimeLeft / Constants.structureDisableTime * structure.entry.radius;
+                double scaleFactor = Math.Min(1.0, structure.disableTimeLeft / Constants.structureDisableTime) + 0.01;
+                double thetaA = state.frameCount * 0.25;
+                double thetaB = state.frameCount * 0.4;
+                screen.drawRotatedImage(structure.center, new Vec2(Math.Cos(thetaA), Math.Sin(thetaA)), database.images.kusanagiStructureA.bmp[0], scaleFactor * 0.75);
+                screen.drawRotatedImage(structure.center, new Vec2(Math.Cos(thetaB), Math.Sin(thetaB)), database.images.kusanagiStructureB.bmp[0], scaleFactor * 0.5);
             }
         }
 

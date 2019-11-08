@@ -13,21 +13,23 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=RlVTb3g-COY
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
-        public const bool useWebcam = false;
-        public const bool useGameEditor = true;
+        public const bool useWebcam = true;
+        public const bool useGameEditor = false;
         public const int webcamCaptureIndex = 1;
 
         public const int maxDeadReckoningFrames = 5;
+        public const double defaultSecondsPerLevel = 150.0;
+        //public const double defaultSecondsPerLevel = 10.0;
 
         public const int medPackRadius = 100;
-        public const int kusanagiRadius = 150;
+        public const int kusanagiRadius = 200;
         public const int dysonRadius = 100;
         public const double dysonDamageRate = miasmaGrowthRate * 7.0;
 
         public const double misamaDamage = 0.015;
         public const double miasmaGrowth = 0.5;
-        //public const int maxMiasma = useGameEditor ? 2 : 40;
-        public const int maxMiasma = 1;
+        public const int maxMiasma = useGameEditor ? 2 : 40;
+        //public const int maxMiasma = 1;
 
         public const double miasmaGrowthRate = 0.1;
 

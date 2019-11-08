@@ -173,6 +173,8 @@ namespace WebRunner
 
         public ImageEntry mirrorOrientation = new ImageEntry("mirrorOrientation", new Vec2(Constants.runnerMirrorRadius * 2, 20), 128);
         public ImageEntry disabledStructure = new ImageEntry("ChargeTextureOrange", new Vec2(90, 90), 180);
+        public ImageEntry kusanagiStructureA = new ImageEntry("KusanagiBlastA", new Vec2(90, 90), 180);
+        public ImageEntry kusanagiStructureB = new ImageEntry("KusanagiBlastB", new Vec2(90, 90), 180);
         public ImageEntry acquired = new ImageEntry("acquired", new Vec2(80, 80), 200);
         public ImageEntry unacquired = new ImageEntry("redarrow", new Vec2(80, 80), 200);
         //public ImageEntry runners = new ImageEntry("runner", 2, new Vec2(55, 55), 255);

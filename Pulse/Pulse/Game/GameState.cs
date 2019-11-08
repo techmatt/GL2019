@@ -307,7 +307,7 @@ namespace Pulse
             teamName = _teamName;
             levelIndex = 0;
             level = new GameLevel(levelIndex);
-            remainingTime = 60.0 * 10.0;
+            remainingTime = Constants.gameTimeInMinutes * 60.0;
             //decoderStale = true;
         }
         public void nextLevel()

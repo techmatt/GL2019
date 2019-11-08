@@ -210,12 +210,17 @@ namespace WebRunner
             string totalMinutesText = (totalSecondsElapsed / 60).ToString().PadLeft(2, '0');
             string totalSecondsText = (totalSecondsElapsed % 60).ToString().PadLeft(2, '0');
 
-            int levelSecondsElapsed = (int)((DateTime.Now - state.levelStartTime).TotalSeconds);
-            int levelSecondsRemaining = state.curLevel.maxCompletionTime - levelSecondsElapsed;
-            string levelMinutesText = (levelSecondsRemaining / 60).ToString().PadLeft(2, '0');
-            string levelSecondsText = (levelSecondsRemaining % 60).ToString().PadLeft(2, '0');
+            //int levelSecondsElapsed = (int)((DateTime.Now - state.levelStartTime).TotalSeconds);
+            //int levelSecondsRemaining = maxSecondsAllowed - levelSecondsElapsed;
+            //string levelMinutesText = (levelSecondsRemaining / 60).ToString().PadLeft(2, '0');
+            //string levelSecondsText = (levelSecondsRemaining % 60).ToString().PadLeft(2, '0');
+
+            int totalSecondsRemaining = (int)state.maxSecondsAllowed - totalSecondsElapsed;
+            string remainingMinutesText = (totalSecondsRemaining / 60).ToString().PadLeft(2, '0');
+            string reaminingSecondsText = (totalSecondsRemaining % 60).ToString().PadLeft(2, '0');
+
             gViewport.DrawString("Run time: " + totalMinutesText + ":" + totalSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(111, 648));
-            gViewport.DrawString("Time remaining: " + levelMinutesText + ":" + levelSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(15, 680));
+            gViewport.DrawString("Time remaining: " + remainingMinutesText + ":" + reaminingSecondsText, Constants.consoleFont, Constants.consoleFontBrush, new Point(15, 680));
 
             gViewport.DrawString("Sector " + (state.curLevelIndex + 1).ToString() + " of " + state.allLevels.Count.ToString(), Constants.consoleFont, Constants.consoleFontBrush, new Point(890, 648));
 

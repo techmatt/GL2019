@@ -11,6 +11,8 @@ namespace Pulse
     {
         public const bool useSerialPort = false;
 
+        public const double gameTimeInMinutes = 12.0;
+
         public const int totalGlyphCount = 15;
         //public const int totalGlyphCount = 4;
 

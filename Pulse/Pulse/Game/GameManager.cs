@@ -122,6 +122,8 @@ namespace Pulse
             if (timeInRange(60.0 * 7.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("seven minutes remaining");
             if (timeInRange(60.0 * 8.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("eight minutes remaining");
             if (timeInRange(60.0 * 9.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("nine minutes remaining");
+            if (timeInRange(60.0 * 10.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("ten minutes remaining");
+            if (timeInRange(60.0 * 11.0, state.remainingTime, prevRemainingTime)) sound.playSpeech("eleven minutes remaining");
 
             state.step(secondsPerFrame, pulseSpeedModifier);
 

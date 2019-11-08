@@ -1,4 +1,4 @@
-tilesetName=metal guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
+tilesetName=purplecircuit guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
 195
 type=Wall centerX=340 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=380 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
