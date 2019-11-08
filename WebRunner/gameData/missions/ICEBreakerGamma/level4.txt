@@ -1,5 +1,5 @@
 tilesetName=hydroponics guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-334
+333
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -93,14 +93,10 @@ type=Wall centerX=20 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngl
 type=Wall centerX=20 centerY=540 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=20 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=LaserTurret centerX=240 centerY=160 sweepAngleStart=35 sweepAngleSpan=150 sweepAngleSpeed=0.1 
-type=LaserTurret centerX=320 centerY=480 sweepAngleStart=302 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=440 centerY=80 sweepAngleStart=81 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=640 centerY=240 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=0.1 
-type=LaserTurret centerX=600 centerY=520 sweepAngleStart=290 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=640 centerY=80 sweepAngleStart=42 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=960 centerY=160 sweepAngleStart=141 sweepAngleSpan=150 sweepAngleSpeed=0.1 
-type=LaserTurret centerX=920 centerY=520 sweepAngleStart=263 sweepAngleSpan=150 sweepAngleSpeed=0.1 
-type=LaserTurret centerX=1120 centerY=400 sweepAngleStart=186 sweepAngleSpan=35 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=1160 centerY=120 sweepAngleStart=149 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=LaserTurret centerX=800 centerY=120 sweepAngleStart=99 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=GlassWall centerX=180 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -211,7 +207,6 @@ type=GlassWall centerX=660 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 swe
 type=GlassWall centerX=620 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=580 centerY=580 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=LaserTurret centerX=1040 centerY=80 sweepAngleStart=95 sweepAngleSpan=150 sweepAngleSpeed=0.1 
-type=LaserTurret centerX=1080 centerY=560 sweepAngleStart=244 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=GlassWall centerX=700 centerY=380 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=700 centerY=340 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=700 centerY=300 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -334,3 +329,7 @@ type=GlassWall centerX=1220 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sw
 type=GlassWall centerX=1220 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=1180 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=1140 centerY=180 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=820 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=820 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=GlassWall centerX=820 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=MedpackPickup centerX=80 centerY=320 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
