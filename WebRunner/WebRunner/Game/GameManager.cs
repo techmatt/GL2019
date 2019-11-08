@@ -147,7 +147,17 @@ namespace WebRunner
                 }
             }
 
-            if(runner.hasLaser && (joystick.buttonStates[GamepadButton.LB] || joystick.buttonStates[GamepadButton.RB]))
+            if (joystick.buttonStates[GamepadButton.A] &&
+                joystick.buttonStates[GamepadButton.B] &&
+                joystick.buttonStates[GamepadButton.X] &&
+                joystick.buttonStates[GamepadButton.Y] &&
+                joystick.buttonStates[GamepadButton.LB] &&
+                joystick.buttonStates[GamepadButton.RB])
+            {
+                state.curLevel.completeLevel();
+            }
+
+                if (runner.hasLaser && (joystick.buttonStates[GamepadButton.LB] || joystick.buttonStates[GamepadButton.RB]))
             {
                 var structureLists = new List<List<Structure>> { state.curLevel.structures, state.curFrameTemporaryStructures };
                 runner.laserPath = Util.traceLaser(structureLists, runner.laserOrigin(), runner.laserDir, database.runnerLaserBlockingStructures, -1, -1);
@@ -280,7 +290,8 @@ namespace WebRunner
 
         public void stepAndRender(int renderWidth, int renderHeight)
         {
-            Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, database, state.viewport.pMin);
+            Bitmap webcamBitmap = vision.processWebcamImage(out state.markers, state.prevMarkers, database, state.viewport.pMin);
+            state.prevMarkers = state.markers;
             //image.Save("test.png");
             step();
             screen.render(webcamBitmap, state, editor, renderWidth, renderHeight);

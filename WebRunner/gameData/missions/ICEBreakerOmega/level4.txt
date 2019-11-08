@@ -1,5 +1,5 @@
 tilesetName=purplecircuit guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-182
+184
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -182,3 +182,5 @@ type=GlassWall centerX=1140 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sw
 type=LaserTurret centerX=1080 centerY=240 sweepAngleStart=103 sweepAngleSpan=150 sweepAngleSpeed=0.1 
 type=MirrorPickup centerX=160 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=LaserTurret centerX=1080 centerY=440 sweepAngleStart=256 sweepAngleSpan=150 sweepAngleSpeed=0.1 
+type=Objective centerX=1200 centerY=440 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=KusanagiPickup centerX=1200 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

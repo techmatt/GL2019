@@ -94,5 +94,20 @@ namespace WebRunner
             level.runnersCompleted[0] = true;
             level.runnersCompleted[1] = true;
         }
+
+        private void GameWindow_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.N)
+            {
+                GameLevel level = manager.state.curLevel;
+                level.runnersCompleted[0] = true;
+                level.runnersCompleted[1] = true;
+            }
+        }
+
+        private void GameWindow_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -13,9 +13,11 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=RlVTb3g-COY
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
-        public const bool useWebcam = true;
+        public const bool useWebcam = false;
         public const bool useGameEditor = true;
         public const int webcamCaptureIndex = 1;
+
+        public const int maxDeadReckoningFrames = 5;
 
         public const int medPackRadius = 100;
         public const int kusanagiRadius = 150;
@@ -24,7 +26,8 @@ namespace WebRunner
 
         public const double misamaDamage = 0.015;
         public const double miasmaGrowth = 0.5;
-        public const int maxMiasma = useGameEditor ? 2 : 40;
+        //public const int maxMiasma = useGameEditor ? 2 : 40;
+        public const int maxMiasma = 1;
 
         public const double miasmaGrowthRate = 0.1;
 
@@ -53,7 +56,6 @@ namespace WebRunner
         static public Vec2 viewportSize = new Vec2(1280, 720);
         public const double shoeSpeedMultiplier = 1.3;
         
-
         public const int backgroundAlpha = 200;
 
         public const int gridSize = 40;

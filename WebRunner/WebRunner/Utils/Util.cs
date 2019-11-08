@@ -231,13 +231,16 @@ namespace WebRunner
 
     class Marker
     {
-        public Marker(ToolEntry _entry, Vec2 worldOrigin, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
+        public Marker(int _id, ToolEntry _entry, Vec2 worldOrigin, Vec2 corner0, Vec2 corner1, Vec2 corner2, Vec2 corner3)
         {
+            id = _id;
             entry = _entry;
             screenCenter = (corner0 + corner1 + corner2 + corner3) * 0.25;
             worldCenter = worldOrigin + screenCenter;
             orientation = (corner1 - corner0).getNormalized();
         }
+        public int id;
+        public int deadReckoningLifetime = 0;
         public ToolEntry entry;
         public Vec2 worldCenter;
         public Vec2 screenCenter;

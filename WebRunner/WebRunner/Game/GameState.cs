@@ -37,6 +37,7 @@ namespace WebRunner
     {
         public GameManager manager;
         public List<Marker> markers;
+        public List<Marker> prevMarkers = new List<Marker>();
         public List<GameLevel> allLevels;
         
         public GameLevel curLevel;

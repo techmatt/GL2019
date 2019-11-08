@@ -169,6 +169,8 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "GameWindow";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.GameWindow_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameWindow_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

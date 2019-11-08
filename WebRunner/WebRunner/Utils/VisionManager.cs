@@ -54,12 +54,14 @@ namespace WebRunner
         }
 
         //Mat frameCopy = new Mat();
-        private List<Marker> runDetection(Mat frame, GameDatabase database, Vec2 worldOrigin)
+        private List<Marker> runDetection(Mat frame, GameDatabase database, Vec2 worldOrigin, List<Marker> previousMarkers)
         {
             var result = new List<Marker>();
 
             float xScale = (float)Constants.viewportSize.x / frame.Width;
             float yScale = (float)Constants.viewportSize.y / frame.Height;
+
+            var idsThisFrame = new HashSet<int>();
 
             //frame.CopyTo(frameCopy);
             using (VectorOfInt ids = new VectorOfInt())
@@ -81,19 +83,32 @@ namespace WebRunner
                     var corner2 = new Vec2(cornerList[2].X * xScale, cornerList[2].Y * yScale);
                     var corner3 = new Vec2(cornerList[3].X * xScale, cornerList[3].Y * yScale);
                     
-                    result.Add(new Marker(toolData, worldOrigin, corner0, corner1, corner2, corner3));
+                    result.Add(new Marker(id, toolData, worldOrigin, corner0, corner1, corner2, corner3));
+                    idsThisFrame.Add(id);
+                }
+            }
+
+            foreach(Marker prevMarker in previousMarkers)
+            {
+                if (idsThisFrame.Contains(prevMarker.id))
+                    continue;
+
+                prevMarker.deadReckoningLifetime++;
+                if(prevMarker.deadReckoningLifetime <= Constants.maxDeadReckoningFrames)
+                {
+                    result.Add(prevMarker);
                 }
             }
             return result;
         }
 
         Mat latestWebcamImage = null;
-        public Bitmap processWebcamImage(out List<Marker> markers, GameDatabase database, Vec2 worldOrigin)
+        public Bitmap processWebcamImage(out List<Marker> markers, List<Marker> previousMarkers, GameDatabase database, Vec2 worldOrigin)
         {
             if (Constants.useWebcam)
             {
                 latestWebcamImage = capture.QueryFrame();
-                markers = runDetection(latestWebcamImage, database, worldOrigin);
+                markers = runDetection(latestWebcamImage, database, worldOrigin, previousMarkers);
                 return latestWebcamImage.Bitmap;
             }
             else
