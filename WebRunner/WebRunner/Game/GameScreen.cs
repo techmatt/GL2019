@@ -126,6 +126,13 @@ namespace WebRunner
             
         }
 
+        public void drawIcon(Bitmap bmp, Color color, int xStart)
+        {
+            var rect = new Rectangle(xStart, 648, bmp.Width, bmp.Height);
+            gViewport.FillRectangle(new SolidBrush(color), rect );
+            gViewport.DrawImage(bmp, rect.X, rect.Y);
+        }
+
         public void render(Bitmap webcamImage, GameState state, EditorManager editor, int renderWidth, int renderHeight)
         {
             gViewport.Clear(Color.Black);
@@ -221,23 +228,23 @@ namespace WebRunner
             const int iconSpacing = 75;
             if (state.curLevel.toolsAcquired[ToolType.Dyson])
             {
-                gViewport.DrawImage(database.images.dysonIcon.bmp[0], 370 + iconSpacing * 0, 648);
+                drawIcon(database.images.dysonIcon.bmp[0], Color.FromArgb(150, 200, 50, 50), 370 + iconSpacing * 0);
             }
             if (state.curLevel.toolsAcquired[ToolType.Mirror])
             {
-                gViewport.DrawImage(database.images.mirrorIcon.bmp[0], 370 + iconSpacing * 1, 648);
+                drawIcon(database.images.mirrorIcon.bmp[0], Color.FromArgb(150, 153, 217, 234), 370 + iconSpacing * 1);
             }
             if (state.curLevel.toolsAcquired[ToolType.Medpack])
             {
-                gViewport.DrawImage(database.images.medpackIcon.bmp[0], 370 + iconSpacing * 2, 648);
+                drawIcon(database.images.medpackIcon.bmp[0], Color.FromArgb(150, 50, 200, 50), 370 + iconSpacing * 2);
             }
             if (state.curLevel.toolsAcquired[ToolType.CloakingField])
             {
-                gViewport.DrawImage(database.images.cloakingFieldIcon.bmp[0], 370 + iconSpacing * 3, 648);
+                drawIcon(database.images.cloakingFieldIcon.bmp[0], Color.FromArgb(150, 200, 200, 50), 370 + iconSpacing * 3);
             }
             if (state.curLevel.toolsAcquired[ToolType.Kusanagi])
             {
-                gViewport.DrawImage(database.images.kusanagiIcon.bmp[0], 370 + iconSpacing * 4, 648);
+                drawIcon(database.images.kusanagiIcon.bmp[0], Color.FromArgb(150, 200, 50, 200), 370 + iconSpacing * 4);
             }
 
             if ((state.activeRunners[0] != null && state.activeRunners[0].hasLaser) ||
