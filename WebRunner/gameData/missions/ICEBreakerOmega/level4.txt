@@ -1,5 +1,5 @@
 tilesetName=redcrystal guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-180
+182
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -99,8 +99,7 @@ type=Camera centerX=600 centerY=240 sweepAngleStart=0 sweepAngleSpan=277 sweepAn
 type=Camera centerX=800 centerY=200 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Camera centerX=920 centerY=440 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Camera centerX=800 centerY=320 sweepAngleStart=175 sweepAngleSpan=197 sweepAngleSpeed=5 
-type=Camera centerX=1080 centerY=240 sweepAngleStart=194 sweepAngleSpan=150 sweepAngleSpeed=5 
-type=Camera centerX=1000 centerY=320 sweepAngleStart=231 sweepAngleSpan=5 sweepAngleSpeed=5 
+type=Camera centerX=1000 centerY=320 sweepAngleStart=231 sweepAngleSpan=5 sweepAngleSpeed=2.46 
 type=Camera centerX=200 centerY=440 sweepAngleStart=0 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=140 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=140 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -180,3 +179,6 @@ type=GlassWall centerX=1100 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sw
 type=GlassWall centerX=1140 centerY=500 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=1140 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=GlassWall centerX=1140 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=LaserTurret centerX=1080 centerY=240 sweepAngleStart=103 sweepAngleSpan=150 sweepAngleSpeed=0.1 
+type=MirrorPickup centerX=160 centerY=560 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=LaserTurret centerX=1080 centerY=440 sweepAngleStart=256 sweepAngleSpan=150 sweepAngleSpeed=0.1 
