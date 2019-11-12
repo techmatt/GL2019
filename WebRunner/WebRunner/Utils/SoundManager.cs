@@ -19,48 +19,61 @@ namespace WebRunner
         }
         public void playSpeech(string speechRaw, bool updateLastSpeechPlayed = true)
         {
-            string speech = speechRaw;
-            if (speechRaw[speechRaw.Length - 1] == '.')
-                speech = speechRaw.Remove(speechRaw.Length - 1, 1);
-
-            if (!sounds.ContainsKey(speech))
+            try
             {
-                string filename = Constants.voiceDir + speech + ".wav";
-                if (!File.Exists(filename))
+                string speech = speechRaw;
+                if (speechRaw[speechRaw.Length - 1] == '.')
+                    speech = speechRaw.Remove(speechRaw.Length - 1, 1);
+
+                if (!sounds.ContainsKey(speech))
                 {
-                    string cmdText = "\"C:/code/GL2019/TTS/ttsGoogle.py\" \"" + speech + "\" \"C:/code/GL2019/TTS/mp3s/\"";
-                    Console.WriteLine("creating speech: " + cmdText);
-                    //System.Diagnostics.Process.Start("CMD.exe", cmdText);
-
-                    var proc = new Process
+                    string filename = Constants.voiceDir + speech + ".wav";
+                    if (!File.Exists(filename))
                     {
-                        StartInfo = new ProcessStartInfo
+                        string cmdText = "\"C:/code/GL2019/TTS/ttsGoogle.py\" \"" + speech + "\" \"C:/code/GL2019/TTS/mp3s/\"";
+                        Console.WriteLine("creating speech: " + cmdText);
+                        //System.Diagnostics.Process.Start("CMD.exe", cmdText);
+
+                        var proc = new Process
                         {
-                            FileName = "python.exe",
-                            Arguments = cmdText,
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "python.exe",
+                                Arguments = cmdText,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                CreateNoWindow = true
+                            }
+                        };
+
+                        proc.Start();
+                        while (!proc.StandardOutput.EndOfStream)
+                        {
+                            string line = proc.StandardOutput.ReadLine();
+                            Console.WriteLine(line);
                         }
-                    };
 
-                    proc.Start();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        Console.WriteLine(line);
+                        //Debug.Assert(File.Exists(filename));
                     }
-
-                    Debug.Assert(File.Exists(filename));
+                    if (File.Exists(filename))
+                    {
+                        SoundPlayer newSound = new SoundPlayer(filename);
+                        sounds[speech] = newSound;
+                    }
                 }
-                SoundPlayer newSound = new SoundPlayer(filename);
-                sounds[speech] = newSound;
+                if (!sounds.ContainsKey(speech))
+                    return;
+
+                SoundPlayer sound = sounds[speech];
+                Console.WriteLine("playing speech: " + speech);
+                sound.Play();
+                if (updateLastSpeechPlayed)
+                    lastSpeechPlayed = DateTime.Now;
             }
-            SoundPlayer sound = sounds[speech];
-            Console.WriteLine("playing speech: " + speech);
-            sound.Play();
-            if(updateLastSpeechPlayed)
-                lastSpeechPlayed = DateTime.Now;
+            catch(Exception ex)
+            {
+                int a = 5;
+            }
         }
 
         public void playWAVFile(string WAVFilename)

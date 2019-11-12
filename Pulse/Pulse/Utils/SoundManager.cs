@@ -19,43 +19,49 @@ namespace Pulse
         }
         public void playSpeech(string speech, bool updateLastSpeechPlayed = true)
         {
-            if (!sounds.ContainsKey(speech))
+            try
             {
-                string filename = Constants.voiceDir + speech + ".wav";
-                if (!File.Exists(filename))
+                if (!sounds.ContainsKey(speech))
                 {
-                    string cmdText = "\"C:/code/GL2019/TTS/ttsGoogle.py\" \"" + speech + "\" \"C:/code/GL2019/TTS/mp3s/\"";
-                    Console.WriteLine("creating speech: " + cmdText);
-                    //System.Diagnostics.Process.Start("CMD.exe", cmdText);
-
-                    var proc = new Process
+                    string filename = Constants.voiceDir + speech + ".wav";
+                    if (!File.Exists(filename))
                     {
-                        StartInfo = new ProcessStartInfo
+                        string cmdText = "\"C:/code/GL2019/TTS/ttsGoogle.py\" \"" + speech + "\" \"C:/code/GL2019/TTS/mp3s/\"";
+                        Console.WriteLine("creating speech: " + cmdText);
+                        //System.Diagnostics.Process.Start("CMD.exe", cmdText);
+
+                        var proc = new Process
                         {
-                            FileName = "python.exe",
-                            Arguments = cmdText,
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "python.exe",
+                                Arguments = cmdText,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                CreateNoWindow = true
+                            }
+                        };
+
+                        proc.Start();
+                        while (!proc.StandardOutput.EndOfStream)
+                        {
+                            string line = proc.StandardOutput.ReadLine();
+                            Console.WriteLine(line);
                         }
-                    };
-
-                    proc.Start();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        Console.WriteLine(line);
+                        
                     }
-
-                    Debug.Assert(File.Exists(filename));
+                    SoundPlayer newSound = new SoundPlayer(filename);
+                    sounds[speech] = newSound;
                 }
-                SoundPlayer newSound = new SoundPlayer(filename);
-                sounds[speech] = newSound;
+                SoundPlayer sound = sounds[speech];
+                sound.Play();
+                if (updateLastSpeechPlayed)
+                    lastSpeechPlayed = DateTime.Now;
             }
-            SoundPlayer sound = sounds[speech];
-            sound.Play();
-            if(updateLastSpeechPlayed)
-                lastSpeechPlayed = DateTime.Now;
+            catch(Exception ex)
+            {
+                return;
+            }
         }
 
         public void playWAVFile(string WAVFilename)

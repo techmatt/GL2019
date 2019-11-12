@@ -14,11 +14,12 @@ namespace WebRunner
         // https://www.youtube.com/watch?v=B9wGMgW-no4
 
         public const bool useWebcam = true;
+        
         public const bool useGameEditor = false;
         public const int webcamCaptureIndex = 1;
 
         public const int maxDeadReckoningFrames = 5;
-        public const double defaultSecondsPerLevel = 150.0;
+        public const double defaultSecondsPerLevel = 180.0;
         //public const double defaultSecondsPerLevel = 10.0;
 
         public const int medPackRadius = 100;

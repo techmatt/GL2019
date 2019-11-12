@@ -1,5 +1,5 @@
 tilesetName=redcrystal guardSpawnRate=1000 ICESpawnRate=1000 maxCompletionTime=1000 
-207
+208
 type=Wall centerX=20 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=60 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=100 centerY=620 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
@@ -207,3 +207,4 @@ type=Wall centerX=340 centerY=140 sweepAngleStart=60 sweepAngleSpan=150 sweepAng
 type=Wall centerX=540 centerY=380 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=540 centerY=420 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
 type=Wall centerX=580 centerY=460 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 
+type=DysonPickup centerX=160 centerY=280 sweepAngleStart=60 sweepAngleSpan=150 sweepAngleSpeed=5 

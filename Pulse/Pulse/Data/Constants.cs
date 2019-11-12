@@ -9,7 +9,7 @@ namespace Pulse
 {
     class Constants
     {
-        public const bool useSerialPort = false;
+        public const bool useSerialPort = true;
 
         public const double gameTimeInMinutes = 12.0;
 

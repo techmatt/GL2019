@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Threading;
 
 namespace WebRunner
 {
@@ -153,6 +154,7 @@ namespace WebRunner
             curLevel = allLevels[curLevelIndex];
             string randomPhrase = Constants.randomPhrases.RandomElement();
             manager.sound.playSpeech("advancing to sector " + (curLevelIndex + 1).ToString() + ". " + randomPhrase);
+            Thread.Sleep(4000);
         }
 
         public void killRunner(StructureType whichRunner, string deathSpeech)
