@@ -172,7 +172,7 @@ namespace WebRunner
             if (!hasTool)
             {
                 m.available = false;
-                if ((DateTime.Now - state.lastInstruction).TotalSeconds > 3.0)
+                if ((DateTime.Now - state.lastInstruction).TotalSeconds > 30.0)
                 {
                     sound.playSpeech(m.entry.name + " protocol not available");
                     state.lastInstruction = DateTime.Now;

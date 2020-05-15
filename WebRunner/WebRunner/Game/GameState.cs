@@ -154,7 +154,7 @@ namespace WebRunner
             curLevel = allLevels[curLevelIndex];
             string randomPhrase = Constants.randomPhrases.RandomElement();
             manager.sound.playSpeech("advancing to sector " + (curLevelIndex + 1).ToString() + ". " + randomPhrase);
-            Thread.Sleep(4000);
+            Thread.Sleep(8000);
         }
 
         public void killRunner(StructureType whichRunner, string deathSpeech)
