@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Cloudbreaker.Game
 {
-    public class Game
+    public class CGGame
     {
-        Game(LevelFile _level)
+        CGGame(LevelFile _level)
         {
             level = _level;
             makeInitialThreats(threat.fighterBar);

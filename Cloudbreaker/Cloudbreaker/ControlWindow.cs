@@ -24,7 +24,7 @@ namespace Cloudbreaker
         int hackerWindowWidth = 1920 / 2;
         int hackerWindowHeight = 1200 / 2;
 
-        Game game;
+        CGGame game;
 
         public ControlWindow()
         {

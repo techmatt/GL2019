@@ -63,7 +63,7 @@
       <DependentUpon>ControlWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\Display.cs" />
-    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\CGGame.cs" />
     <Compile Include="Game\HackerConsole.cs" />
     <Compile Include="Game\ThreatMusic.cs" />
     <Compile Include="Game\ThreatManager.cs" />
